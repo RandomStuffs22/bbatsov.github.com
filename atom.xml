@@ -1,0 +1,2153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[(think)]]></title>
+  <link href="http://bbatsov.github.com/atom.xml" rel="self"/>
+  <link href="http://bbatsov.github.com/"/>
+  <updated>2013-09-26T16:20:56+03:00</updated>
+  <id>http://bbatsov.github.com/</id>
+  <author>
+    <name><![CDATA[Bozhidar Batsov]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Lambdas/Procs in Case Expressions]]></title>
+    <link href="http://bbatsov.github.com/articles/2013/09/24/lambdas-slash-procs-in-case-expressions/"/>
+    <updated>2013-09-24T12:07:00+03:00</updated>
+    <id>http://bbatsov.github.com/articles/2013/09/24/lambdas-slash-procs-in-case-expressions</id>
+    <content type="html"><![CDATA[<p>Most Rubyists know they can use literals, classes, ranges and regular expressions in the <code>when</code> branches of a <code>case</code> expression:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">case</span> <span class="n">something</span>
+</span><span class='line'><span class="k">when</span> <span class="nb">Array</span> <span class="k">then</span> <span class="o">.</span><span class="n">.</span><span class="o">.</span>
+</span><span class='line'><span class="k">when</span> <span class="mi">1</span><span class="o">.</span><span class="n">.</span><span class="mi">100</span> <span class="k">then</span> <span class="o">.</span><span class="n">.</span><span class="o">.</span>
+</span><span class='line'><span class="k">when</span> <span class="sr">/some_regexp/</span> <span class="k">then</span> <span class="o">.</span><span class="n">.</span><span class="o">.</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>As you probably know <code>case</code> relies on the <code>===</code> (a.k.a. the case equality operator) being defined for
+the supplied conditions. Ruby will convert the above code to something
+like:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">case</span> <span class="n">something</span>
+</span><span class='line'><span class="k">when</span> <span class="nb">Array</span> <span class="o">===</span> <span class="n">something</span> <span class="k">then</span> <span class="o">.</span><span class="n">.</span><span class="o">.</span>
+</span><span class='line'><span class="k">when</span> <span class="mi">1</span><span class="o">.</span><span class="n">.</span><span class="mi">100</span> <span class="o">===</span> <span class="n">something</span> <span class="k">then</span> <span class="o">.</span><span class="n">.</span><span class="o">.</span>
+</span><span class='line'><span class="k">when</span> <span class="sr">/some_regexp/</span> <span class="o">===</span> <span class="n">something</span> <span class="k">then</span><span class="o">.</span><span class="n">.</span><span class="o">.</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Perhaps somewhat surprisingly <code>===</code> is also defined in the <code>Proc</code> class, used to create <code>procs</code> and <code>lambdas</code>. It&rsquo;s defined to simply issue a <code>Proc#call</code> with the right-hand side argument of <code>===</code> as an argument:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">is_even</span> <span class="o">=</span> <span class="o">-&gt;</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="p">{</span> <span class="n">n</span><span class="o">.</span><span class="n">even?</span> <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">is_even</span> <span class="o">===</span> <span class="mi">5</span> <span class="c1"># =&gt; false</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># same as</span>
+</span><span class='line'><span class="n">is_even</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This gives us the possibility to leverage <code>procs</code> and <code>lambdas</code> as the conditions for <code>when</code> branches. Here&rsquo;s a trivial example:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">even?</span>
+</span><span class='line'>  <span class="o">-&gt;</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="p">{</span> <span class="n">n</span><span class="o">.</span><span class="n">even?</span> <span class="p">}</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">odd?</span>
+</span><span class='line'>  <span class="o">-&gt;</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="p">{</span> <span class="n">n</span><span class="o">.</span><span class="n">odd?</span> <span class="p">}</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">case</span> <span class="n">x</span>
+</span><span class='line'><span class="k">when</span> <span class="n">even?</span> <span class="k">then</span> <span class="nb">puts</span> <span class="s1">&#39;even&#39;</span>
+</span><span class='line'><span class="k">when</span> <span class="n">odd?</span> <span class="k">then</span> <span class="nb">puts</span> <span class="s1">&#39;odd&#39;</span>
+</span><span class='line'><span class="k">else</span> <span class="nb">puts</span> <span class="s1">&#39;zero&#39;</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You can also save a few lines by defining the lambdas inline:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">case</span> <span class="n">x</span>
+</span><span class='line'><span class="k">when</span> <span class="o">-&gt;</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="p">{</span> <span class="n">n</span><span class="o">.</span><span class="n">even?</span> <span class="p">}</span> <span class="k">then</span> <span class="nb">puts</span> <span class="s1">&#39;even&#39;</span>
+</span><span class='line'><span class="k">when</span> <span class="o">-&gt;</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="p">{</span> <span class="n">n</span><span class="o">.</span><span class="n">odd?</span> <span class="p">}</span> <span class="k">then</span> <span class="nb">puts</span> <span class="s1">&#39;odd&#39;</span>
+</span><span class='line'><span class="k">else</span> <span class="nb">puts</span> <span class="s1">&#39;zero&#39;</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Things get even better if your lambdas capture some additional arguments. Consider this example checking HTTP response codes:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">response_code?</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
+</span><span class='line'>  <span class="o">-&gt;</span><span class="p">(</span><span class="n">response</span><span class="p">)</span> <span class="p">{</span> <span class="n">response</span><span class="o">.</span><span class="n">code</span> <span class="o">==</span> <span class="n">code</span> <span class="p">}</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">case</span> <span class="n">response</span>
+</span><span class='line'><span class="k">when</span> <span class="n">response_code?</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span> <span class="k">then</span> <span class="s1">&#39;OK&#39;</span>
+</span><span class='line'><span class="k">when</span> <span class="n">response_code?</span><span class="p">(</span><span class="mi">404</span><span class="p">)</span> <span class="k">then</span> <span class="s1">&#39;Not found&#39;</span>
+</span><span class='line'><span class="k">else</span> <span class="s1">&#39;Unknown code&#39;</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Pretty neat, right?</p>
+
+<p>That&rsquo;s all for today folks! Code long and prosper!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[The Elements of Style in Ruby #10: In cryptic Perlisms we do not trust]]></title>
+    <link href="http://bbatsov.github.com/articles/2013/09/05/the-elements-of-style-in-ruby-number-10-in-cryptic-perlisms-we-do-not-trust/"/>
+    <updated>2013-09-05T11:41:00+03:00</updated>
+    <id>http://bbatsov.github.com/articles/2013/09/05/the-elements-of-style-in-ruby-number-10-in-cryptic-perlisms-we-do-not-trust</id>
+    <content type="html"><![CDATA[<p>For better or for worse Perl had significant influence over Ruby&rsquo;s
+initial design. A lot of things were directly borrowed from Perl, but
+over the years the Ruby community rejected most of the Perlisms. In
+this article I&rsquo;ll go over most of the Perl legacy which you should try
+to steer clear from.</p>
+
+<h3>Global variables</h3>
+
+<p>Global variables are the nemesis of object-oriented programming(most
+OO languages don&rsquo;t even have the concept of a global variable). Don&rsquo;t
+introduce any of those in your Ruby programs! In most cases you can
+substitute them for module instance variables:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># bad</span>
+</span><span class='line'><span class="vg">$foo_bar</span> <span class="o">=</span> <span class="mi">1</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">#good</span>
+</span><span class='line'><span class="k">module</span> <span class="nn">Foo</span>
+</span><span class='line'>  <span class="k">class</span> <span class="o">&lt;&lt;</span> <span class="nb">self</span>
+</span><span class='line'>    <span class="kp">attr_accessor</span> <span class="ss">:bar</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="no">Foo</span><span class="o">.</span><span class="n">bar</span> <span class="o">=</span> <span class="mi">1</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Unfortunately, one cannot code Ruby and get away without using the built-in global
+variables&hellip;</p>
+
+<h3>Special global variables</h3>
+
+<p>Originally Ruby borrowed just about all of Perl&rsquo;s special global
+variables, known worldwide for their <strong>intention revealing names</strong> &ndash;
+<code>$:</code>, <code>$;</code>, <code>$!</code>, <code>$$</code>, <code>$\</code>, etc. I&rsquo;ve coded Ruby for quite some time now and
+still can&rsquo;t remember what half of those meant (and I knew a bit of
+Perl before I knew any Ruby). Luckily at some point the
+<a href="http://www.ruby-doc.org/stdlib-2.0/libdoc/English/rdoc/English.html">English library</a>
+was added to Ruby, which simply adds sensible aliases for the cryptic
+Perl names. With it you can change this code:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="vg">$:</span><span class="o">.</span><span class="n">unshift</span> <span class="no">File</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="bp">__FILE__</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">files</span> <span class="o">=</span> <span class="sb">`git ls-files`</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="vg">$\</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>to:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;English&#39;</span>
+</span><span class='line'><span class="vg">$LOAD_PATH</span><span class="o">.</span><span class="n">unshift</span> <span class="no">File</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="bp">__FILE__</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">files</span> <span class="o">=</span> <span class="sb">`git ls-files`</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="vg">$INPUT_RECORD_SEPARATOR</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I think that the improvement is pretty obvious.  Why <code>English</code> is not required by
+default is beyond me. Personally I use it always and I think you should do the same.</p>
+
+<h3>Last regexp captures</h3>
+
+<p>When you do a regexp match (like <code>/regexp/ ~= string</code>) a few special
+global variables with funky names get populated with the prematch,
+match, postmatch, etc. If the regexp has any groups in it, the stuff
+they matched gets assigned to other special variables with the
+descriptive names <code>$1</code> (for the first group), <code>$2</code> (for the second
+group), etc. This idiom is unfortunately very popular with Ruby
+developers, likely because few of them know of <code>Regexp.last_match</code>.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="sr">/(regexp)/</span> <span class="o">=~</span> <span class="n">string</span>
+</span><span class='line'><span class="o">.</span><span class="n">.</span><span class="o">.</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># this is Perl-style</span>
+</span><span class='line'><span class="n">process</span> <span class="vg">$1</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># this is the same, but more clear and more object oriented</span>
+</span><span class='line'><span class="n">process</span> <span class="no">Regexp</span><span class="o">.</span><span class="n">last_match</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Basically you can extract from <code>Regexp.last_match</code> everything you&rsquo;d get from the special global variables.</p>
+
+<p>Yep, you&rsquo;ll have to type more, but when clarity is at stake a little bit of extra typing is certainly justified.</p>
+
+<p>You can even go a step further and use the <code>Regexp#match</code> method:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">md</span> <span class="o">=</span> <span class="sr">/(Bat.+)\s/</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s1">&#39;Batman rules!&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="c1">#=&gt; #&lt;MatchData &quot;Batman &quot; 1:&quot;Batman&quot;&gt;</span>
+</span><span class='line'><span class="n">md</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span>
+</span><span class='line'><span class="c1">#=&gt; &quot;Batman&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>By the way, keep in mind that it&rsquo;s generally a good idea to use named
+regexp groups over positional ones, once you&rsquo;re dealing with more than
+two groups. Numbers simply don&rsquo;t convey that much meaning&hellip;</p>
+
+<h3>BEGIN/END blocks</h3>
+
+<p>Strictly speaking those came from <code>awk</code>, but I still consider them
+part of the Perl legacy. If you don&rsquo;t know what I&rsquo;m talking about feel
+free to skip this section &ndash; your soul has already been saved.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">END</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="s2">&quot;Exiting...&quot;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="nb">puts</span> <span class="s2">&quot;Processing...&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">BEGIN</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="s2">&quot;Starting...&quot;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>BEGIN</code> blocks are executed before everything else in your program in
+the order in which they are encountered. <code>END</code> blocks are executed right before
+the program exits. Those hideous constructs mess with the flow of
+control of the program and are totally useless. I&rsquo;ve never ever needed
+a <code>BEGIN</code> block and <code>END</code> blocks are totally replaceable with
+<code>Kernel#at_exit</code>. I guess they might have some utility for old-school
+scripting tasks, but application developers should ignore them
+completely!</p>
+
+<h3>Flip-flops</h3>
+
+<p>Same as in the previous section &ndash; if you don&rsquo;t know what I&rsquo;m talking about feel free to
+skip this section &ndash; your soul has already been saved.</p>
+
+<p>Flip-flops are an obscure conditional construct with just a single useful application &ndash; text processing:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">DATA</span><span class="o">.</span><span class="n">each_line</span> <span class="k">do</span> <span class="o">|</span><span class="n">line</span><span class="o">|</span>
+</span><span class='line'>  <span class="nb">print</span> <span class="n">line</span> <span class="k">if</span> <span class="p">(</span><span class="n">line</span> <span class="o">=~</span> <span class="sr">/begin/</span><span class="p">)</span><span class="o">.</span><span class="n">.</span><span class="p">(</span><span class="n">line</span> <span class="o">=~</span> <span class="sr">/end/</span><span class="p">)</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="cp">__END__</span>
+</span><span class='line'><span class="cp">0a</span>
+</span><span class='line'><span class="cp">1begin</span>
+</span><span class='line'><span class="cp">2c</span>
+</span><span class='line'><span class="cp">3end</span>
+</span><span class='line'><span class="cp">4e</span>
+</span><span class='line'><span class="cp">5f</span>
+</span><span class='line'><span class="cp">6begin</span>
+</span><span class='line'><span class="cp">7end</span>
+</span><span class='line'><span class="cp">8i</span>
+</span><span class='line'><span class="cp">9j</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This will print:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="mi">1</span><span class="k">begin</span>
+</span><span class='line'><span class="mi">2</span><span class="n">c</span>
+</span><span class='line'><span class="mi">3</span><span class="k">end</span>
+</span><span class='line'><span class="mi">6</span><span class="k">begin</span>
+</span><span class='line'><span class="mi">7</span><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Hopefully you&rsquo;ve managed to deduce how they work from this example, if
+you haven&rsquo;t &ndash; you&rsquo;ve just understood what their main problem is.</p>
+
+<p>I never had to use those and probably you won&rsquo;t have a reason to use them
+either. Their usage is likely going to do just one thing for you &ndash; reduce the
+readability of the code you&rsquo;re writing.</p>
+
+<h3>Epilogue</h3>
+
+<p>I&rsquo;d really love to see some of those Perlisms out of Ruby &ndash; the
+removal of <code>flip-flops</code> and <code>BEGIN/END</code> gets suggested upstream every
+now and then and might happen in Ruby 3.0. Removing the global
+variables, however, is unlikely to ever happen since that would be a
+huge change.</p>
+
+<p>You can use <a href="https://github.com/bbatsov/rubocop">RuboCop</a>
+to identify and fix such shortfalls of your code.</p>
+
+<p>As usual I&rsquo;m looking forward to hearing your thoughts here and on
+<a href="http://twitter.com/bbatsov">Twitter</a>!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[A couple of useful extensions to Ruby's Enumerable module]]></title>
+    <link href="http://bbatsov.github.com/articles/2013/09/03/a-couple-of-useful-extensions-to-rubys-enumerable-module/"/>
+    <updated>2013-09-03T15:20:00+03:00</updated>
+    <id>http://bbatsov.github.com/articles/2013/09/03/a-couple-of-useful-extensions-to-rubys-enumerable-module</id>
+    <content type="html"><![CDATA[<p>Ruby&rsquo;s <a href="http://ruby-doc.org/core-2.0.0/Enumerable.html">Enumerable</a>
+module is pretty extensive, but from time to time I wish it had some
+extra methods, that are available in
+the standard libraries of other languages like Scala, Groovy, Haskell
+and Clojure. I&rsquo;m pretty sure I&rsquo;m not the only one, that&rsquo;s why I&rsquo;m writing this post.</p>
+
+<p>Here I&rsquo;ll show you a couple of (hopefully) useful extensions I
+implemented for <code>Enumerable</code> in the
+<a href="https://github.com/bbatsov/powerpack">Powerpack</a> library. Let&rsquo;s start
+with <code>drop_last</code> and <code>take_last</code>:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="p">(</span><span class="mi">1</span><span class="o">.</span><span class="n">.</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">drop_last</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span> <span class="c1">#=&gt; [1, 2, 3]</span>
+</span><span class='line'><span class="p">(</span><span class="mi">1</span><span class="o">.</span><span class="n">.</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">take_last</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="c1">#=&gt; [8, 9, 10]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Pretty neat! Concise and memory efficient (compared to using
+<code>reverse</code>). <code>drop_last</code> and <code>take_last</code> were borrowed from Clojure and
+I use them quite often. There are also <code>drop_last_while</code> and
+<code>take_last_while</code>:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="o">].</span><span class="n">drop_last_while</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:odd?</span><span class="p">)</span> <span class="c1">#=&gt; [1, 2]</span>
+</span><span class='line'><span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="o">].</span><span class="n">take_last_while</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:odd?</span><span class="p">)</span> <span class="c1">#=&gt; [3, 5]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Summing a collection is also something that pops quite often in the wild:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="p">(</span><span class="mi">1</span><span class="o">.</span><span class="n">.</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span> <span class="c1">#=&gt; 6</span>
+</span><span class='line'><span class="o">[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="o">]</span><span class="p">,</span> <span class="o">[</span><span class="mi">3</span><span class="o">]].</span><span class="n">sum</span> <span class="c1">#=&gt; [1, 2, 3]</span>
+</span><span class='line'><span class="o">[].</span><span class="n">sum</span> <span class="c1">#=&gt; nil</span>
+</span><span class='line'><span class="o">[].</span><span class="n">sum</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="c1">#=&gt; 0</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>While I understand why it doesn&rsquo;t make sense to have this in
+<code>Enumerable</code> by default (not every enumerable can be summed), this method is still
+pretty useful and I like having it around.</p>
+
+<p><code>Enumerable#one?</code> is a neat (if somewhat unknown) method that lets
+you quickly check if only a single element matches a predicate or a
+collection has only one element that&rsquo;s not logically false:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="o">].</span><span class="n">one?</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:even?</span><span class="p">)</span> <span class="c1">#=&gt; true</span>
+</span><span class='line'><span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="o">].</span><span class="n">one?</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:even?</span><span class="p">)</span> <span class="c1">#=&gt; false</span>
+</span><span class='line'><span class="o">[</span><span class="kp">nil</span><span class="p">,</span> <span class="kp">false</span><span class="p">,</span> <span class="mi">5</span><span class="o">].</span><span class="n">one?</span> <span class="c1">#=&gt; true</span>
+</span><span class='line'><span class="o">[</span><span class="kp">nil</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="o">].</span><span class="n">one?</span> <span class="c1">#=&gt; false</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Unfortunately there is no method <code>Enumerable#several?</code>, so I added one to Powerpack:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="o">].</span><span class="n">several?</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:even?</span><span class="p">)</span> <span class="c1">#=&gt; false</span>
+</span><span class='line'><span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="o">].</span><span class="n">several?</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:even?</span><span class="p">)</span> <span class="c1">#=&gt; true</span>
+</span><span class='line'><span class="o">[</span><span class="kp">nil</span><span class="p">,</span> <span class="kp">false</span><span class="p">,</span> <span class="mi">5</span><span class="o">].</span><span class="n">several?</span> <span class="c1">#=&gt; false</span>
+</span><span class='line'><span class="o">[</span><span class="kp">nil</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="o">].</span><span class="n">several?</span> <span class="c1">#=&gt; true</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Finally, counting the frequencies of elements in a collection is a common enough task to justify having it as method:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="ss">:symbol</span><span class="p">,</span> <span class="s1">&#39;string&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="ss">:symbol</span><span class="p">,</span> <span class="mi">1</span><span class="o">].</span><span class="n">frequencies</span>
+</span><span class='line'>    <span class="c1">#     #=&gt; { 1 =&gt; 2, :symbol =&gt; 2, &#39;string&#39; =&gt; 1, 3 =&gt; 1 }</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>None of these methods are spectacular, but I feel they can make the
+code we write a little bit more concise, efficient and readable.
+Hopefully some of these methods will make it
+one day to Ruby proper, but until then you can use them from
+<a href="https://github.com/bbatsov/powerpack">Powerpack</a>.</p>
+
+<p>And that&rsquo;s all for today!</p>
+
+<p>I&rsquo;d really love to hear what methods would you like to add to
+<code>Enumerable</code> (and other core Ruby modules and classes), so please
+share this with me in the comments or on
+<a href="http://twitter.com/bbatsov">Twitter</a>. Maybe some of them will land in Powerpack!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Using Ruby's gsub with a block]]></title>
+    <link href="http://bbatsov.github.com/articles/2013/08/30/using-gsub-with-a-block/"/>
+    <updated>2013-08-30T15:29:00+03:00</updated>
+    <id>http://bbatsov.github.com/articles/2013/08/30/using-gsub-with-a-block</id>
+    <content type="html"><![CDATA[<p><code>String#gsub</code> is one of the most used Ruby methods in the wild. Just
+about every Ruby programmer knows about the method and uses it fairly
+regularly.</p>
+
+<p>Here&rsquo;s a quick refresher of the typical <code>gsub</code> usage:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># using string match</span>
+</span><span class='line'><span class="s1">&#39;John Wayne&#39;</span><span class="o">.</span><span class="n">gsub</span><span class="p">(</span><span class="s1">&#39;John&#39;</span><span class="p">,</span> <span class="s1">&#39;Bruce&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="o">=&gt;</span> <span class="s2">&quot;Bruce Wayne&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># using regexp match</span>
+</span><span class='line'><span class="s1">&#39;John   Wayne&#39;</span><span class="o">.</span><span class="n">gsub</span><span class="p">(</span><span class="sr">/\w+\s+(\w+)/</span><span class="p">,</span> <span class="s1">&#39;Bruce \1&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="o">=&gt;</span> <span class="s2">&quot;Bruce Wayne&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Basically we can replace string and regexp matches with other
+strings. When doing regexp matches we can access the matched groups
+individually with <code>\1</code>, <code>\2</code>, etc and embed them in the replacement
+string.  Sometimes, however, some additional processing of the matched
+data might be required. Consider this trivial example &ndash; we might want
+to increment a matched number by 1. Here <code>gsub</code>&rsquo;s version that takes a
+block comes into action:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># num will be passed the string &#39;12&#39;</span>
+</span><span class='line'><span class="s1">&#39;Apollo 12&#39;</span><span class="o">.</span><span class="n">gsub</span><span class="p">(</span><span class="sr">/\d+/</span><span class="p">)</span> <span class="p">{</span> <span class="o">|</span><span class="n">num</span><span class="o">|</span> <span class="n">num</span><span class="o">.</span><span class="n">to_i</span><span class="o">.</span><span class="n">next</span> <span class="p">}</span>
+</span><span class='line'><span class="o">=&gt;</span> <span class="s2">&quot;Apollo 13&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Basically we&rsquo;re replacing the matched portion of the string with the
+result of the block. While the param enhances the readability of the code it&rsquo;s not necessary:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># we&#39;re not making use of a block param</span>
+</span><span class='line'><span class="s1">&#39;Apollo 12&#39;</span><span class="o">.</span><span class="n">gsub</span><span class="p">(</span><span class="sr">/(\d+)/</span><span class="p">)</span> <span class="p">{</span> <span class="no">Regexp</span><span class="o">.</span><span class="n">last_match</span><span class="o">[</span><span class="mi">1</span><span class="o">].</span><span class="n">to_i</span><span class="o">.</span><span class="n">next</span> <span class="p">}</span>
+</span><span class='line'><span class="o">=&gt;</span> <span class="s2">&quot;Apollo 13&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>Regexp.last_match[1]</code> is the OO version of the obscure (but pretty
+popular) Perlism <code>$1</code>. In this particular case using the block param
+(as in the first example) is obviously a better idea.</p>
+
+<p>Note that some people expect that <code>gsub</code> would yield to the block all
+the matched groups as arguments &ndash; that is not the case, you&rsquo;ll always
+get a single argument denoting the entire regexp match.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># here name is &#39;Apollo 12&#39; and number is blank</span>
+</span><span class='line'><span class="s1">&#39;Apollo 12&#39;</span><span class="o">.</span><span class="n">gsub</span><span class="p">(</span><span class="sr">/(\w+) (\d+)/</span><span class="p">)</span> <span class="p">{</span> <span class="o">|</span><span class="nb">name</span><span class="p">,</span> <span class="n">number</span><span class="o">|</span> <span class="nb">puts</span> <span class="nb">name</span><span class="p">,</span> <span class="n">number</span> <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Keep this in mind!</p>
+
+<p>That&rsquo;s all for today folks! I hope you&rsquo;ll find this short article useful!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[The Elements of Style in Ruby #9: Hash#has_key? and Hash#has_value? are deprecated]]></title>
+    <link href="http://bbatsov.github.com/articles/2013/08/21/the-elements-of-style-in-ruby-number-9-hash-number-has-key-and-hash-number-has-value-are-deprecated/"/>
+    <updated>2013-08-21T17:04:00+03:00</updated>
+    <id>http://bbatsov.github.com/articles/2013/08/21/the-elements-of-style-in-ruby-number-9-hash-number-has-key-and-hash-number-has-value-are-deprecated</id>
+    <content type="html"><![CDATA[<p>One can often similar code in the wild:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">some_hash</span><span class="o">.</span><span class="n">has_key?</span><span class="p">(</span><span class="n">some_key</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>has_something?</code> predicates are not idiomatic in Ruby and
+<code>Hash#has_key?</code> and <code>Hash#has_value?</code> are nothing, but remnants of the
+early days of Ruby. In fact, according to Matz, they are
+<a href="http://blade.nagaokaut.ac.jp/cgi-bin/scat.rb/ruby/ruby-core/43765">deprecated</a>
+in favor of <code>Hash#key?</code> and <code>Hash#value?</code>.</p>
+
+<p>The above snippet should look like:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">some_hash</span><span class="o">.</span><span class="n">key?</span><span class="p">(</span><span class="n">some_key</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>As usual &ndash; you can use <a href="https://github.com/bbatsov/rubocop">RuboCop</a>
+to identify and fix such shortfalls of your code.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Announcing the Powerpack library]]></title>
+    <link href="http://bbatsov.github.com/articles/2013/08/21/announcing-the-powerpack-library/"/>
+    <updated>2013-08-21T16:17:00+03:00</updated>
+    <id>http://bbatsov.github.com/articles/2013/08/21/announcing-the-powerpack-library</id>
+    <content type="html"><![CDATA[<p><a href="https://github.com/bbatsov/powerpack">Powerpack</a> is a small Ruby
+library containing (at this point) a few extensions to some core Ruby
+classes. I guess that in a way one can say it&rsquo;s something like Rails&rsquo;s
+ActiveSupport, but with much smaller scope.</p>
+
+<p>Since extending core classes is nasty business great care has been
+taken to do so <em>properly</em>. For one &ndash; Powerpack would not include its extension
+methods if the target class already has method named the same way.</p>
+
+<p>Additionally &ndash; you&rsquo;re able to selectively use the extension methods
+that Powerpack provides.You can load the entire <code>powerpack</code> library:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>require 'powerpack'</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You can load only the <code>String</code> extensions:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>require 'powerpack/string'</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You can load only a specific extension like <code>String#format</code>:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>require 'powerpack/string/format'</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Powerpack was born from my work on the
+<a href="https://github.com/bbatsov/rubocop">RuboCop</a> static code
+analyzer. From time to time I wished I had some of ActiveSupport&rsquo;s
+methods (but was unwilling to use ActiveSupport for various reasons)
+or some useful method I&rsquo;ve come across in the standard libraries of
+other popular languages(<code>String#format</code> was inspired from Java,
+<code>Numeric#pos?</code> and <code>Numeric#neg?</code> were inspired from Clojure, etc). It
+has been helpful to me and I guess it might be helpful to some of you
+as well.</p>
+
+<p>If you&rsquo;d like to know more, have a look at the
+<a href="http://rubydoc.info/github/bbatsov/powerpack/frames">online docs</a>.</p>
+
+<p>I&rsquo;d love to hear your thoughts about Powerpack in its current form and
+suggestions about its future (more helpful extensions for
+instance). Comments, tickets and <a href="http://twitter.com/bbatsov">Twitter</a>
+are at your disposal!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[The Elements of Style in Ruby #8: Know Thy Predicates]]></title>
+    <link href="http://bbatsov.github.com/articles/2013/08/14/the-elements-of-style-in-ruby-number-8-know-thy-predicates/"/>
+    <updated>2013-08-14T17:28:00+03:00</updated>
+    <id>http://bbatsov.github.com/articles/2013/08/14/the-elements-of-style-in-ruby-number-8-know-thy-predicates</id>
+    <content type="html"><![CDATA[<p>I often see people writing code like this:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">if</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">.</span><span class="n">.</span><span class="o">.</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Obviously <code>Fixnum#even?</code> would have been a better choice:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">even?</span> <span class="o">.</span><span class="n">.</span><span class="o">.</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>There is also <code>Fixnum#odd?</code> if you need to check for odd numbers.</p>
+
+<p>By the way, there is even a <code>Numeric#zero?</code> predicate:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">.</span><span class="n">.</span><span class="o">.</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># same as the above (provided x is a number)</span>
+</span><span class='line'><span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">zero?</span> <span class="o">.</span><span class="n">.</span><span class="o">.</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Personally I feel that <code>x == 0</code> makes more sense for such simple
+numeric checks, but <code>zero?</code> is there for those you who think
+otherwise. <code>x == 0</code> also has the benefit of being <code>nil</code> safe, but
+that&rsquo;s not of significant importance.</p>
+
+<p>The <a href="https://github.com/bbatsov/powerpack">Powerpack library</a> also
+includes the predicate methods <code>Fixnum#pos?</code> and <code>Fixnum#neg?</code>, which
+are roughly the same as <code>&gt; 0</code> and <code>&lt; 0</code> comparisons.</p>
+
+<p>Another bit of code you&rsquo;ll often see is:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">if</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">7</span> <span class="o">.</span><span class="n">.</span><span class="o">.</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>While there is nothing particularly bad about that code, I&rsquo;d argue
+that <code>between?</code> makes for a nicer (and more OO) alternative:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">between?</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span> <span class="o">.</span><span class="n">.</span><span class="o">.</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Using a range predicate you can also exclude the end value:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">if</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">1000</span> <span class="o">.</span><span class="n">.</span><span class="o">.</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># is the same as</span>
+</span><span class='line'><span class="k">if</span> <span class="p">(</span><span class="mi">1</span><span class="o">.</span><span class="n">.</span><span class="o">.</span><span class="mi">1000</span><span class="p">)</span><span class="o">.</span><span class="n">include?</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">.</span><span class="n">.</span><span class="o">.</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>When using predicate methods you should be mindful of <code>nil</code>
+receivers. That&rsquo;s generally not a serious issue in practice but still I&rsquo;d ask
+you to consider this example:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">if</span> <span class="n">arr</span> <span class="o">==</span> <span class="o">[]</span> <span class="o">.</span><span class="n">.</span><span class="o">.</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>It&rsquo;s not equivalent to</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">if</span> <span class="n">arr</span><span class="o">.</span><span class="n">empty?</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Why so? Because <code>arr</code> might be <code>nil</code>. So the equivalent code would be:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">if</span> <span class="o">!</span><span class="n">arr</span><span class="o">.</span><span class="n">nil?</span> <span class="o">&amp;&amp;</span> <span class="n">arr</span><span class="o">.</span><span class="n">empty?</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Of course checking for <code>nil</code>s like this is generally not a good idea, but
+that&rsquo;s a discussion for some other time.</p>
+
+<p>On a somewhat related note <code>something.nil?</code> is generally preferred
+over <code>something == nil</code>. If you&rsquo;re reasonably sure that <code>something</code>
+can&rsquo;t have the value <code>false</code> you can, of course, simplify things even
+further:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">if</span> <span class="n">something</span> <span class="o">.</span><span class="n">.</span><span class="o">.</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>As usual I&rsquo;m looking forward to hearing your thoughts here and on
+<a href="http://twitter.com/bbatsov">Twitter</a>!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Android is not better. Neither is iOS.]]></title>
+    <link href="http://bbatsov.github.com/articles/2013/08/14/android-is-not-better-neither-is-ios/"/>
+    <updated>2013-08-14T14:20:00+03:00</updated>
+    <id>http://bbatsov.github.com/articles/2013/08/14/android-is-not-better-neither-is-ios</id>
+    <content type="html"><![CDATA[<h2>Prelude</h2>
+
+<p>The following few days Paul Stamatiou’s article
+<a href="http://paulstamatiou.com/android-is-better">Android Is Better</a> and
+Marco Arment&rsquo;s excellent response
+<a href="http://www.marco.org/2013/08/13/google-blindness">Google Blindness</a>
+have been generating a lot of heated debates. This article is pretty
+much my two cents on the subject.</p>
+
+<p>First some background &ndash; I&rsquo;ve been an Android user for 4 years, before
+switching to the iPhone 5. I&rsquo;ve also used several Android tablets
+casually and I own an iPad. While I&rsquo;m a software engineer I&rsquo;ll try to
+suppress the geek inside me and write from the perspective of a casual
+smartphone/tablet user.</p>
+
+<h2>Subjectivity, subjectivity, subjectivity</h2>
+
+<p>Many people are saying <strong>Android is better!</strong> or <strong>iOS is
+better!</strong>. Most of them try to make their personal view sound like
+some universal truth &ndash; of course they&rsquo;re making subjective statements
+and their view on Andriod/iOS reflects mostly their personal
+preferences. Through years spent developing software I&rsquo;ve understood
+that it is impossible to cater to everyone&rsquo;s needs &ndash; some people love
+the direction you&rsquo;re taking with a project; the rest &ndash; totally hate
+it. The same goes for operating systems and pretty much everything in
+life.</p>
+
+<p>I&rsquo;ll try to be as objective as humanly possible, but I&rsquo;m aware that
+nobody is totally objective, no matter how much he tries. This article
+will not feature inflammatory points and will not end with a
+conclusion <strong>Android is better!</strong> or <strong>iOS is better!</strong>. If you&rsquo;re
+looking for something like this &ndash; I guess you should stop reading
+right now.</p>
+
+<h2>On Android</h2>
+
+<h3>My story with Android</h3>
+
+<p>I was pretty excited for Android from day one, since at the time I was
+extremely fond of free software, Linux and Google. I bought the second
+Android phone that went on sale globally &ndash; the HTC Magic. This was
+before the era of UI customizations, so I got what&rsquo;s commonly known
+today as the Nexus experience. I was pretty pleased with the device
+for a while, but then Android 2 came up and everything got messed up
+for me. It turned out the only update HTC had planned for my device
+was from Android 1.5 to 1.6 and for some reason I didn&rsquo;t even qualify for
+it. Soon after Android 2&rsquo;s release a lot of apps simply dropped
+support for Android 1.x and I was (for lack of better words)
+<strong>fucked</strong>. Finally I decided to install CyanogenMod and got a hold of
+the precious Android 2. I&rsquo;m pretty tech savvy but I guess most
+regular users (like my and your parents) are probably not and they had
+to live with the mostly unsupported older Android release. Not cool!</p>
+
+<p>At this point my faith in Android was not shaken at all &ndash; I assumed
+HTC were just a crappy company and that if I bought a device from some
+respectable vendor I&rsquo;d have much better experience in the long run. So
+I went ahead and bought the Sony Xperia Arc, which at the time was
+Sony&rsquo;s flagship device, came with the latest Android at the time (2.3)
+and was going to get Android 4 when it came out. This was my first
+encounter with a crappy custom Android UI &ndash; I totally hated what Sony
+had done with the UI (but then again Samsung&rsquo;s TouchWiz was no
+better). What I hated even more was that their meddling with the pure
+Android seemed to introduce some instabilities and crashes (some of
+which required removing the device&rsquo;s battery). Anyways, I told
+myself &ndash; Android 4 would come soon and with it the problems will go
+away. Android 4 never came for me (at least not from Sony) &ndash; 6 months
+after Sony announced that have started rolling out the update for the
+Arc I hadn&rsquo;t got it. Back to CyanogenMod again&hellip;</p>
+
+<p>Do you seen a pattern emerging? This bring me to&hellip;</p>
+
+<h3>The Big Problem</h3>
+
+<p>The biggest problem Android has, has nothing to do with the core OS
+itself. It&rsquo;s actually related to the Android business model &ndash; lots of
+vendors try to differentiate themselves from the other Android vendors
+and do so by messing up the UI, bundling crappy apps, etc. The vendors
+sell you something and neglect it afterwards. AFAIK from the major
+Android vendors only Samsung provides reasonable upgrade paths to their
+users. That said &ndash; my girlfriend has a Galaxy SII and got an Android 4.1
+update just a couple of months ago&hellip;</p>
+
+<p>This has lead to the legendary
+<a href="http://visual.ly/android-fragmentation-visualized?view=true">Android segmentation</a>,
+that Apple fanboys often refer to. Obviously one cannot provide
+updates for a device forever, but providing at least a couple of
+updates seems pretty reasonable to me.</p>
+
+<p>I guess most <em>normal</em> people don&rsquo;t care that much about getting
+updates, otherwise I cannot imagine how the vendors could be getting
+away with that level of customer support&hellip;</p>
+
+<p>Somewhat ironically the biggest problem of the business model is
+closely related to it&rsquo;s biggest strength &ndash; the ability buy a device
+with size and specs you want. Apple&rsquo;s choice it the hardware
+department is rather limited.</p>
+
+<h3>The Good Stuff</h3>
+
+<p>The Android OS has a lot of merits, of course:</p>
+
+<ul>
+<li>proper multitasking</li>
+<li>powerful notification system</li>
+<li>the ability to change your default apps :&ndash;)</li>
+<li>the ability to change the keyboard application</li>
+<li>great integration with Google&rsquo;s apps</li>
+<li>the extendable sharing infrastructure &ndash; you install an app that is a possible share destination and you can use it for sharing from everywhere sharing is supported</li>
+<li>the ability to integrate apps like Viber and Skype with your contacts</li>
+</ul>
+
+
+<h3>The Bad Stuff</h3>
+
+<p>All of the bad stuff I can think of is not actually in the Android OS itself, but still:</p>
+
+<ul>
+<li>few tablet optimized apps</li>
+<li>most apps still debut first on iOS and arrive on Android a few months later (although not nearly as much as 5 years ago)</li>
+<li>you&rsquo;re trusting an advertising company with all your personal data :&ndash;)</li>
+</ul>
+
+
+<h2>On iOS</h2>
+
+<h3>My Story with iOS</h3>
+
+<p>Even after my huge disappointment with the Arc I was still planning to
+buy a new Android smartphone &ndash; this time I had learned my lesson and
+were going for the Nexus 4. Unfortunately Google and LG had serious
+inventory problems and after a few months of trying to buy one I
+reluctantly bought myself an iPhone 5 instead. At first I was kind of disappointed by the OS.</p>
+
+<h3>The Bad</h3>
+
+<p>iOS seems kind of old and limiting (at least to a geek):</p>
+
+<ul>
+<li>pretty restricted form of multitasking (fixed in iOS 7)</li>
+<li>no quick way to do simple things like turn off the wi-fi (fixed in iOS 7)</li>
+<li>no way to change the default browser, email client, etc</li>
+<li>crappy notifications</li>
+<li>limited number of sharing options</li>
+<li>no support for alternative keyboard applications</li>
+<li>no apps co-operation</li>
+</ul>
+
+
+<p>iOS is a pretty restrictive environment by all means, but once you get
+past the initial shock you realize that to some extent this is also
+iOS&rsquo;s biggest strength.</p>
+
+<h3>The Good</h3>
+
+<ul>
+<li><strong>shit just works</strong></li>
+</ul>
+
+
+<p>I often experience Android lock-ups that required a reboot on both my
+Android phones (although there were fewer of those with
+Cyanogen). With iOS I have mostly forgotten what a lock-up is &ndash; I
+think I&rsquo;ve never restarted by iPhone since I bought it (my iPad,
+however, did freeze on me about 5 times for about 2 two years). I Also
+experience much less app crashes than I used to, but I guess Nexus
+users don&rsquo;t get a lot of those either. With no multitasking for
+everyone I&rsquo;ve also forgotten the scenario when an app misbehaving in
+the background would eat up my entire battery (iOS7 will have
+multitasking for all apps).</p>
+
+<ul>
+<li><strong>apps rock</strong></li>
+</ul>
+
+
+<p>Most of the apps I&rsquo;ve used on Android and iOS are a bit more polished,
+feature-rich and stable on iOS. I guess this has to do with the fact
+that even though Android has much more users, iOS still generates more
+revenue.</p>
+
+<ul>
+<li>lots of guaranteed updates in a timely manner</li>
+</ul>
+
+
+<p>The iPhone 3GS got the iOS 6! Yep, it&rsquo;s slow as hell, but it got it!
+That&rsquo;s why I call proper customer service! Of course, for Apple it&rsquo;s a
+lot simpler to achieve this &ndash; it controls all the hardware and the
+software. It&rsquo;s also pretty independent of wireless carriers.</p>
+
+<h2>Epilogue</h2>
+
+<p>Android as an OS is great. Android + a device from some crappy
+company &ndash; not so great.</p>
+
+<p>Most people who praise Android got converted by a Nexus device (see
+the link from the beginning of the post). The Nexus Android experience is
+excellent, but unfortunately very few people can benefit from
+it. Hopefully the situation will change in the future &ndash; the addition
+of devices like HTC One and Galaxy S4 to the Play Store is a step in
+the right direction. If you contemplate buying an Android phone &ndash; for
+the love of God, buy it from the Play Store!</p>
+
+<p>iOS as an OS is pretty underwhelming (but iOS 7 might change
+that). The iOS ecosystem on the other hand is pretty awesome! A
+complete fusion of software and hardware &ndash; much the same as a Mac +
+Mac OS.</p>
+
+<p>All things considered it&rsquo;s pretty hard to make judgement calls like
+<strong>one is better than the other</strong>. I like them both to some extend for
+various reasons &ndash; for now I use an iPhone, but who knows what the
+future holds for me. I don&rsquo;t suffer from brand loyalty to tech
+companies, the only brands I&rsquo;m truly loyal to are New Balance and BMW. :&ndash;)</p>
+
+<p>The important takeaway for you, dear reader, is not to take fanboy
+fiction at face value, but to think for yourself, to be skeptical and
+analytical and to make your own conclusions. Your personality,
+preferences and needs alone determine what is the OS/device/etc for
+you!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[The Elements of Style in Ruby #7: The case against ===]]></title>
+    <link href="http://bbatsov.github.com/articles/2013/07/10/the-elements-of-style-in-ruby-number-7-the-case-against-equals-equals-equals/"/>
+    <updated>2013-07-10T15:44:00+03:00</updated>
+    <id>http://bbatsov.github.com/articles/2013/07/10/the-elements-of-style-in-ruby-number-7-the-case-against-equals-equals-equals</id>
+    <content type="html"><![CDATA[<p>Today we&rsquo;ll discuss the following section from the <a href="https://github.com/bbatsov/ruby-style-guide">Ruby Style Guide</a>:</p>
+
+<blockquote><p>Avoid explicit use of the case equality operator <code>===</code>. As it name<br/>
+implies it&rsquo;s meant to be used implicitly by <code>case</code> expressions and<br/>
+outside of them it yields some pretty confusing code.</p></blockquote>
+
+<p>For those of you who don&rsquo;t know of the case equality operator <code>===</code> &ndash;
+it&rsquo;s the magic behind <code>case</code> that allows us to write code like this:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">case</span> <span class="n">something</span>
+</span><span class='line'><span class="k">when</span> <span class="nb">Array</span> <span class="k">then</span> <span class="o">.</span><span class="n">.</span><span class="o">.</span>
+</span><span class='line'><span class="k">when</span> <span class="mi">1</span><span class="o">.</span><span class="n">.</span><span class="mi">100</span> <span class="k">then</span> <span class="o">.</span><span class="n">.</span><span class="o">.</span>
+</span><span class='line'><span class="k">when</span> <span class="sr">/some_regexp/</span> <span class="k">then</span> <span class="o">.</span><span class="n">.</span><span class="o">.</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Ruby will convert the above code to something like:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">case</span> <span class="n">something</span>
+</span><span class='line'><span class="k">when</span> <span class="nb">Array</span> <span class="o">===</span> <span class="n">something</span> <span class="k">then</span> <span class="o">.</span><span class="n">.</span><span class="o">.</span>
+</span><span class='line'><span class="k">when</span> <span class="mi">1</span><span class="o">.</span><span class="n">.</span><span class="mi">100</span> <span class="o">===</span> <span class="n">something</span> <span class="k">then</span> <span class="o">.</span><span class="n">.</span><span class="o">.</span>
+</span><span class='line'><span class="k">when</span> <span class="sr">/some_regexp/</span> <span class="o">===</span> <span class="n">something</span> <span class="k">then</span><span class="o">.</span><span class="n">.</span><span class="o">.</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>For many classes (like <code>Fixnum</code> and <code>String</code>) <code>===</code> will behave the
+same way as <code>==</code>.  On the other hand &ndash; <code>Module</code>, <code>Range</code> and <code>Regexp</code>
+define customized versions of the operator method <code>===</code>.  Knowing how
+these 3 classes have defined <code>===</code>, the case expression is also
+equivalent to this one:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">case</span> <span class="n">something</span>
+</span><span class='line'><span class="k">when</span> <span class="n">something</span><span class="o">.</span><span class="n">is_a?</span> <span class="nb">Array</span> <span class="k">then</span> <span class="o">.</span><span class="n">.</span><span class="o">.</span>
+</span><span class='line'><span class="k">when</span> <span class="mi">1</span><span class="o">.</span><span class="n">.</span><span class="mi">100</span><span class="o">.</span><span class="n">include?</span> <span class="n">something</span> <span class="k">then</span> <span class="o">.</span><span class="n">.</span><span class="o">.</span>
+</span><span class='line'><span class="k">when</span> <span class="n">something</span> <span class="o">=~</span> <span class="sr">/some_regexp/</span> <span class="k">then</span> <span class="o">.</span><span class="n">.</span><span class="o">.</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>So far everything is peachy, right?</p>
+
+<p>The problem with the <code>===</code> is that when some people see it they decide
+it&rsquo;s very <em>cool</em> and start using it all over their code instead of
+its much clearer alternatives. I&rsquo;ve seen <code>===</code> (ab)used quite often for <strong>instance of</strong> checks.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># wtf, why doesn&#39;t this work???</span>
+</span><span class='line'><span class="c1"># extremely common mistake I&#39;ve seen numerous times</span>
+</span><span class='line'><span class="k">return</span> <span class="k">unless</span> <span class="n">a</span> <span class="o">===</span> <span class="nb">Array</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># === is defined in Module</span>
+</span><span class='line'><span class="k">return</span> <span class="k">unless</span> <span class="nb">Array</span> <span class="o">===</span> <span class="n">a</span> <span class="c1"># same as Array.===(a)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I&rsquo;ve also seen it used many times for range inclusion
+tests. Fortunately nobody has decided so far that <code>===</code> is preferable
+to <code>=~</code> for regular expressions.</p>
+
+<p>It should be our utmost goal as programmers to produce clear and
+easily digestible code. This means we should abstain ourselves from
+doing clever tricks like:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">Array</span> <span class="o">===</span> <span class="n">something</span>
+</span><span class='line'><span class="p">(</span><span class="mi">1</span><span class="o">.</span><span class="n">.</span><span class="mi">100</span><span class="p">)</span> <span class="o">===</span> <span class="mi">7</span>
+</span><span class='line'><span class="o">/</span><span class="n">something</span><span class="o">/</span> <span class="o">===</span> <span class="n">some_string</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And bet on clarity instead:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">something</span><span class="o">.</span><span class="n">is_a?</span><span class="p">(</span><span class="nb">Array</span><span class="p">)</span>
+</span><span class='line'><span class="p">(</span><span class="mi">1</span><span class="o">.</span><span class="n">.</span><span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">include?</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+</span><span class='line'><span class="n">some_string</span> <span class="o">=~</span> <span class="sr">/something/</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>They don&rsquo;t call it the <strong>case equality operator</strong> for no reason &ndash; it&rsquo;s
+meant to be used internally by <code>case</code> expressions. I guess if it were
+a regular method (instead of an operator method) we&rsquo;d never have had
+to deal with its abuse.</p>
+
+<p>As usual I&rsquo;m looking forward
+to hearing your thoughts here and on
+<a href="http://twitter.com/bbatsov">Twitter</a>!</p>
+
+<p>Code long and prosper!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[The Elements of Style in Ruby #6: Attributes Redux]]></title>
+    <link href="http://bbatsov.github.com/articles/2013/07/04/the-elements-of-style-in-ruby-number-6-attributes-redux/"/>
+    <updated>2013-07-04T15:36:00+03:00</updated>
+    <id>http://bbatsov.github.com/articles/2013/07/04/the-elements-of-style-in-ruby-number-6-attributes-redux</id>
+    <content type="html"><![CDATA[<p>Today we&rsquo;ll talk about attributes in Ruby.</p>
+
+<p>Let&rsquo;s start with the following rule from the
+<a href="https://github.com/bbatsov/ruby-style-guide">Ruby Style Guide</a>:</p>
+
+<blockquote><p>Use the <code>attr</code> family of functions to define trivial accessors or mutators.</p></blockquote>
+
+<p>Everyone who&rsquo;s coded a bit of Ruby knows it&rsquo;s preferable to generate
+trivial reader and writer methods via some metaprogramming magic
+instead of writing them by hand. The methods from <code>Module</code> <code>attr</code>,
+<code>attr_reader</code>, <code>attr_writer</code> and <code>attr_accessor</code> do exactly that kind
+of magic. Here&rsquo;s an example using <code>attr_reader</code>:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># bad</span>
+</span><span class='line'><span class="k">class</span> <span class="nc">Person</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">first_name</span><span class="p">,</span> <span class="n">last_name</span><span class="p">)</span>
+</span><span class='line'>    <span class="vi">@first_name</span> <span class="o">=</span> <span class="n">first_name</span>
+</span><span class='line'>    <span class="vi">@last_name</span> <span class="o">=</span> <span class="n">last_name</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">first_name</span>
+</span><span class='line'>    <span class="vi">@first_name</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">last_name</span>
+</span><span class='line'>    <span class="vi">@last_name</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># good</span>
+</span><span class='line'><span class="k">class</span> <span class="nc">Person</span>
+</span><span class='line'>  <span class="kp">attr_reader</span> <span class="ss">:first_name</span><span class="p">,</span> <span class="ss">:last_name</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">first_name</span><span class="p">,</span> <span class="n">last_name</span><span class="p">)</span>
+</span><span class='line'>    <span class="vi">@first_name</span> <span class="o">=</span> <span class="n">first_name</span>
+</span><span class='line'>    <span class="vi">@last_name</span> <span class="o">=</span> <span class="n">last_name</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Here&rsquo;s <code>attr_writer</code> in action:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># bad</span>
+</span><span class='line'><span class="k">class</span> <span class="nc">Person</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="nb">name</span><span class="p">,</span> <span class="nb">name</span><span class="p">)</span>
+</span><span class='line'>    <span class="vi">@name</span> <span class="o">=</span> <span class="nb">name</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">name</span><span class="o">=</span><span class="p">(</span><span class="nb">name</span><span class="p">)</span>
+</span><span class='line'>    <span class="vi">@name</span> <span class="o">=</span> <span class="nb">name</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># good</span>
+</span><span class='line'><span class="k">class</span> <span class="nc">Person</span>
+</span><span class='line'>  <span class="kp">attr_writer</span> <span class="ss">:name</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="nb">name</span><span class="p">)</span>
+</span><span class='line'>    <span class="vi">@name</span> <span class="o">=</span> <span class="nb">name</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>attr_accessor</code> combines the two:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># bad</span>
+</span><span class='line'><span class="k">class</span> <span class="nc">Person</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="nb">name</span><span class="p">,</span> <span class="nb">name</span><span class="p">)</span>
+</span><span class='line'>    <span class="vi">@name</span> <span class="o">=</span> <span class="nb">name</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">name</span>
+</span><span class='line'>    <span class="vi">@name</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">name</span><span class="o">=</span><span class="p">(</span><span class="nb">name</span><span class="p">)</span>
+</span><span class='line'>    <span class="vi">@name</span> <span class="o">=</span> <span class="nb">name</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># good</span>
+</span><span class='line'><span class="k">class</span> <span class="nc">Person</span>
+</span><span class='line'>  <span class="kp">attr_accessor</span> <span class="ss">:name</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="nb">name</span><span class="p">)</span>
+</span><span class='line'>    <span class="vi">@name</span> <span class="o">=</span> <span class="nb">name</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Pretty sure none of you has learned anything new at this point. Now we start with the fun part&hellip;</p>
+
+<p>How many of you know how <code>attr</code> behaves? Are you totally sure? Let&rsquo;s
+see what the style guide says about it:</p>
+
+<blockquote><p>Avoid the use of <code>attr</code>. Use <code>attr_reader</code> and <code>attr_accessor</code> instead.</p></blockquote>
+
+<p><code>attr</code>&rsquo;s behavior changed between Ruby 1.8 and 1.9. In Ruby 1.8 <code>attr</code>
+created a single <em>reader</em> method. With an optional second boolean argument it
+created both a <em>reader</em> and a <em>writer</em> method (a la <code>attr_accessor</code>).</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># Ruby 1.8</span>
+</span><span class='line'><span class="c1"># same as attr_reader :something</span>
+</span><span class='line'><span class="kp">attr</span> <span class="ss">:something</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># creates a single attribute accessor (deprecated in 1.9) - same as attr_accessor :something</span>
+</span><span class='line'><span class="kp">attr</span> <span class="ss">:something</span><span class="p">,</span> <span class="kp">true</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># can&#39;t do this</span>
+</span><span class='line'><span class="kp">attr</span> <span class="ss">:one</span><span class="p">,</span> <span class="ss">:two</span><span class="p">,</span> <span class="ss">:three</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Note that you cannot pass multiple attribute names to <code>attr</code> in Ruby 1.8.</p>
+
+<p>In Ruby 1.9 calling <code>attr</code> with an attribute name and a boolean is
+deprecated and it now behaves a lot more like <code>attr_reader</code>.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># Ruby 1.9</span>
+</span><span class='line'><span class="kp">attr</span> <span class="ss">:one</span><span class="p">,</span> <span class="ss">:two</span><span class="p">,</span> <span class="ss">:three</span> <span class="c1"># behaves as attr_reader</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Given all this facts it&rsquo;s not a surprise that so many people think
+it&rsquo;s a bad idea to use <code>attr</code>. I guess if the design of that portion
+of the API were up to me I&rsquo;d have made <code>attr</code> behave like
+<code>attr_accessor</code> from day 1. The name of <code>attr_accessor</code> is a bit of a
+misnomer since <code>accessor</code> is hardly a synonym for <strong>reader and
+writer</strong>. Anyways, this is not of particular importance. Off to the
+next item on our agenda for today.</p>
+
+<p>Is this something that should have been defined with <code>attr_reader</code>?</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">something</span>
+</span><span class='line'>  <span class="vi">@something_else</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Basically it call comes down to whether this is a trivial reader method or not.
+Some people would argue that because the name of the instance variable
+and the name of the method are not the same &ndash; it&rsquo;s not. I&rsquo;d argue the
+opposite case &ndash; it is! The name of the method does not change the
+semantics. In essence you&rsquo;re simply in need of an alias for the
+<em>default</em> attribute reader method:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="kp">attr_reader</span> <span class="ss">:something_else</span>
+</span><span class='line'><span class="n">alias_method</span> <span class="ss">:something</span><span class="p">,</span> <span class="ss">:something_else</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Boolean attributes are a bit special, since generally we&rsquo;d like to
+have a <code>?</code> at the end of predicate method names, but this cannot be done with
+<code>attr_reader/attr_accessor</code>. Some people would simple hand-code such
+methods:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">something?</span>
+</span><span class='line'>  <span class="vi">@something</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I&rsquo;d employ <code>alias_method</code> again:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="kp">attr_reader</span> <span class="ss">:something</span>
+</span><span class='line'><span class="n">alias_method</span> <span class="ss">:something?</span><span class="p">,</span> <span class="ss">:something</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I wouldn&rsquo;t call one style necessary good or bad &ndash; it&rsquo;s more of a personal preference.</p>
+
+<p>One final note &ndash; you should use <code>attr_</code> only for trivial reader and writer methods (trivial means that
+they do not need any defensive copying or pre-update checks).</p>
+
+<p>Consider this:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># attr_reader generates code like this</span>
+</span><span class='line'><span class="k">def</span> <span class="nf">something</span>
+</span><span class='line'>  <span class="vi">@something</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This would expose <code>@something</code> to external modifications if it&rsquo;s a
+mutable object. To shield yourself from this you can use defensive
+copying (or freezing when applicable):</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># defensive copying in action</span>
+</span><span class='line'><span class="k">def</span> <span class="nf">something</span>
+</span><span class='line'>  <span class="vi">@something</span><span class="o">.</span><span class="n">dup</span> <span class="c1"># return a copy of @something</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Same goes for attributes writers. If you have an <code>age</code> attribute and you
+want to enforce that it should be a positive number you&rsquo;d generally roll your
+own writer:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">age</span><span class="o">=</span><span class="p">(</span><span class="n">age</span><span class="p">)</span>
+</span><span class='line'>  <span class="nb">fail</span> <span class="s1">&#39;Age should be a positive number!&#39;</span> <span class="k">unless</span> <span class="n">age</span> <span class="o">&gt;</span> <span class="mi">0</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="vi">@age</span> <span class="o">=</span> <span class="n">age</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This post has become way too long, so I&rsquo;ll be wrapping it up. I hope
+you&rsquo;ve found my musing on the subject of attributes useful.</p>
+
+<p>As usual I&rsquo;m looking forward to hearing your thoughts here and on
+<a href="http://twitter.com/bbatsov">Twitter</a>!</p>
+
+<p><strong>P.S.</strong> Happy 4th of July to all my American readers! :&ndash;)</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[The Elements of Style in Ruby #5: Readability of long numeric literals]]></title>
+    <link href="http://bbatsov.github.com/articles/2013/07/02/the-elements-of-style-in-ruby-number-5-readability-of-long-numeric-literals/"/>
+    <updated>2013-07-02T15:01:00+03:00</updated>
+    <id>http://bbatsov.github.com/articles/2013/07/02/the-elements-of-style-in-ruby-number-5-readability-of-long-numeric-literals</id>
+    <content type="html"><![CDATA[<p>Today&rsquo;s topic is the following rule from the <a href="https://github.com/bbatsov/ruby-style-guide">Ruby Style Guide</a>:</p>
+
+<blockquote><p>Add underscores to large numeric literals to improve their readability.</p></blockquote>
+
+<p>Most of the programs we write feature a substantial number of numeric
+literals(e.g. <code>10</code>, <code>0.34</code>, <code>0b1010</code>, <code>0123</code>, <code>0xCAFE</code>). There is nothing
+strange or unusual about that. From time to time, however, those literals are pretty long:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>MAX_SIZE = 10000000000
+</span><span class='line'>DEVIATION = 0.2343434343
+</span><span class='line'>BIT_MASK = 0b100101010101</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I&rsquo;m pretty sure most of you would have pretty hard time to quickly
+digest a number written in this way &ndash; lots of digits and no separators
+between them to help us discern the number&rsquo;s <code>structure</code>. At this
+point <code>_</code> makes a dramatic appearance and comes to the rescue:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>MAX_SIZE = 10_000_000_000
+</span><span class='line'>DEVIATION = 0.2_343_434_343
+</span><span class='line'>BIT_MASK = 0b1001_0101_0101</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The addition of a few <code>_</code> improves the readability of those huge literals a ton!</p>
+
+<p>The underscores we add to numeric literals are ignored by <code>Ruby</code>:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="mi">100_000</span>
+</span><span class='line'><span class="c1"># =&gt; 100000</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>As you can see from the preceding example nothing&rsquo;s lost or changed &ndash;
+we&rsquo;ve only gained readability and eased the parsing burden on our
+brains.</p>
+
+<p>Obviously we should not overdo <code>_</code>:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># short literals are pretty readable on their own</span>
+</span><span class='line'><span class="c1"># bad</span>
+</span><span class='line'><span class="mi">1_00</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># good</span>
+</span><span class='line'><span class="mi">100</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Personally, when dealing with decimal literals, I tend to use <code>_</code> for
+numbers with at 5 least digits(e.g. <code>11_948</code>). The number of digits to separate with
+<code>_</code> depends on the numeric base &ndash; in decimal it makes sense to group
+digits by 3(<code>1_000_000</code>), in binary by 4(<code>0b1111_1010_1110</code>), etc.</p>
+
+<p>That&rsquo;s all for today folks! Hope I managed to convince at least a few
+of you of the benefits of using underscores in your long numeric literals.</p>
+
+<p>As usual I&rsquo;m looking forward to hearing your thoughts here and on
+<a href="http://twitter.com/bbatsov">Twitter</a>!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[RuboCop 0.9 is now patrolling the streets!]]></title>
+    <link href="http://bbatsov.github.com/articles/2013/07/01/rubocop-0-dot-9-is-now-patrolling-the-streets/"/>
+    <updated>2013-07-01T17:06:00+03:00</updated>
+    <id>http://bbatsov.github.com/articles/2013/07/01/rubocop-0-dot-9-is-now-patrolling-the-streets</id>
+    <content type="html"><![CDATA[<p><a href="https://github.com/bbatsov/rubocop">RuboCop</a> 0.9 is finally out! This
+was one of our most ambitious releases &ndash; over a month of work, ~250
+commits, lots of new cops and features and a lot less bugs (OK, I&rsquo;m
+not sure about this, but I sincerely hope it&rsquo;s true). Here&rsquo;s the
+highlights.</p>
+
+<h2>Portable Linting</h2>
+
+<p>This is a big deal! Prior to 0.9, RuboCop piggybacked on MRI&rsquo;s <code>ruby
+-wc</code> to find syntax errors and lint warnings. Obviously apart from
+being unportable &ndash; this wasn&rsquo;t particularly fast (spawning processes
+never is) either.</p>
+
+<p>That&rsquo;s no longer the case &ndash; errors are now reported directly by
+<a href="https://github.com/whitequark/parser">Parser</a> and we&rsquo;ve reimplemented
+MRI&rsquo;s linting in pure Ruby into RuboCop itself. Now you&rsquo;ll get the
+same errors and warnings on MRI, JRuby and Rubinius. And to top it
+off &ndash; we&rsquo;ve added much nicer warning messages and we report even
+column information for those (MRI doesn&rsquo;t). This brings me to the next
+point.</p>
+
+<h2>Column information</h2>
+
+<p>All RuboCop diagnostics now feature column information as well. Now
+you&rsquo;ll be able to jump to a problem in your code even faster. But that&rsquo;s not all&hellip;</p>
+
+<h2>Formatter Support</h2>
+
+<p>We&rsquo;ve introduced the concept of formatters (similar the to RSpec
+formatter concept) and we&rsquo;ve bundled a few formatters. We&rsquo;ve also
+changed the default output format &ndash; it now pretty similar to <code>clang</code>&rsquo;s
+and features extra context information:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>spec/models/authentication_spec.rb:12:44: W: `-' interpreted as argument prefix
+</span><span class='line'>    }.to change(Authentication, :count).by -1
+</span><span class='line'>                                           ^</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Pretty sure most of you will love this :&ndash;)</p>
+
+<h2>Auto-correction Support</h2>
+
+<p>Running <code>rubocop -a</code> will now correct certain problems automatically. This
+feature is alpha quality and just a few cops have support for it right
+now. It goes without saying that you shouldn&rsquo;t use it on projects not under
+version control (who doesn&rsquo;t use version control?) and without
+an excellent test suite (that you undoubtedly have).</p>
+
+<h2>Rails Support</h2>
+
+<p><code>rubocop -R</code> will run additional Rails specific code checks. This
+feature is also alpha at this point (meaning there&rsquo;s just one Rails
+specific check at this point).</p>
+
+<h2>The Road to 1.0</h2>
+
+<p>We plan 1.0 to be the next RuboCop major release. No new features are in
+the pipeline for 1.0 &ndash; we already have so many features that require extra
+work and polish anyways. If all goes well expect 1.0 by summer&rsquo;s end with:</p>
+
+<ul>
+<li>performance optimizations</li>
+<li>refined formatters</li>
+<li>enhanced auto-correction support</li>
+<li>lots of Rails specific checks</li>
+</ul>
+
+
+<p>I hope you&rsquo;ll enjoy RuboCop 0.9. For the gory details, please take a
+look at the epic
+<a href="https://github.com/bbatsov/rubocop/blob/master/CHANGELOG.md">Changelog</a>.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[The Elements of Style in Ruby #4: Array#join vs Array#*]]></title>
+    <link href="http://bbatsov.github.com/articles/2013/07/01/the-elements-of-style-in-ruby-number-4-array-number-join-vs-array-number-star/"/>
+    <updated>2013-07-01T16:28:00+03:00</updated>
+    <id>http://bbatsov.github.com/articles/2013/07/01/the-elements-of-style-in-ruby-number-4-array-number-join-vs-array-number-star</id>
+    <content type="html"><![CDATA[<p>Today&rsquo;s topic is the following rule from the <a href="https://github.com/bbatsov/ruby-style-guide">Ruby Style Guide</a>:</p>
+
+<blockquote><p>Favor the use of <code>Array#join</code> over the fairly cryptic <code>Array#*</code> with
+a string argument.</p></blockquote>
+
+<p><code>Array#join</code> and <code>Array#*</code> (with a string argument) behave exactly the same:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="sx">%w(Bruce Wayne)</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+</span><span class='line'><span class="c1"># =&gt; &quot;Bruce Wayne&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sx">%w(Bruce Wayne)</span> <span class="o">*</span> <span class="s1">&#39; &#39;</span>
+</span><span class='line'><span class="c1"># =&gt; &quot;Bruce Wayne&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>So, considering they both do the same thing why should you opt to use
+<code>join</code> instead of <code>*</code>? Here&rsquo;s a few reasons:</p>
+
+<ul>
+<li><code>*</code> behaves totally differently when passed an integer argument:</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="o">[</span><span class="mi">1</span> <span class="mi">2</span><span class="o">]</span> <span class="o">*</span> <span class="mi">3</span>
+</span><span class='line'><span class="c1"># =&gt; [1 2 1 2 1 2]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Personally, I&rsquo;d expect this to be only behavior of such an operator
+method and find the alternative one (with a string argument) to be
+pretty much counter-intuitive.</p>
+
+<ul>
+<li>It&rsquo;s not always clear what <code>*</code> means without additional
+context. Take a look at this short snippet:</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># a and b are variables</span>
+</span><span class='line'><span class="n">a</span> <span class="o">*</span> <span class="n">b</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Without some knowledge of <code>a</code> and <code>b</code> we cannot be certain what this
+code is going to do. It&rsquo;s hard even to speculate what the code is
+going to do. Obviously better variable names would certainly help, but
+the point still stands.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">a</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>While we still cannot be absolutely certain, it&rsquo;s highly likely that <code>a</code> is
+an <code>Array</code> and <code>b</code> is a <code>String</code>.</p>
+
+<ul>
+<li><code>*</code> does not carry much of a semantic value in it.</li>
+</ul>
+
+
+<p>Unlike <code>String#%</code>, <code>Array#*</code> with a string argument carries pretty
+much no meaning. It&rsquo;s absolutely beyond me how this came into
+existence. On the other hand the behavior of <code>Array#*</code> with an integer
+argument is pretty reasonable. Here we see a classic example of the
+notion that too much operator overloading can be a bad thing, leading
+to some pretty unreadable code. An operator should be employed only
+when it&rsquo;s use would add clarity to the code, not take clarity away.</p>
+
+<p><code>Array#*</code> has one thing going for it, however &ndash; the fact that few
+people know about its use as a substitute for <code>Array#join</code>. I hope
+they realize that some unknown features are unknown for a reason &ndash;
+because it&rsquo;s bad idea to make use of them.</p>
+
+<p>As usual I&rsquo;m looking forward to hearing your thoughts here and on
+<a href="http://twitter.com/bbatsov">Twitter</a>!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[The Elements of Style in Ruby #3: Make sure something is an array]]></title>
+    <link href="http://bbatsov.github.com/articles/2013/06/28/the-elements-of-style-in-ruby-number-3-make-sure-something-is-an-array/"/>
+    <updated>2013-06-28T15:39:00+03:00</updated>
+    <id>http://bbatsov.github.com/articles/2013/06/28/the-elements-of-style-in-ruby-number-3-make-sure-something-is-an-array</id>
+    <content type="html"><![CDATA[<p>The subject of today&rsquo;s post is the following rule from the
+<a href="https://github.com/bbatsov/ruby-style-guide">Ruby Style Guide</a>:</p>
+
+<blockquote><p>Use <code>[*var]</code> or <code>Array()</code> instead of an explicit <code>Array</code> check, when dealing with a </br>
+variable you want to treat as an Array, but you&rsquo;re not certain it&rsquo;s </br>
+an array.</p></blockquote>
+
+<p>Countless times I&rsquo;ve seen code like this:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">paths</span> <span class="o">=</span> <span class="o">[</span><span class="n">paths</span><span class="o">]</span> <span class="k">unless</span> <span class="n">paths</span><span class="o">.</span><span class="n">is_a?</span> <span class="nb">Array</span>
+</span><span class='line'><span class="n">paths</span><span class="o">.</span><span class="n">each</span> <span class="p">{</span> <span class="o">|</span><span class="n">path</span><span class="o">|</span> <span class="n">do_something</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>It seems that <code>paths</code> could be either an <code>Array</code> object or an object
+of some other class. The author of the code needed to make sure
+<code>paths</code> would be an array so he creates a single element array in the
+case <code>paths</code> is not already an array.</p>
+
+<p>While the above code works it&rsquo;s not something an experienced Rubyist
+would write. The most popular alternative is the use of the mighty splat
+operator(<code>*</code>):</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="o">[*</span><span class="n">paths</span><span class="o">].</span><span class="n">each</span> <span class="p">{</span> <span class="o">|</span><span class="n">path</span><span class="o">|</span> <span class="n">do_something</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>It case you&rsquo;re puzzled by the preceding snippet consider the following example:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">elems</span> <span class="o">=</span> <span class="mi">1</span>
+</span><span class='line'><span class="o">[*</span><span class="n">elems</span><span class="o">]</span>
+</span><span class='line'><span class="c1"># =&gt; [1]</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">elems</span> <span class="o">=</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="o">]</span>
+</span><span class='line'><span class="o">[*</span><span class="n">elems</span><span class="o">]</span>
+</span><span class='line'><span class="c1"># = [1, 2, 3]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Hope that makes clear what&rsquo;s going on.</p>
+
+<p>While I&rsquo;m extremely fond of this particular usage of <code>*</code> I tend to
+avoid it, since there is another equally powerful, but more readable
+alternative to it &ndash; <code>Kernel#Array</code>. Here&rsquo;s it in action:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">Array</span><span class="p">(</span><span class="n">paths</span><span class="p">)</span><span class="o">.</span><span class="n">each</span> <span class="p">{</span> <span class="o">|</span><span class="n">path</span><span class="o">|</span> <span class="n">do_something</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>Array</code> looks like the name of class, but it&rsquo;s not. It&rsquo;s a totally
+normal method defined in the <code>Kernel</code> module. There is a whole family
+of conversion methods similar to <code>Array</code> there &ndash; <code>Array</code>, <code>Complex</code>,
+<code>Float</code>, <code>Hash</code>, <code>Integer</code>, <code>Rational</code> and <code>String</code>. They are all used
+for often in practice and we&rsquo;ll probably revisit them in a separate
+post somewhere down the road.</p>
+
+<p>The <code>Array</code> method operates exactly like <code>*</code> &ndash; it takes a single argument and
+converts it to an <code>Array</code> object if necessary:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">Array</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span><span class='line'><span class="c1"># =&gt; [1]</span>
+</span><span class='line'>
+</span><span class='line'><span class="nb">Array</span><span class="p">(</span><span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="o">]</span><span class="p">)</span>
+</span><span class='line'><span class="c1"># =&gt; [1, 2, 3]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You can also use <code>*</code> and <code>Array</code> to convert to array other data
+composite data structures (like hashes and sets), but that&rsquo;s
+irrelevant to today&rsquo;s discussion.</p>
+
+<p>That&rsquo;s all I have for you today, mates. As usual I&rsquo;m looking forward
+to hearing your thoughts here and on
+<a href="http://twitter.com/bbatsov">Twitter</a>!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[The Elements of Style in Ruby #2: Favor sprintf(format) over String#%]]></title>
+    <link href="http://bbatsov.github.com/articles/2013/06/27/the-elements-of-style-in-ruby-number-2-favor-sprintf-format-over-string-number-percent/"/>
+    <updated>2013-06-27T13:15:00+03:00</updated>
+    <id>http://bbatsov.github.com/articles/2013/06/27/the-elements-of-style-in-ruby-number-2-favor-sprintf-format-over-string-number-percent</id>
+    <content type="html"><![CDATA[<p>Today&rsquo;s topic is the following rule from the <a href="https://github.com/bbatsov/ruby-style-guide">Ruby Style Guide</a>:</p>
+
+<blockquote><p>Favor the use of <code>sprintf</code> and its alias <code>format</code> over the fairly </br>
+cryptic <code>String#%</code> method.</p></blockquote>
+
+<p><code>Kernel#sprintf</code> and <code>String#%</code> basically do the same thing &ndash; the main
+difference is that <code>sprintf</code> is generally used as a command(it does
+not operate on its receiver) and <code>String#%</code> is obviously an instance
+method of the class <code>String</code>. Here&rsquo;s the two of them in action:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="s1">&#39;%d %d&#39;</span> <span class="o">%</span> <span class="o">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">10</span><span class="o">]</span>
+</span><span class='line'><span class="c1"># =&gt; &#39;20 10&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nb">sprintf</span><span class="p">(</span><span class="s1">&#39;%d %d&#39;</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+</span><span class='line'><span class="c1"># =&gt; &#39;20 10&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>So, considering they both do the same thing why should you opt to use
+<code>sprintf</code> instead of <code>%</code>? Here&rsquo;s a few reasons:</p>
+
+<ul>
+<li><code>%</code> takes either a single element or an array of elements as its
+sole argument; <code>sprintf</code> consistently takes a variable number of
+arguments.</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="s1">&#39;%d&#39;</span> <span class="o">%</span> <span class="mi">20</span>
+</span><span class='line'><span class="c1"># =&gt; &#39;20&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="s1">&#39;%d %d&#39;</span> <span class="o">%</span> <span class="o">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">10</span><span class="o">]</span>
+</span><span class='line'><span class="c1"># =&gt; &#39;20 10&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nb">sprintf</span><span class="p">(</span><span class="s1">&#39;%d %d&#39;</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+</span><span class='line'><span class="c1"># =&gt; &#39;20&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nb">sprintf</span><span class="p">(</span><span class="s1">&#39;%d %d&#39;</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+</span><span class='line'><span class="c1"># =&gt; &#39;20 10&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Personally, I dislike such inconsistencies a lot.</p>
+
+<ul>
+<li>It&rsquo;s not always clear what <code>%</code> means without additional
+context. Take a look at this short snippet:</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># a and b are variables</span>
+</span><span class='line'><span class="n">a</span> <span class="o">%</span> <span class="n">b</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Without some knowledge of <code>a</code> and <code>b</code> we cannot know if we&rsquo;re dealing
+with a modulo operation (if <code>a</code> and <code>b</code> are fixnums), <code>String#%</code> or if
+<code>a</code> is an instance of some other class which has implemented the <code>%</code>
+method.</p>
+
+<p>With <code>sprintf</code> it&rsquo;s always crystal-clear what&rsquo;s going on.</p>
+
+<ul>
+<li><code>%</code> does not carry much of a semantic value in it.</li>
+</ul>
+
+
+<p>Sure, it was named so because of the <code>%</code> placeholders in the target
+string, but people not familiar with that operator will probably be
+confused by such odd-looking syntax. <code>sprintf</code> on the other hand is
+old as time (so people reading your code have probably encountered it
+somewhere before) and beside that it&rsquo;s fairly easy to remember that it
+stands for <code>string print formatted</code> (or something similar). On a
+related note &ndash; the use of <code>Kernel%sprintf</code>&rsquo;s alias <code>format</code> yields
+even better readability, since <code>format</code> is obviously less cryptic name
+than <code>sprintf</code> and the same name is employed in many programming
+languages (most notably <code>Java</code> and many Lisp dialects).</p>
+
+<p>There&rsquo;s one thing about <code>sprintf/format</code> that I dislike, though. It
+doesn&rsquo;t make that much sense to have such an operation as command in a
+OO language like Ruby. Alas, those things are not up to me &ndash; I guess
+the authors had something in mind when they made that particular
+decision about the standard library.</p>
+
+<p>In an ideal world the standard library would have included a
+<code>String#format</code> method, that took variable number of arguments. For
+some reason (unknown to me) &ndash; that has not happened (and maybe never
+will). For now the use of <code>Kernel#sprintf</code> (and <code>Kernel#format</code>)
+yields the best results when it comes down to code clarity and
+consistency. I encourage you to use them (<code>format</code> in particular)!</p>
+
+<p>As usual I&rsquo;m looking forward to hearing your thoughts here and on
+<a href="http://twitter.com/bbatsov">Twitter</a>!</p>
+
+<p><strong>Update</strong></p>
+
+<p><code>String#format</code> is part of the <a href="https://github.com/bbatsov/powerpack">Powerpack library</a>.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[The Elements of Style in Ruby #1: Maximum line length]]></title>
+    <link href="http://bbatsov.github.com/articles/2013/06/26/the-elements-of-style-in-ruby-number-1-maximum-line-length/"/>
+    <updated>2013-06-26T16:57:00+03:00</updated>
+    <id>http://bbatsov.github.com/articles/2013/06/26/the-elements-of-style-in-ruby-number-1-maximum-line-length</id>
+    <content type="html"><![CDATA[<p>Welcome to the first installment of <strong>The Elements of Style in Ruby</strong>.</p>
+
+<p>We&rsquo;ll start off with something pretty generic, that&rsquo;s not specific to
+Ruby at all &ndash; the maximum line length that&rsquo;s acceptable in our code.</p>
+
+<p>The guide currently states:</p>
+
+<blockquote><p>Limit lines to 80 characters.</p></blockquote>
+
+<p>How did we get here?</p>
+
+<p>Due to limitations of the old 80-column computer screens for many
+years 80 (or 79 depending on your preferences) columns has been the
+gold standard for maximum line length in most languages. That was the
+bulk of the reasoning behind the rule. There was also fact that Ruby&rsquo;s
+main competitor Python upholds the same line length limit.</p>
+
+<p>Many would argue that such a restriction does not make sense with the
+advances in computer displays in recent years &ndash; after all a full hd
+computer display would give you much more columns to play with. Why
+not go with no limit what-so-ever? That would be simple, right?</p>
+
+<p>Wrong! We should definitely have a limit &ndash; that&rsquo;s beyond any
+doubt. It&rsquo;s common knowledge that humans read much faster vertically,
+than horizontally. Try to read the source code of something with
+200-character lines and you&rsquo;ll come to acknowledge that. On the other
+hand the problem with aggressive line length limits is that they often
+come at the expense of code readability &ndash; programmers start using less
+descriptive variable and method names, span long expressions over
+multiple lines, etc. A balance has to struck somewhere.</p>
+
+<p>Ruby has generally favored succinctness (not to be confused with
+terseness) and 80 columns are generally not some attainable goal as
+many of you probably already know (Java developers on the other hand
+can barely fit something meaningful in less that 100 or even 120
+characters per line). Short, but descriptive names, proper
+abstractions, judicious nesting and heredocs certainly help to keep
+the lines short in Ruby.</p>
+
+<p>And what of the benefit for our efforts? Apart from enabling faster
+scanning though the code, shorter lines allow you to keep two or more
+files opened side by side in your IDE or text editor, which is often
+pretty handy. On a <code>1366*768</code> screen (somewhat unfortunately &ndash; the
+most popular today) &ndash; you won&rsquo;t be able to achieve this with
+normal-sized fonts and lines longer than 80-90 characters.</p>
+
+<p>That said, maybe 80 columns is a bit too restrictive and a 100 columns
+limit strikes a better balance between reading speed, code readability
+and practical considerations like have two files opened side-by-side.</p>
+
+<p>I&rsquo;d love to hear your thoughts! Feel free to leave a comment here or
+ping me on <a href="http://twitter.com/bbatsov">Twitter</a>.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[The Elements of Style in Ruby: An Essay in N parts]]></title>
+    <link href="http://bbatsov.github.com/articles/2013/06/26/the-elements-of-style-in-ruby-an-essay-in-n-parts/"/>
+    <updated>2013-06-26T16:30:00+03:00</updated>
+    <id>http://bbatsov.github.com/articles/2013/06/26/the-elements-of-style-in-ruby-an-essay-in-n-parts</id>
+    <content type="html"><![CDATA[<p><a href="https://github.com/bbatsov/ruby-style-guide">The Ruby Style Guide</a> is
+nearing its second birthday. The project has gained more attention and
+more traction than I could have imagined. For the millionth time I was
+amazed by the fantastic Ruby developers around the world.</p>
+
+<p>The project has also steadily evolved:</p>
+
+<ul>
+<li>it covers more and more aspects of programming in Ruby</li>
+<li>it features many more code examples</li>
+<li>it is now translated in several languages</li>
+<li>it gave birth to the automated static code analyzer <a href="https://github.com/bbatsov/rubocop">RuboCop</a></li>
+<li>it has become the basis for hundreds of slightly modified internal project or company style guides</li>
+</ul>
+
+
+<p>One common criticism for the Ruby style guide is that it doesn&rsquo;t
+feature extensive rationale about most of the rules in it. That&rsquo;s
+deliberate &ndash; even now the document is pretty intimidating. If we were
+to delve into the reasoning behind each and every rule, the guide&rsquo;s
+size might come close to that of a small book.</p>
+
+<p>I do, however, feel that the rationale behind some of the rules is
+important. That&rsquo;s why I&rsquo;ll be starting a series of <em>N</em> posts devoted
+to the topic. I&rsquo;ll try to cover as many of the rules as I can &ndash; from
+the more straightforward ones like <em>maximum line length</em>, to the most
+controversial ones like <em>the use of single-quoted strings when
+possible</em>. The articles will be published in no particular order and
+on no particular schedule.</p>
+
+<p>Keep an eye out for the installments in the series here and on
+<a href="http://twitter.com/bbatsov">Twitter</a>. I&rsquo;m looking forward to many
+interesting discussions with you!</p>
+
+<p>Feel free to take a look at the
+<a href="http://bbatsov.github.com/articles/2013/06/26/the-elements-of-style-in-ruby-number-1-maximum-line-length/">first article in the series, dedicated to the maximum line length we should aim for</a>.</p>
+
+<h2>Articles in the Series</h2>
+
+<ol>
+<li><a href="http://bbatsov.github.com/articles/2013/06/26/the-elements-of-style-in-ruby-number-1-maximum-line-length/">Maximum Line Length</a></li>
+<li><a href="http://bbatsov.github.com/articles/2013/06/27/the-elements-of-style-in-ruby-number-2-favor-sprintf-format-over-string-number-percent/">Favor sprintf(format) Over String#%</a></li>
+<li><a href="http://bbatsov.github.com/articles/2013/06/28/the-elements-of-style-in-ruby-number-3-make-sure-something-is-an-array/">Make Sure Something Is an Array</a></li>
+<li><a href="http://bbatsov.github.com/articles/2013/07/01/the-elements-of-style-in-ruby-number-4-array-number-join-vs-array-number-star/">Array#join vs Array#*</a></li>
+<li><a href="http://bbatsov.github.com/articles/2013/07/02/the-elements-of-style-in-ruby-number-5-readability-of-long-numeric-literals">Readability of Long Numeric Literals</a></li>
+<li><a href="http://bbatsov.github.com/articles/2013/07/04/the-elements-of-style-in-ruby-number-6-attributes-redux">Attributes Redux</a></li>
+<li><a href="http://bbatsov.github.com/articles/2013/07/10/the-elements-of-style-in-ruby-number-7-the-case-against-equals-equals-equals">The case against <code>===</code></a></li>
+<li><a href="http://bbatsov.github.com/articles/2013/08/14/the-elements-of-style-in-ruby-number-8-know-thy-predicates/">Know Thy Predicates</a></li>
+<li><a href="http://bbatsov.github.com/articles/2013/08/21/the-elements-of-style-in-ruby-number-9-hash-number-has-key-and-hash-number-has-value-are-deprecated/">Hash#has_key? and Hash#has_value? are deprecated</a></li>
+</ol>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[RuboCop 0.8.0 is out, support for JRuby and Rubinius is in!]]></title>
+    <link href="http://bbatsov.github.com/articles/2013/05/28/rubocop-0-dot-8-0-is-out/"/>
+    <updated>2013-05-28T12:11:00+03:00</updated>
+    <id>http://bbatsov.github.com/articles/2013/05/28/rubocop-0-dot-8-0-is-out</id>
+    <content type="html"><![CDATA[<p><a href="http://github.com/bbatsov/rubocop">RuboCop</a> 0.8.0 is out!</p>
+
+<p>While the version bump is minor, this release represents an almost
+total rewrite of the code. We&rsquo;ve moved away from MRI&rsquo;s <code>Ripper</code> parser
+and ported RuboCop to <a href="https://github.com/whitequark">Peter Zotov</a>&rsquo;s
+fantastic <a href="https://github.com/whitequark/parser">Parser</a>.</p>
+
+<p>What does this mean for users of RuboCop? It means that now both
+Rubinius and JRuby are supported (in 1.9 and 2.0 modes). I&rsquo;d say this
+is kind of a big deal! The support for the them should be considered
+beta at this point, since they have not yet received extensive field
+testing.</p>
+
+<p>And what does the change mean for developers? It&rsquo;s now a lot easier to
+comprehend RuboCop&rsquo;s source code, lowering the bar for contributions
+immensely.</p>
+
+<p>What&rsquo;s coming down the road for 0.9.0? We have two big changes
+planned &ndash; providing an auto-fix functionality(meaning RuboCop will be
+able to fix on its own some of the problems detected) and providing
+more precise diagnostic messages(a-la <code>clang</code>).</p>
+
+<p>The changelog for 0.8.0 is available <a href="https://github.com/bbatsov/rubocop/blob/master/CHANGELOG.md">here</a>.</p>
+
+<p>Stay tuned for more!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[WikEmacs lives on under new stewardship]]></title>
+    <link href="http://bbatsov.github.com/articles/2013/04/24/wikemacs-lives-on-under-new-stewardship/"/>
+    <updated>2013-04-24T11:36:00+03:00</updated>
+    <id>http://bbatsov.github.com/articles/2013/04/24/wikemacs-lives-on-under-new-stewardship</id>
+    <content type="html"><![CDATA[<p>Several months passed since I stated my intent
+<a href="articles/2013/01/27/the-wikemacs-experiment-is-over-long-live-emacswiki/">to shutdown WikEmacs</a>. While
+I still consider the project a failed experiment and stand by
+everything I wrote in that post, I have received since lots of messages from
+people who were sad to see WikEmacs go. One person in particular,
+<a href="https://twitter.com/holocronweaver">Jesse Johnson</a>, was committed to
+seeing the project move forward and offered to take over its stewardship.</p>
+
+<p>In the end I&rsquo;ve decided that in spirit of the FOSS ideals I don&rsquo;t have
+the right to take away something people like and want to use(especially
+given the fact that they contributed most of the content there) and
+handed over the domain and the data to Jesse.</p>
+
+<p><a href="http://wikemacs.org/index.php/Main_Page">WikEmacs</a> has been running
+for a couple of weeks now under his management and will continue to
+exist for a long time. If you liked the project I guess this is a good
+moment to show you love and spread the word.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[RuboCop 0.6.0 released]]></title>
+    <link href="http://bbatsov.github.com/articles/2013/04/23/rubocop-0-dot-6-0-released/"/>
+    <updated>2013-04-23T14:46:00+03:00</updated>
+    <id>http://bbatsov.github.com/articles/2013/04/23/rubocop-0-dot-6-0-released</id>
+    <content type="html"><![CDATA[<p><a href="https://github.com/bbatsov/rubocop">RuboCop</a> 0.6.0 was just released!
+It&rsquo;s RuboCop&rsquo;s biggest and most ambitious release yet.  Here&rsquo;s the
+highlights:</p>
+
+<ul>
+<li>15 new cops(checks)</li>
+<li>Support for disabling cops locally in a file with <code>rubocop:disable</code> comments</li>
+<li>Half a dozen bugs squashed</li>
+<li>Small improvements across the board</li>
+</ul>
+
+
+<p>I guess the support for disabling cops locally deserves a bit of special treatment.</p>
+
+<p>So here&rsquo;s the basics &ndash; you&rsquo;re now allowed to enable/disable certain cops
+(checks) and to alter their behavior if they accept any parameters.</p>
+
+<p>One or more individual cops can be disabled locally in a section of a
+file by adding a comment such as:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># rubocop:disable LineLength, StringLiterals</span>
+</span><span class='line'><span class="o">[.</span><span class="n">.</span><span class="o">.]</span>
+</span><span class='line'><span class="c1"># rubocop:enable LineLength, StringLiterals</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You can also disable <em>all</em> cops with:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># rubocop:disable all</span>
+</span><span class='line'><span class="o">[.</span><span class="n">.</span><span class="o">.]</span>
+</span><span class='line'><span class="c1"># rubocop:enable all</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>One or more cops can be disabled on a single line with an end-of-line
+comment:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">for</span> <span class="n">x</span> <span class="k">in</span> <span class="p">(</span><span class="mi">0</span><span class="o">.</span><span class="n">.</span><span class="mi">19</span><span class="p">)</span> <span class="c1"># rubocop:disable AvoidFor</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You can see all the gory details in the
+<a href="https://github.com/bbatsov/rubocop/blob/master/CHANGELOG.md">changelog</a>. I hope you&rsquo;ll enjoy RuboCop 0.6.0!</p>
+]]></content>
+  </entry>
+  
+</feed>

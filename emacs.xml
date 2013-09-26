@@ -1,0 +1,1638 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Emacs @ (think)]]></title>
+  <link href="http://bbatsov.github.com/emacs.xml" rel="self"/>
+  <link href="http://bbatsov.github.com/"/>
+  <updated>2013-09-26T16:20:56+03:00</updated>
+  <id>http://bbatsov.github.com/</id>
+  <author>
+    <name><![CDATA[Bozhidar Batsov]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[WikEmacs lives on under new stewardship]]></title>
+    <link href="http://bbatsov.github.com/articles/2013/04/24/wikemacs-lives-on-under-new-stewardship/"/>
+    <updated>2013-04-24T11:36:00+03:00</updated>
+    <id>http://bbatsov.github.com/articles/2013/04/24/wikemacs-lives-on-under-new-stewardship</id>
+    <content type="html"><![CDATA[<p>Several months passed since I stated my intent
+<a href="articles/2013/01/27/the-wikemacs-experiment-is-over-long-live-emacswiki/">to shutdown WikEmacs</a>. While
+I still consider the project a failed experiment and stand by
+everything I wrote in that post, I have received since lots of messages from
+people who were sad to see WikEmacs go. One person in particular,
+<a href="https://twitter.com/holocronweaver">Jesse Johnson</a>, was committed to
+seeing the project move forward and offered to take over its stewardship.</p>
+
+<p>In the end I&rsquo;ve decided that in spirit of the FOSS ideals I don&rsquo;t have
+the right to take away something people like and want to use(especially
+given the fact that they contributed most of the content there) and
+handed over the domain and the data to Jesse.</p>
+
+<p><a href="http://wikemacs.org/index.php/Main_Page">WikEmacs</a> has been running
+for a couple of weeks now under his management and will continue to
+exist for a long time. If you liked the project I guess this is a good
+moment to show you love and spread the word.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[RuboCop]]></title>
+    <link href="http://bbatsov.github.com/articles/2013/04/15/rubocop/"/>
+    <updated>2013-04-15T17:22:00+03:00</updated>
+    <id>http://bbatsov.github.com/articles/2013/04/15/rubocop</id>
+    <content type="html"><![CDATA[<p>After I launched the
+<a href="https://github.com/bbatsov/ruby-style-guide">Ruby Style Guide</a> I
+often received requests to create a tool enforcing the rules in the guide
+automatically.</p>
+
+<p>Today this tool is a reality &ndash; meet
+<a href="https://github.com/bbatsov/rubocop">RuboCop</a>. RuboCop already covers
+a significant portion of the Guide, supports both MRI 1.9 and MRI 2.0
+and has pretty neat Emacs integration(via
+<a href="https://github.com/bbatsov/rubocop-emacs">rubocop.el</a> and
+<a href="https://github.com/lunaryorn/flycheck">flycheck</a>).</p>
+
+<p>I&rsquo;d love to see more Ruby hackers check out RuboCop!</p>
+
+<p>I&rsquo;d love to thank all the great people who contributed code, issue
+reports and ideas to RuboCop&rsquo;s development and I sincerely hope many
+Ruby hackers will find it useful!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Emacs Redux]]></title>
+    <link href="http://bbatsov.github.com/articles/2013/04/15/emacs-redux/"/>
+    <updated>2013-04-15T17:10:00+03:00</updated>
+    <id>http://bbatsov.github.com/articles/2013/04/15/emacs-redux</id>
+    <content type="html"><![CDATA[<p>I&rsquo;ve recently launched a new blog dedicated to Emacs &ndash;
+<a href="http://emacsredux.com/">Emacs Redux</a>.</p>
+
+<p>There I’ll be sharing with you (hopefully) useful tips and tricks to
+make your experience with Emacs more productive and more enjoyable.</p>
+
+<p>I hope you&rsquo;ll like it!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[The WikEmacs Experiment is over! Long Live EmacsWiki!]]></title>
+    <link href="http://bbatsov.github.com/articles/2013/01/27/the-wikemacs-experiment-is-over-long-live-emacswiki/"/>
+    <updated>2013-01-27T09:23:00+02:00</updated>
+    <id>http://bbatsov.github.com/articles/2013/01/27/the-wikemacs-experiment-is-over-long-live-emacswiki</id>
+    <content type="html"><![CDATA[<p>Less than an year ago
+<a href="http://batsov.com/articles/2012/03/20/die-emacswiki/">amid a lot of turmoil</a>
+I&rsquo;ve started
+<a href="http://batsov.com/articles/2012/03/26/wikemacs-the-other-emacs-wiki/">an alternative to EmacsWiki</a>. The
+project took off to a great start, but quickly lost traction and now
+it&rsquo;s time to face the truth &ndash; I had an assumption, it turned out it(I)
+was wrong and I should come to terms with that.</p>
+
+<p>It&rsquo;s more than apparent at this point that the majority of the Emacs
+community is happy with EmacsWiki and that&rsquo;s fine by me. I&rsquo;ll be
+closing down WikEmacs after 2-3 months and I suggest that everyone who&rsquo;s
+contributed significant chunks of content to it migrate them to
+EmacsWiki (I&rsquo;ll personally move everything good I find). I don&rsquo;t want
+the work people have done to just disappear.</p>
+
+<p>Given the small interest in WikEmacs I doubt that many will miss it. I
+thank all the contributors and the supporters of the idea. In the long
+term it would be better for us to have a single repository of Emacs
+knowledge, that&rsquo;s why I decided to terminate WikEmacs sooner rather than later.</p>
+
+<p>I want to extend a big public apology to Alex Schroeder for my harsh
+criticism of EmacsWiki.  One year later I see that stewarding
+documentation projects and nurturing a healthy community around them
+is much harder than writing software. I&rsquo;m but a humble software
+engineer and you&rsquo;ll have to forgive me for my misguided actions.</p>
+
+<p>I hope that something good has(will) come up from all this drama. At
+the very least I urge everyone who cares for EmacsWiki to try and
+clean up, extend and improve at least a couple of articles on subjects
+that are of importance to him. I know that&rsquo;s something I&rsquo;ll be doing
+from now on.</p>
+
+<p>See you on EmacsWiki!</p>
+
+<p>WikEmacs is dead! Long live the one true EmacsWiki!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Emacs Tip #8: Manipulating Word Case]]></title>
+    <link href="http://bbatsov.github.com/articles/2012/12/16/emacs-tip-number-8-manipulating-word-case/"/>
+    <updated>2012-12-16T17:57:00+02:00</updated>
+    <id>http://bbatsov.github.com/articles/2012/12/16/emacs-tip-number-8-manipulating-word-case</id>
+    <content type="html"><![CDATA[<p>One operation that we have to do fairly often when editing text is
+manipulating the case of words. The most popular case manipulations
+are probably <strong>capitalize</strong>, <strong>convert to lowercase</strong> and <strong>convert to
+uppercase</strong>. Emacs naturally has built-in commands for all of those.</p>
+
+<p>Pressing <code>M-c</code> runs the command <code>capitalize-word</code>, which will
+capitalize the next word and move the cursor after it. Pressing <code>M--
+M-c</code> will capitalize the previous word without moving the cursor.</p>
+
+<p>Pressing <code>M-l</code> runs the command <code>downcase-word</code>, which will lowercase
+the next word and move the cursor after it. Pressing <code>M-- M-l</code> will
+lowercase the previous word without moving the cursor.</p>
+
+<p>Pressing <code>M-u</code> runs the command <code>upcase-word</code>, which will uppercase the
+next word and move the cursor after it. Pressing <code>M-- M-u</code> will uppercase
+the previous word without moving the cursor.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Emacs 24.3 introduces native OSX full-screen support]]></title>
+    <link href="http://bbatsov.github.com/articles/2012/12/09/emacs-24-dot-3-introduces-native-osx-full-screen-support/"/>
+    <updated>2012-12-09T13:34:00+02:00</updated>
+    <id>http://bbatsov.github.com/articles/2012/12/09/emacs-24-dot-3-introduces-native-osx-full-screen-support</id>
+    <content type="html"><![CDATA[<p>One of the most requested Emacs features &ndash; native OSX Lion style
+full-screen support has finally landed in Emacs 24.3 (due to be
+released in a few months). If you&rsquo;re eager to try it out right now
+homebrew is a good option:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>brew install emacs --cocoa --use-git-head --HEAD
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Homebrew&rsquo;s devs have even backported the full-screen patch to Emacs
+24.2, so if you&rsquo;re not very adventurous you can just do:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>brew install emacs --cocoa
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Alternatively you can install the
+<a href="http://emacsformacosx.com/emacs-builds/Emacs-pretest-24.2.91-universal-10.6.8.dmg">Emacs 24.2.91 pretest</a>
+(or a newer pretest/nightly build) from
+<a href="http://emacsformacosx.com/">Emacs for Mac OSX</a>. Personally I
+recommend this option, since cloning the Emacs git mirror (as homebrew
+does) takes like forever.</p>
+
+<p>Here&rsquo;s the beast in action:</p>
+
+<p><img src="http://bbatsov.github.com/images/articles/emacs-full-screen.png"></p>
+
+<p>This was a short article, but I do hope you&rsquo;ll find it useful.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Emacs Tip #7: Remap Return to Control in OSX]]></title>
+    <link href="http://bbatsov.github.com/articles/2012/12/06/emacs-tip-number-7-remap-return-to-control-in-osx/"/>
+    <updated>2012-12-06T16:06:00+02:00</updated>
+    <id>http://bbatsov.github.com/articles/2012/12/06/emacs-tip-number-7-remap-return-to-control-in-osx</id>
+    <content type="html"><![CDATA[<p>One of the major problems when using
+<a href="http://batsov.com/articles/2012/10/14/emacs-on-osx/">Emacs on OSX</a> is
+not related to OSX itself &ndash; the problem has to do with the Mac&rsquo;s
+hardware. Recent Mac keyboards(both laptop and desktop, with the
+exception of the wired full size Mac keyboard) lack a right <code>Control</code>
+key and it happens to be extremely important if you&rsquo;re looking to
+fully leverage the power of Emacs.</p>
+
+<p>The traditional solution to the problem is to use a tool like
+<a href="http://pqrs.org/macosx/keyremap4macbook/">KeyRemap4MacBook</a> to remap
+the right <code>Option</code> key to right <code>Control</code> and to use a snippet like
+this to make <code>Command</code> behave like <code>Meta</code> in Emacs:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='cl'><span class='line'><span class="p">(</span><span class="k">setq</span> <span class="nv">mac-command-modifier</span> <span class="ss">&#39;meta</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This works, but it&rsquo;s hardly ideal since you&rsquo;re remapping <code>Option</code> at
+fairly low level and you won&rsquo;t be able to use it anywhere as <code>Option</code>.</p>
+
+<p>A much better idea would be to leverage a little know capability of
+KeyRemap4MacBook (a great program which despite its name works with
+desktop Macs as well) and map the <code>Return</code> key to <code>Control</code> only
+when it&rsquo;s held down (it will behave like a normal Return key in all
+other situations). The option you&rsquo;ll have to find in KeyRemap4MacBook
+is in the <code>Change Return</code> section and it labeled <code>Return to Control_R
+(+ When you type Return only, send Return)</code>.</p>
+
+<p>This approach has several advantages.  First and foremost you&rsquo;re not
+sacrificing a valuable key like <code>Option</code>. Second &ndash; it&rsquo;s much easier to
+hit <code>Return</code> with your right pinky than it is to hit <code>Option</code>
+(especially if you&rsquo;re using a US layout keyboard &ndash; these have long
+single row <code>Return</code> keys, compared to the short 2 row Returns found on
+European keyboards). Lastly, if you&rsquo;ve already remapped <code>CapsLock</code> to
+<code>Control</code> (like so many people do) you&rsquo;re getting a pretty symmetrical
+mapping on the opposite side of your keyboard.</p>
+
+<p>All in all &ndash; remapping <code>Return</code> to <code>Control</code> is a huge win if you&rsquo;re
+using heavily one of Apple&rsquo;s smaller keyboards. Of course, if you have
+the option to use an external keyboard you&rsquo;d do yourself a solid if you
+obtained a good full size keyboard like the
+<a href="http://batsov.com/articles/2008/06/16/das-keyboard/">Das Keyboard</a>.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[guru-mode]]></title>
+    <link href="http://bbatsov.github.com/articles/2012/09/09/guru-mode/"/>
+    <updated>2012-09-09T21:17:00+03:00</updated>
+    <id>http://bbatsov.github.com/articles/2012/09/09/guru-mode</id>
+    <content type="html"><![CDATA[<p>Getting started with Emacs is hard. That&rsquo;s a fact of life and you
+shouldn&rsquo;t believe anyone telling you otherwise.</p>
+
+<p>One of the harder parts of the journey to Emacs mastery is remembering
+all those keybindings at the beginning (<code>C-h t</code>), which can be really
+overwhelming. To make matters worse for many common commands there are
+two sets of keybindings &ndash; the Emacs ones (that are touch typing
+friendly) and the popular ones (that typically involve the use of the
+arrow keys). Most people never get to use the <em>proper</em> keybindings and
+forever make use of the arrow keys.</p>
+
+<p>To help Emacs newcomers get used to the proper Emacs keybindings I&rsquo;ve
+created <a href="http://github.com/bbatsov/guru-mode">guru-mode</a> &ndash; a simple
+minor mode that will show you a (helpful) message in the minibuffer
+every time you try to use a <em>non Emacs way</em> keybinding.</p>
+
+<p><img src="http://bbatsov.github.com/images/articles/guru-mode.png"></p>
+
+<p>It will probably annoy you <strong>a lot</strong> in the beginning, but trust me &ndash;
+it&rsquo;ll be worth it in the long run.</p>
+
+<p><code>guru-mode</code> comes bundled with
+<a href="http://github.com/bbatsov/prelude">Emacs Prelude</a> and is available
+for installation from <a href="http://marmalade-repo.org">Marmalade</a> and <a href="http://melpa.milkbox.net">MELPA</a>.</p>
+
+<p>P.S. True Emacs mastery cannot be achieved if you do not practice
+touch typing; if you&rsquo;re doing hunt-and-peck typing you&rsquo;d better fire up the
+venerable <code>gtypist</code> before looking at <code>guru-mode</code>.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Emacs Support for the Slim Template Language]]></title>
+    <link href="http://bbatsov.github.com/articles/2012/09/09/emacs-support-for-the-slim-template-language/"/>
+    <updated>2012-09-09T20:16:00+03:00</updated>
+    <id>http://bbatsov.github.com/articles/2012/09/09/emacs-support-for-the-slim-template-language</id>
+    <content type="html"><![CDATA[<p>I&rsquo;m mostly a Ruby on Rails developer these days and as such I&rsquo;m pretty
+fond of the <a href="http://slim-lang.com">Slim template language</a>. I&rsquo;ve
+always hated HTML + ERB, since that evil duo encourages all sorts of
+ever practices and recently I&rsquo;ve adopted Slim as a replacement for
+my long time favourite ERB alternative &ndash; <a href="http://haml-lang.com">Haml</a>.</p>
+
+<p>I won&rsquo;t discuss here the shortcomings of Haml vs Slim, but I&rsquo;ll share
+with you the big advantage Haml has over Slim (for Emacs users at
+least) &ndash; it has a pretty nice major editing mode for Emacs. Slim&rsquo;s
+Emacs support on the other hand is rather iffy and is presently mostly
+based on <code>haml-mode</code>. That will hopefully change soon, since recently
+I&rsquo;ve become a co-maintainer of
+<a href="http://github.com/minad/emacs-slim">slim-mode</a> and I plan to improve
+it as much as I can (currently I&rsquo;m mostly working on precise
+font-locking). Any help from interested parties is, naturally, most
+welcome. I very much doubt that me and
+<a href="https://github.com/minad">Daniel Mendler</a> are the only two people
+dreaming of great Slim experience in Emacs. :&ndash;)</p>
+
+<p><img src="http://bbatsov.github.com/images/articles/slim-mode.png"></p>
+
+<p>Let us together eliminate that big Haml advantage. :&ndash;)</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[A True Emacs Knight]]></title>
+    <link href="http://bbatsov.github.com/articles/2012/05/28/a-true-emacs-knight/"/>
+    <updated>2012-05-28T15:39:00+03:00</updated>
+    <id>http://bbatsov.github.com/articles/2012/05/28/a-true-emacs-knight</id>
+    <content type="html"><![CDATA[<p>Here&rsquo;s one true Emacs Knight (courtesy of my friend Gergana
+Stancheva). Feel free to use it wherever you see fit.</p>
+
+<p><img src="http://bbatsov.github.com/images/articles/emacs_knight.jpg"></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[MELPA - homebrew (Emacs Edition)]]></title>
+    <link href="http://bbatsov.github.com/articles/2012/04/06/melpa-homebrew-emacs-edition/"/>
+    <updated>2012-04-06T18:04:00+03:00</updated>
+    <id>http://bbatsov.github.com/articles/2012/04/06/melpa-homebrew-emacs-edition</id>
+    <content type="html"><![CDATA[<p>A few weeks ago I wrote an
+<a href="http://batsov.com/articles/2012/02/19/package-management-in-emacs-the-good-the-bad-and-the-ugly/">article about the state of package management in Emacs</a>. In
+that article I pointed out that on the side of <a href="http://wikemacs.org/wiki/Package.el">package.el</a> too much
+was riding on the poorly maintained Marmalade repo. Today
+Marmalade went dark (again) and many people are wondering what to do
+now. The answer is simple &ndash; start using <a href="http://melpa.milkbox.net/">MELPA</a> instead.</p>
+
+<p>I was thinking of starting a project similar to Marmalade to alleviate
+its problems, but then the MELPA project was brought to my
+attention. This project follows the Homebrew (unofficial OSX package
+manager) model of using simple GitHub collaboration to maintain and
+grow a bunch of build recipes. In the case of MELPA, those recipes
+show how to bundle upstream source packages into package.el-compliant
+packages. The recipes can be tested locally by package authors, and
+they are run hourly on the MELPA server to create an HTTP package
+archive that Emacs users can simply add to their <code>'package-archives</code>
+list. As <a href="http://technomancy.us">Phil Hagelberg</a> said &ndash; there&rsquo;s no reason to drag in
+complicated dependencies like Node for something that&rsquo;s essentially a
+pile of static files. MELPA on the other hand is written mostly in
+Emacs Lisp and is thus much more comprehensible to casual Emacs hackers.</p>
+
+<p>Most packages currently contained in MELPA are development snapshots,
+but the project maintainer
+<a href="https://github.com/milkypostman">Donald Curtis</a> and
+<a href="http://www.sanityinc.com/">Steve Purcell</a> (aka <code>sanityinc</code>) are
+working on extending the MELPA build scripts to support stable
+packages, using upstream version tags.</p>
+
+<p>Adding a new package to MELPA is as simple as adding a few lines of
+code to the <code>pkglist</code> file in MELPA&rsquo;s source code repo:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='cl'><span class='line'><span class="p">(</span><span class="nv">name</span> <span class="ss">:url</span> <span class="s">&quot;&lt;repo url&gt;&quot;</span>
+</span><span class='line'> <span class="ss">:fetcher</span> <span class="nv">[git|svn|darcs</span><span class="err">|</span><span class="nv">wiki]</span>
+</span><span class='line'> <span class="nv">[:files</span> <span class="p">(</span><span class="s">&quot;&lt;file1&gt;&quot;</span><span class="o">,</span> <span class="o">...</span><span class="p">)</span><span class="nv">]</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You simply have to fork the <a href="https://github.com/milkypostman/melpa">official repo</a>, modify <code>pkglist</code>, send a pull
+request and <code>package.el</code> compatible packages will be built
+automatically for you on MELPA&rsquo;s server (you can also build the
+packages locally to test if everything is OK with your recipes). Sure it&rsquo;s not as easy as
+submitting a package via a web UI, but it&rsquo;s a much more robust
+approach. It also eliminates a common problem in Marmalade &ndash; there
+only the original uploader (+ people selected by him) can update a
+package. Often the original uploaders are very hard to find&hellip;</p>
+
+<p>To use MELPA with Emacs 24 (or a recent version of <code>package.el</code>) just
+add this to your <code>.emacs</code> (or equivalent):</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='cl'><span class='line'><span class="p">(</span><span class="nv">add-to-list</span> <span class="ss">&#39;package-archives</span>
+</span><span class='line'><span class="o">&#39;</span><span class="p">(</span><span class="s">&quot;melpa&quot;</span> <span class="o">.</span> <span class="s">&quot;http://melpa.milkbox.net/packages/&quot;</span><span class="p">)</span> <span class="no">t</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>There&rsquo;s a lot more info regarding MELPA on its official website and
+I&rsquo;d rather not duplicate it here.</p>
+
+<p>I would encourage package authors and users to investigate and
+contribute to MELPA. I&rsquo;ve already submitted a bunch of packages
+there and rebased <a href="http://batsov.com/prelude">Emacs Prelude</a> to
+use MELPA instead of Marmalade.</p>
+
+<p>Together we can turn MELPA into the most extensive and robust community-supported
+<code>package.el</code> repo! Emacs users deserve one of those :&ndash;)</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[WikEmacs - The Other Emacs Wiki]]></title>
+    <link href="http://bbatsov.github.com/articles/2012/03/26/wikemacs-the-other-emacs-wiki/"/>
+    <updated>2012-03-26T11:23:00+03:00</updated>
+    <id>http://bbatsov.github.com/articles/2012/03/26/wikemacs-the-other-emacs-wiki</id>
+    <content type="html"><![CDATA[<p>I&rsquo;d like to apologize to everyone insulted by my previous
+posts. Contrary to popular belief I acknowledge EmacsWiki&rsquo;s
+contribution to the Emacs community. Obviously many people are too
+fond of its current format so I doubt that it will ever change
+(considerably). I didn&rsquo;t mean to insult anyone, I just wanted to catch
+your attention (which unfortunately requires harsher words from time to
+time) and point it in the direction of the existing problems.</p>
+
+<p>For the people that weren&rsquo;t happy with EmacsWiki &ndash; the ones that felt
+my pain and were looking for a change I present
+<a href="http://wikemacs.org">WikEmacs</a> (pronounced wikimacs). It&rsquo;s a
+MediaWiki powered Emacs wiki, that will try to bring to the community
+cleaner, leaner and more up-to-date documentation.</p>
+
+<p>There are only a few guidelines for the contributors there:</p>
+
+<ul>
+<li>articles should be geared only towards the current and future
+versions of Emacs (currently 23 and 24) for maintainability&rsquo;s sake.</li>
+<li>articles should not copy Emacs&rsquo;s or extension&rsquo;s official
+documentation &ndash; they should refer to it instead. An overview, some
+nice pointers, tips and links &ndash; that seems like a good article,
+doesn&rsquo;t it?</li>
+<li>comments and questions should go to an article&rsquo;s discussion page</li>
+</ul>
+
+
+<p>File uploads are disabled on WikEmacs (but image file uploads will
+probably be allowed soon) &ndash; it will never host Emacs extensions of any
+sort.</p>
+
+<p>There is a Google discussion group
+<a href="https://groups.google.com/forum/?fromgroups#!forum/wikemacs">here</a>
+for more general questions regarding the wiki.</p>
+
+<p>Our goal is not to copy over the 8500 articles available at
+EmacsWiki. It&rsquo;s to provide a good road map for new users coming to
+Emacs and enough helpful hints and tips for experienced users. Everyone
+is welcome to join our efforts.</p>
+
+<p>As far as short term goals go &ndash; have a look at the outlined structure
+of the wiki (on its home page), pick a section that interests you and
+create/extend/improve it. Our content is licensed with GNU&rsquo;s Free
+Documentation License (which is compatible with Wikipedia&rsquo;s and
+probably EmacsWiki&rsquo;s GPL2). Some nice blog articles about Emacs might
+be converted to wiki articles with permission from their authors. You
+might find <a href="http://johnmacfarlane.net/pandoc/try">pandoc</a> useful to
+automatically convert articles from other formats to MediaWiki markup
+and <a href="https://launchpad.net/mediawiki-el">mediawiki.el</a> to edit
+articles on wiki from the comfort of your beloved editor.</p>
+
+<p>Thanks to the people that brought us the original EmacsWiki. Thanks to
+everyone who supported the idea for the new wiki. Thanks in advance to
+all future contributors.</p>
+
+<p>Some people will undoubtedly see the birth of WikEmacs as a separatist move to fraction
+the Emacs community. To them I&rsquo;d like to say that few things in life
+are as productive as competition. Obviously a lot of people willing to
+contribute to a new wiki are unwilling to do so for EmacsWiki and vice
+versa. This is not a contest and there will be no winner. I wish the
+best of luck to EmacsWiki and its supporters. What I wish for is to give
+our community the best source of documentation available and the
+option to choose.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[All Hands on Deck! (or the Action Plan for a new Emacs community wiki)]]></title>
+    <link href="http://bbatsov.github.com/articles/2012/03/21/all-hands-on-deck-or-the-action-plan-for-a-new-emacs-community-wiki/"/>
+    <updated>2012-03-21T11:11:00+02:00</updated>
+    <id>http://bbatsov.github.com/articles/2012/03/21/all-hands-on-deck-or-the-action-plan-for-a-new-emacs-community-wiki</id>
+    <content type="html"><![CDATA[<h2>Prelude</h2>
+
+<p>Yesterday I wrote a highly
+<a href="http://batsov.com/articles/2012/03/20/die-emacswiki/">controversial article about the state of the EmacsWiki</a>
+and suggested a few things we can do to make things better. I got the
+usual batch of hate mail and some remarks on the poor quality of my
+English and writing style (which generally amuse me a lot). But I
+got much more encouraging feedback from <strong>a lot</strong> of Emacs community
+members. So here our story continues&hellip;</p>
+
+<!--more -->
+
+
+<h2>On The Essence of Things</h2>
+
+<p>Some people accused me that I don&rsquo;t even know what I wiki is. To them
+I&rsquo;d like to say that a thing is not its dictionary/encyclopedia
+definition. A thing is what it&rsquo;s perceived to be. People expect wiki
+entries to look and behave like those found in MediaWiki or Confluence
+and not like some mixture of a wiki, forum and irc conversation&hellip;</p>
+
+<h2>A Word from Our Sponsor</h2>
+
+<p>Alex wrote a
+<a href="http://www.emacswiki.org/emacs/2012-03-20">public response on the EmacsWiki</a>
+yesterday, that I&rsquo;d first like to share (since probably more people
+will see it here, than there). I publish it here with no alternations:</p>
+
+<blockquote><p>Bozhidar Batsov is apparently very frustrated with Emacs Wiki. He<br/>seems to think that we should start over – use new software, add<br/>moderators, guidelines, and sorts of fancy stuff. My answer is the<br/>same as it was back in 2008 (http://www.emacswiki.org/emacs/MissionRant).</p><p>One of his ideas I actually agree with. &#8220;Submit documentation only to<br/>the official project pages.&#8221; Absolutely. :)</p><p>Some ideas I am luke warm about: &#8220;package something on Marmalade…&#8221;<br/>Sure, why not? I have never used Marmalade, but I encourage you to<br/>improve the tools you use. There&#8217;s also &#8220;don&#8217;t respond to any bug<br/>requests regarding modified copies of your sources distributed via<br/>EmacsWiki.&#8221; I also don&#8217;t want to encourage bug reports on the<br/>wiki. Use the facilities built into Emacs to report bugs. But almost<br/>all of you know that.</p><p>But other ideas?</p><p>&#8220;Drop the current format of the wiki - use something standard like<br/>MediaWiki instead of OddMuse.&#8221; How is reformatting the pages going to<br/>improve them?</p><p>&#8220;Drop all the articles about Emacs extensions.&#8221; Just delete them? Are<br/>you at least going to rewrite them and move them to the appropriate<br/>project pages out there? Or are you just going to delete them? Taking<br/>away and not giving back?</p><p>&#8220;Drop all the extensions hosted there.&#8221; Some of the old code has no<br/>other home. Some of the old code is here for the poor sods stuck with<br/>Emacs 20. Are you going to package them for ELPA or Marmalade or<br/>whatever you are going to suggest instead?</p><p>Some of you – like Drew Adams – keep their packages on the wiki. For<br/>those packages, I don&#8217;t see any alternative. Are you going to maintain<br/>his software? Fix his bugs? Develop his features? Unless you are, I<br/>guess you can try and fork his stuff and keep it on whatever other<br/>system you want. But please don&#8217;t suggest taking something away<br/>without giving something in return.</p><p>&#8220;Assemble a team of moderators.&#8221; Indeed. Moderators! Where have you<br/>been hiding for the last ten years! Are you volunteering? I&#8217;m a bit<br/>wary regarding your deletionist tendencies. But perhaps you’d like to<br/>start with a new Table of Contents and new top-down menus where only<br/>the pages you personally vetted and checked are listed. That would be<br/>an awesome thing to do! Of course, there’s no need to delete anything<br/>in order for you to do this. Just arrange the stuff you like and do<br/>it.</p><p>In fact, in order to do it, just do it.</p><p>&#8220;Accept only articles about general Emacs usage and Emacs Lisp<br/>programming.&#8221; How is that going to work – more deleting? I don&#8217;t<br/>know&#8230; I don&#8217;t think you understand where the value of Emacs Wiki<br/>comes from. Perhaps you should write a book about Emacs? Collect a<br/>team of authors and editors and deletionists, take a copy of the wiki,<br/>and just do it right.</p><p>Also, less hyperbole when posting&#8230; :P</p><footer><strong>Alex Schroeder</strong> <cite>Creator and Maintainer of EmacsWiki.org</cite></footer></blockquote>
+
+
+<p>Here&rsquo;s my two cents on the letter:</p>
+
+<ul>
+<li><p>The markup format hardly matters. A new wiki engine would give us
+better structure of the wiki as whole (like separate discussion pages
+for one).</p></li>
+<li><p>Dropping it from the wiki doesn&rsquo;t mean we&rsquo;ll delete the code
+forever. What I meant was &ndash; dump all the extensions to some archive
+for the interested parties and remove them from the wiki. You&rsquo;re
+basically putting words in my mouth.</p></li>
+<li><p>We should care for the bad choices some people made (like Drew &ndash; all
+my respect to his work). With so many free project hosting services I
+don&rsquo;t feel we&rsquo;ll be taking something away and not giving an alternative.</p></li>
+<li><p>No, I don&rsquo;t volunteer. Not for this format of the wiki. But I do
+volunteer for an alternative matching the outline I&rsquo;ve suggested.</p></li>
+<li><p>Mocking me is not right response, you know. The problem exists, you
+fail to acknowledge it, but I don&rsquo;t care that much.</p></li>
+<li><p>Alex calls it hyperbole, I call it the simple truth (and many others
+would second me).</p></li>
+</ul>
+
+
+<h2>The Plan</h2>
+
+<p>Many people commented that my post is not worth a damn if I&rsquo;m not
+willing to back it with action. I&rsquo;m sad to disappoint my critics &ndash; but
+I&rsquo;ll willing to go the whole nine yards on this one. Here&rsquo;s the
+outline of my proposal for a new wiki:</p>
+
+<ol>
+<li><p>Use <a href="http://moinmo.in/">MoinMoin</a> as the wiki engine. It&rsquo;s written in Python and
+it&rsquo;s GPL software. It doesn&rsquo;t use a database, it&rsquo;s featureful and
+mature. It&rsquo;s successfully used by Debian and Ubuntu (and many other
+respectable software organizations). I&rsquo;m against using a Git backed
+systems since it will increase the entry bar for user
+participation. I&rsquo;m even more against the use of a custom platform
+developed specially to serve as the EmacsWiki.</p></li>
+<li><p>I&rsquo;ll pay for the hosting and the new domain and set up the wiki
+initially. I&rsquo;d suggest that the new project begins with the domain
+emacswiki.net or emacswiki.info and eventually we&rsquo;ll assume the old
+emacswiki.org domain as well (should the new wiki be successful
+enough). Suggestions for another name are welcome in the comments
+section.</p></li>
+<li><p>I and anyone willing to lend a hand will pick the articles worth
+saving from the EmacsWiki and migrate them to the new one. I and
+anyone willing to serve as moderator will monitor new contributions
+afterwards.</p></li>
+<li><p>Wiki entries will have a more or less standard structure and will
+adhere and community established guidelines.</p></li>
+<li><p>The old EmacsWiki will eventually be retired to another domain such
+as old.emacswiki.org (or similar) for historic purposes and benefit of
+users of old Emacs versions.</p></li>
+</ol>
+
+
+<p>It this good enough for you to call it an action plan? Comments on it
+are most welcome!</p>
+
+<h2>Epilogue</h2>
+
+<p>I&rsquo;m sorry that I&rsquo;m the guy that has to break the terrible news to all of
+the delusional EmacsWiki supporters out there &ndash; <em>It&rsquo;s not
+special. It&rsquo;s not a beautiful or unique snowflake. It&rsquo;s the same
+decaying wiki matter like some many else.</em> I&rsquo;m sorry for my terrible
+English and my lack of good manners. I&rsquo;m sorry I&rsquo;m willing do to
+something while so many of you are just whining and ignoring the
+existing problems.</p>
+
+<p>I think as a member of the Emacs community I&rsquo;ve shown my worth so far
+and I&rsquo;ll willing to do even more. But I cannot carry out such a
+massive undertaking on my own. I encourage everyone serious about
+helping out to comment the article (here, not on reddit or hacker
+news) or send me a personal email.</p>
+
+<p><strong>Update</strong></p>
+
+<p>The new wiki is now available at
+<a href="http://wikemacs.org">http://wikemacs.org</a>. It&rsquo;s using MediaWiki (it
+turned out it had several nice advantages over MoinMoin).</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Die EmacsWiki, Die!]]></title>
+    <link href="http://bbatsov.github.com/articles/2012/03/20/die-emacswiki/"/>
+    <updated>2012-03-20T14:49:00+02:00</updated>
+    <id>http://bbatsov.github.com/articles/2012/03/20/die-emacswiki</id>
+    <content type="html"><![CDATA[<h2>Prelude</h2>
+
+<p>Emacs is slowly, but firmly moving in the right direction with
+<a href="http://batsov.com/articles/2011/08/19/a-peek-at-emacs24/">Emacs 24</a>. A
+lot of new important features are coming, the release date is nearing,
+but there is something worrisome on the otherwise bright Emacs
+horizon. It&rsquo;s a remnant from the <strong>Dark Emacs Days</strong> and it&rsquo;s called
+<a href="http://emacswiki.org">EmacsWiki</a>.</p>
+
+<p>Shortly put &ndash; <em>EmacsWiki is a blight</em>.</p>
+
+<!--more-->
+
+
+<h2>A Little Bit of Background</h2>
+
+<p>Here&rsquo;s the longer story. EmacsWiki was created by
+<a href="http://www.emacswiki.org/alex/">Alex Schroeder</a> (aka <strong>kensanata</strong>)
+way back (in 2001) with the goal to become the home of all the Emacs
+information one would ever need (both about Emacs in general and its
+extensions). I have to admit that this was a noble goal and I know that
+Alex had all the right intentions, but unfortunately right intentions
+rarely are enough for things to always move in the right
+direction.</p>
+
+<p>The software behind the wiki is called
+<a href="http://www.oddmuse.org/cgi-bin/oddmuse">OddMuse</a> and it&rsquo;s authored by
+Alex himself. It&rsquo;s pretty basic Perl script and doesn&rsquo;t feature db
+support. Its motto is <em>No MySQL; no PostgreSQL; no worries.</em> &ndash; wish it
+were true&hellip;</p>
+
+<h2>The Problems</h2>
+
+<p>The EmacsWiki has several epic problems. Here we go:</p>
+
+<h3>Odd Choice for a Wiki</h3>
+
+<p>Even if in the beginning OddMuse might have been a good choice (Alex
+authored it and MediaWiki didn&rsquo;t exist back then), it hasn&rsquo;t been a
+good choice for quite a while. There are much better solutions in
+terms of markup support (Markdown anyone?), usability and
+performance. Some of the features of the wiki are simply abhorring &ndash;
+like the lack of user access control; anyone can enter any user name and
+edit the wiki&hellip; Yep, this is not a joke&hellip;</p>
+
+<h3>Moderators, Where Art Though?</h3>
+
+<p>I&rsquo;ve never seen so much junk in a wiki in my entire life (and I&rsquo;ve
+seen the wikis of 15-year enterprise systems). When I was
+an Emacs beginner I often consulted the wiki for advice &ndash; even then I
+noticed that there were some suspicious practices being suggested
+there. Now I can say with certainly that much of the content there is
+total bullshit &ndash; it&rsquo;s mostly written by people with very little
+knowledge of Emacs (not to mention good Emacs practices). The articles
+are littered with crappy advice confusing beginners, have little
+structure and are filled with ridiculous questions (questions in an
+wiki???). All of this would have been avoided had the EmacsWiki had a
+team of moderators to keep shitty contributions at bay. Alas, such a
+team does not exist (or does a very crappy job of it).</p>
+
+<h3>Software Distribution Medium</h3>
+
+<p>As crazy as it seems a lot of people are using the wiki as a software
+distribution mechanism. Instead of hosting their projects in version
+control (say <a href="http://github.com">GitHub</a>) they develop stuff locally,
+upload them to the wiki and say that this is the canonical way to
+obtain their software. Needless to say &ndash; this is a horrible, horrible
+practice. I&rsquo;ve often encountered on the wiki source files authored by
+someone, then edited by 10 different guys, that have a tendency to add
+their names to the copyrights sections instead of thinking how their
+poor users will understand what exactly was changed in these
+files. Sometimes the authors themselves are to blame (for being
+fucking lazy), but often someone just copies a snapshot of a project
+from version control and uploads it to the wiki, creating problems of
+epic proportions for the maintainers, who start receiving bugs about
+stuff they never developed in the first place.</p>
+
+<p>For the love of God &ndash; take your project(s) to GitHub and develop them
+there with pleasure, under the scrutiny of an active and passionate
+developer community. Wikis should be used for documentation only!</p>
+
+<p>Tools like audo-install (an extension that supports installing
+software from EmacsWiki) should never have existed. el-get should not
+have added support for the installation of stuff from the wiki. As
+long as such practices are tolerated they will not stop.</p>
+
+<p>Need I remind you that we&rsquo;re now living in the era of
+<a href="http://batsov.com/articles/2012/02/19/package-management-in-emacs-the-good-the-bad-and-the-ugly/">package.el</a>
+and distributed version control (Git, Mercurial, Bazaar)? Act accordingly!</p>
+
+<h3>Jack of All Trades</h3>
+
+<p>Documenting each and every Emacs project is an impossible task. And it
+should not be centralized. Each project should be responsible for
+producing its own up-to-date easy-to-follow crystal-clear
+documentation. By putting everything in one place you&rsquo;re just making
+sure you&rsquo;ll end up with a pile of out-of-date confusing unstructured
+ramblings (the EmacsWiki proves my point).</p>
+
+<p>An EmacsWiki shouldn&rsquo;t list tips on the use of external projects &ndash;
+such tips should be in the project&rsquo;s wiki. An EmacsWiki should
+document the core Emacs experience and customizations only.</p>
+
+<h2>The Solution</h2>
+
+<p>Kill the EmacsWiki! (may it be reborn from its ashes)</p>
+
+<h3>Action Plan for The Maintainers</h3>
+
+<p>Drop the current format of the wiki &ndash; use something standard like
+MediaWiki instead of OddMuse. Drop all the articles about Emacs
+extensions. Drop all the extensions hosted there. Assemble
+a team of moderators. Accept only articles about general Emacs usage
+and Emacs Lisp programming.</p>
+
+<h3>Action Plan for Emacs Extensions Authors</h3>
+
+<p>If you&rsquo;ve got a normal project hosted on GitHub (or a similar service)
+&ndash; delete everything about your project on the wiki and don&rsquo;t respond
+to any bug requests regarding modified copies of your sources
+distributed via EmacsWiki.</p>
+
+<p>If you&rsquo;ve got a project hosted on the EmacsWiki &ndash; there is still
+a chance for you to redeem yourself. Migrate your project(s) to GitHub
+(you&rsquo;ll thank me later for that). Use their version control, their
+issue tracker, their wiki system. Start distributing your project via
+Marmalade or MELPA (<code>package.el</code> repos). Your life will become much nicer and
+the visibility of your project and the possibility to attract new
+developers will be significantly boosted. GitHub is a project hosting
+solution, the EmacsWiki is not.</p>
+
+<h3>The Regular Users</h3>
+
+<p>Boycott the wiki (unless the maintainers take actions)! Submit
+documentation only to the official project pages. Ignore projects
+hosted on the EmacsWiki. (or migrate them to GitHub if they seem
+orphaned and try to rekindle them)</p>
+
+<h2>Epilogue</h2>
+
+<p>Do we need an EmacsWiki? Certainly we do! But we need a <strong>real</strong>
+EmacsWiki and not this abomination that is currently a detriment to
+new Emacs users, instead of help. The wiki needs restructuring, but
+first it needs to die. I hope you&rsquo;ll see the truth in my words and
+take action instead of commenting how outrageous my claims are. Do
+something meaningful for a change &ndash; save a project from the EmacsWiki,
+contribute documentation to an official project&rsquo;s wiki, package
+something on Marmalade&hellip;</p>
+
+<p>Die, Die EmacsWiki! I&rsquo;ll be seeing you in hell&hellip;</p>
+
+<p><strong>Update</strong></p>
+
+<p>This post stirred a huge discussion online and as a result there is
+now another Emacs wiki out there. The new wiki is available at
+<a href="http://wikemacs.org">http://wikemacs.org</a>. It&rsquo;s using MediaWiki (it
+turned out it had several nice advantages over MoinMoin).</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Emacs Tip #5: Save Buffers Automatically on Buffer or Window Switch]]></title>
+    <link href="http://bbatsov.github.com/articles/2012/03/08/emacs-tip-number-5-save-buffers-automatically-on-buffer-or-window-switch/"/>
+    <updated>2012-03-08T15:58:00+02:00</updated>
+    <id>http://bbatsov.github.com/articles/2012/03/08/emacs-tip-number-5-save-buffers-automatically-on-buffer-or-window-switch</id>
+    <content type="html"><![CDATA[<p>When I program in Java I usually leave the comfort of Emacs and use
+IntelliJ IDEA instead (for various reasons that are irrelevant to this
+post). IDEA has one particularly nice feature &ndash; &ldquo;auto-save on focus
+lost&rdquo;. Basically you never have to hit <code>C-s</code> there explicitly, because
+any time your current editor window loses focus its contents get
+flushed to the disk automatically. Implementing something exactly the
+same in Emacs is impossible (at least in Emacs Lisp), but we can
+create a solution that is similar in spirit at least &ndash; we can
+auto-save buffers when we switch the Emacs window or the current
+buffer (which are more or less the most popular ways to change editing
+focus in Emacs). This is easy to achieve in Emacs Lisp:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class='cl'><span class='line'><span class="c1">;; use shift + arrow keys to switch between visible buffers</span>
+</span><span class='line'><span class="p">(</span><span class="nb">require</span> <span class="ss">&#39;windmove</span><span class="p">)</span>
+</span><span class='line'><span class="p">(</span><span class="nv">windmove-default-keybindings</span> <span class="ss">&#39;super</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">;; automatically save buffers associated with files on buffer switch</span>
+</span><span class='line'><span class="c1">;; and on windows switch</span>
+</span><span class='line'><span class="p">(</span><span class="nv">defadvice</span> <span class="nv">switch-to-buffer</span> <span class="p">(</span><span class="nv">before</span> <span class="nv">save-buffer-now</span> <span class="nv">activate</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">(</span><span class="nb">when</span> <span class="nv">buffer-file-name</span> <span class="p">(</span><span class="nv">save-buffer</span><span class="p">)))</span>
+</span><span class='line'><span class="p">(</span><span class="nv">defadvice</span> <span class="nv">other-window</span> <span class="p">(</span><span class="nv">before</span> <span class="nv">other-window-now</span> <span class="nv">activate</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">(</span><span class="nb">when</span> <span class="nv">buffer-file-name</span> <span class="p">(</span><span class="nv">save-buffer</span><span class="p">)))</span>
+</span><span class='line'><span class="p">(</span><span class="nv">defadvice</span> <span class="nv">windmove-up</span> <span class="p">(</span><span class="nv">before</span> <span class="nv">other-window-now</span> <span class="nv">activate</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">(</span><span class="nb">when</span> <span class="nv">buffer-file-name</span> <span class="p">(</span><span class="nv">save-buffer</span><span class="p">)))</span>
+</span><span class='line'><span class="p">(</span><span class="nv">defadvice</span> <span class="nv">windmove-down</span> <span class="p">(</span><span class="nv">before</span> <span class="nv">other-window-now</span> <span class="nv">activate</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">(</span><span class="nb">when</span> <span class="nv">buffer-file-name</span> <span class="p">(</span><span class="nv">save-buffer</span><span class="p">)))</span>
+</span><span class='line'><span class="p">(</span><span class="nv">defadvice</span> <span class="nv">windmove-left</span> <span class="p">(</span><span class="nv">before</span> <span class="nv">other-window-now</span> <span class="nv">activate</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">(</span><span class="nb">when</span> <span class="nv">buffer-file-name</span> <span class="p">(</span><span class="nv">save-buffer</span><span class="p">)))</span>
+</span><span class='line'><span class="p">(</span><span class="nv">defadvice</span> <span class="nv">windmove-right</span> <span class="p">(</span><span class="nv">before</span> <span class="nv">other-window-now</span> <span class="nv">activate</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">(</span><span class="nb">when</span> <span class="nv">buffer-file-name</span> <span class="p">(</span><span class="nv">save-buffer</span><span class="p">)))</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Obviously this code could have been written in a more compact manner
+with the use of a macro, but I&rsquo;ve decided to use this more verbose
+variant for the sake of simplicity. We assume that you want to
+auto-save your current work (buffer) when you switch to a new buffer
+or to a new window (with either <code>C-x o</code> (<code>other-window</code>) or a
+<code>windmove</code> command).</p>
+
+<p>XEmacs has a hook called <code>deselect-frame-hook</code> that can take the
+concept even further, but it&rsquo;s absent from GNU Emacs.</p>
+
+<p>So, that&rsquo;s all for this tip, folks! I hope you&rsquo;ve enjoyed it!
+Personally I find it much more useful that the standard auto-save
+mechanism in Emacs. And one more thing &ndash;
+<a href="https://github.com/bbatsov/prelude">Emacs Prelude</a> naturally
+enables this functionality by default.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Emacs Tip #4: Repeat Last Command]]></title>
+    <link href="http://bbatsov.github.com/articles/2012/03/08/emacs-tip-number-4-repeat-last-command/"/>
+    <updated>2012-03-08T15:09:00+02:00</updated>
+    <id>http://bbatsov.github.com/articles/2012/03/08/emacs-tip-number-4-repeat-last-command</id>
+    <content type="html"><![CDATA[<p>Some times you&rsquo;d want to quickly repeat an Emacs command several times and
+most of the time it won&rsquo;t have a convenient keybinding you can use to
+do this. Enter <code>C-x z</code> (<code>repeat</code>) &ndash; it simply repeats the most
+recently executed command. And the best part? After you&rsquo;ve pressed
+<code>C-x z</code> once you can continue repeating the last command simply by
+pressing <code>z</code>. Vi(m) users will probably note that this is quite similar
+to the <code>.</code> command there.</p>
+
+<p>For instance &ndash; if you want to execute the <code>er/expand-region</code> command
+(part of the
+<a href="https://github.com/magnars/expand-region.el">expand-region package</a>)
+a few times you can do it like this:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>M-x er/expand-region
+</span><span class='line'>C-x z
+</span><span class='line'>z
+</span><span class='line'>z
+</span><span class='line'>z</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Neat, ah?</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Package Management in Emacs: The Good, the Bad and the Ugly]]></title>
+    <link href="http://bbatsov.github.com/articles/2012/02/19/package-management-in-emacs-the-good-the-bad-and-the-ugly/"/>
+    <updated>2012-02-19T12:18:00+02:00</updated>
+    <id>http://bbatsov.github.com/articles/2012/02/19/package-management-in-emacs-the-good-the-bad-and-the-ugly</id>
+    <content type="html"><![CDATA[<h2>Prelude</h2>
+
+<p>Let&rsquo;s face it &ndash; although a vanilla Emacs installation is quite
+powerful almost nobody is using Emacs without a pile of add-ons. And
+managing those add-ons is quite frankly a pain in the ass. Traditional
+options included installing Emacs add-ons via the operating system&rsquo;s
+package manager (if available), downloading <code>.el</code> files from various
+locations (everybody hates packages distributed only on Emacs Wiki
+with no canonical version control repo) and simply sticking them on
+the <code>load-path</code>, etc. It&rsquo;s more than obvious that such solutions are
+less than ideal.</p>
+
+<p>For instance if you&rsquo;re installing Emacs add-ons via a package manager
+and you have to change OSes (or machines) you&rsquo;re mostly fucked. On the
+other hand piling files manually in <code>.emacs.d</code> is equal to hell in the
+version and dependency tracking department. There has to be a better
+way, right? Wouldn&rsquo;t it be nice if Emacs had its own package manager
+similar to the likes of <code>homebrew</code>, <code>apt</code> or <code>yum</code>?</p>
+
+<p><a href="http://batsov.com/articles/2011/08/19/a-peek-at-emacs24/">Emacs 24</a>
+finally introduces such a tool &ndash; its name is <code>package.el</code> (very
+original, right?) and it&rsquo;s promise is to make you&rsquo;re lives a bit
+easier. Does it manage to deliver on that promise? We&rsquo;ll see that in a bit&hellip;</p>
+
+<!--more-->
+
+
+<h2>Package management with package.el</h2>
+
+<p><code>package.el</code> is bundled with Emacs 24, but it&rsquo;s not bound to Emacs
+24. Before it became part of Emacs it was an external package, known
+as ELPA (I guess that stood for Emacs Lisp Package Manager or
+something similar). So even if you&rsquo;re an Emacs 23 user you can copy
+the latest version of <code>package.el</code> from
+<a href="http://repo.or.cz/w/emacs.git/blob_plain/1a0a666f941c99882093d7bd08ced15033bc3f0c:/lisp/emacs-lisp/package.el">here</a>
+and enjoy it. At this point you&rsquo;ll have to do something like:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='cl'><span class='line'><span class="p">(</span><span class="nb">require</span> <span class="ss">&#39;package</span><span class="p">)</span>
+</span><span class='line'><span class="p">(</span><span class="nv">package-initialize</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Put this snippet of code near the beginning of your Emacs config,
+since you&rsquo;ll definitely want packages installed via <code>package.el</code> to be
+initalized <em>before</em> you start tweaking them.</p>
+
+<p>What <code>package.el</code> basically does is that it connects to a list of
+package repositories, retrieves the list of the packages there,
+presents it to you in a interactive fashion and lets you install the
+packages you like (of course you can also remove the once you don&rsquo;t
+like). <code>package.el</code> understands the dependencies between packages and
+if one package requires others to run they will be installed
+automatically (which is really neat).</p>
+
+<p>The magic starts with the command <code>M-x package-list-packages</code>. At this
+point you should see something in the lines of this.</p>
+
+<p><img src="http://bbatsov.github.com/images/articles/packages-list.png"></p>
+
+<p>You can navigate the list of packages, mark the ones you want to
+install with the &ldquo;i&rdquo; key or the ones you want removed with the &ldquo;d&rdquo; key
+and when you&rsquo;re done you can press the &ldquo;x&rdquo; key to execute the
+scheduled actions.</p>
+
+<p>Initially <code>package.el</code> didn&rsquo;t provide the option to update a package,
+but that should be fixed in recent Emacs builds. According to this
+<a href="http://lists.gnu.org/archive/html/emacs-devel/2011-09/msg00371.html">thread</a>
+you can even update all of the installed packages by using the &ldquo;U&rdquo; key
+in the packages list view (I guess that a small &ldquo;u&rdquo; would update only
+one package). Unfortunately my build is lacking those capabilities so
+I cannot comment of their usability.</p>
+
+<p>You&rsquo;d probably notice that your list of available packages is not
+particularly long. That&rsquo;s because the official Emacs 24 package
+repository has a strict licensing (and source code) requirements to
+include a package there. Luckily there are a number of
+community-maintained <code>package.el</code> repos around with much more relaxed
+requirements. Probably the most popular of them is
+<a href="http://marmalade-repo.org/">Marmalade</a>, created by
+<a href="http://nex-3.com/">Nathan Weizenbaum</a> of Sass and Haml fame. You can
+include it in your <code>package-archives</code> list like this:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='cl'><span class='line'><span class="p">(</span><span class="nv">add-to-list</span> <span class="ss">&#39;package-archives</span>
+</span><span class='line'>             <span class="o">&#39;</span><span class="p">(</span><span class="s">&quot;marmalade&quot;</span> <span class="o">.</span> <span class="s">&quot;http://marmalade-repo.org/packages/&quot;</span><span class="p">)</span> <span class="no">t</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Marmalade provides a web based UI for package upload and search (both
+quite buggy unfortunately) and the ability to share the maintenance of
+a package between several people, who&rsquo;ll be able to upload new version
+of the package. There&rsquo;s also a Emacs Lisp Marmalade tool, that allows
+you to submit packages directly from Emacs.</p>
+
+<p>Using the <code>package.el</code> UI is ok if you&rsquo;re a casual Emacs user, but
+what if you have a custom Emacs configuration, stored under version
+control, that you&rsquo;d like to instantly deploy on any OS/machine (like
+Emacs Prelude). Here in play comes <code>package.el</code>&rsquo;s programmer
+interface. In
+<a href="https://github.com/bbatsov/prelude">Emacs Prelude</a> I use the
+following code to install a list of required packages automatically on Emacs
+startup (if necessary):</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+</pre></td><td class='code'><pre><code class='cl'><span class='line'><span class="p">(</span><span class="nb">defvar</span> <span class="nv">prelude-packages</span>
+</span><span class='line'>  <span class="o">&#39;</span><span class="p">(</span><span class="nv">ack-and-a-half</span> <span class="nv">auctex</span> <span class="nv">clojure-mode</span> <span class="nv">coffee-mode</span> <span class="nv">deft</span> <span class="nv">expand-region</span>
+</span><span class='line'>                   <span class="nv">gist</span> <span class="nv">groovy-mode</span> <span class="nv">haml-mode</span> <span class="nv">haskell-mode</span> <span class="nv">inf-ruby</span>
+</span><span class='line'>                   <span class="nv">magit</span> <span class="nv">magithub</span> <span class="nv">markdown-mode</span> <span class="nv">paredit</span> <span class="nv">projectile</span> <span class="nv">python</span>
+</span><span class='line'>                   <span class="nv">sass-mode</span> <span class="nv">rainbow-mode</span> <span class="nv">scss-mode</span> <span class="nv">solarized-theme</span>
+</span><span class='line'>                   <span class="nv">volatile-highlights</span> <span class="nv">yaml-mode</span> <span class="nv">yari</span> <span class="nv">zenburn-theme</span><span class="p">)</span>
+</span><span class='line'>  <span class="s">&quot;A list of packages to ensure are installed at launch.&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">(</span><span class="nb">defun</span> <span class="nv">prelude-packages-installed-p</span> <span class="p">()</span>
+</span><span class='line'>  <span class="p">(</span><span class="nb">loop</span> <span class="nv">for</span> <span class="nv">p</span> <span class="nv">in</span> <span class="nv">prelude-packages</span>
+</span><span class='line'>        <span class="nb">when</span> <span class="p">(</span><span class="nb">not</span> <span class="p">(</span><span class="nv">package-installed-p</span> <span class="nv">p</span><span class="p">))</span> <span class="nb">do</span> <span class="p">(</span><span class="nb">return</span> <span class="no">nil</span><span class="p">)</span>
+</span><span class='line'>        <span class="nv">finally</span> <span class="p">(</span><span class="nb">return</span> <span class="no">t</span><span class="p">)))</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">(</span><span class="nb">unless</span> <span class="p">(</span><span class="nv">prelude-packages-installed-p</span><span class="p">)</span>
+</span><span class='line'>  <span class="c1">;; check for new packages (package versions)</span>
+</span><span class='line'>  <span class="p">(</span><span class="nv">message</span> <span class="s">&quot;%s&quot;</span> <span class="s">&quot;Emacs Prelude is now refreshing its package database...&quot;</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">(</span><span class="nv">package-refresh-contents</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">(</span><span class="nv">message</span> <span class="s">&quot;%s&quot;</span> <span class="s">&quot; done.&quot;</span><span class="p">)</span>
+</span><span class='line'>  <span class="c1">;; install the missing packages</span>
+</span><span class='line'>  <span class="p">(</span><span class="nb">dolist</span> <span class="p">(</span><span class="nv">p</span> <span class="nv">prelude-packages</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">(</span><span class="nb">when</span> <span class="p">(</span><span class="nb">not</span> <span class="p">(</span><span class="nv">package-installed-p</span> <span class="nv">p</span><span class="p">))</span>
+</span><span class='line'>      <span class="p">(</span><span class="nv">package-install</span> <span class="nv">p</span><span class="p">))))</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">(</span><span class="nb">provide</span> <span class="ss">&#39;prelude-packages</span><span class="p">)</span>
+</span><span class='line'><span class="c1">;;; prelude-packages.el ends here</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This code check if all of the packages in the list are installed and
+if any of them are not installed if refreshes the local package
+database (in the case a required package for recently added to the remote
+repo) and installs them.</p>
+
+<p>To be able to publish a package to Marmalade (or another repo) it
+should comform a standardized structure. A single-file package might look like this:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='cl'><span class='line'><span class="c1">;;; sass-mode.el --- Sass major mode</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">;; Copyright 2007-2010 Nathan Weizenbaum</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">;; Author: Nathan Weizenbaum &lt;nex342@gmail.com&gt;</span>
+</span><span class='line'><span class="c1">;; URL: http://github.com/nex3/sass-mode</span>
+</span><span class='line'><span class="c1">;; Version: 3.0.20</span>
+</span><span class='line'><span class="c1">;; Package-Requires: ((haml-mode &quot;3.0.20&quot;))</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">;; Code goes here</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">;;; sass-mode.el ends here</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>A multi-file package should have an additional file named
+<code>&lt;name&gt;-pkg.el</code> that should look like this:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='cl'><span class='line'><span class="p">(</span><span class="nv">define-package</span> <span class="s">&quot;sass-mode&quot;</span> <span class="s">&quot;3.0.20&quot;</span>
+</span><span class='line'>                <span class="s">&quot;Sass major mode&quot;</span>
+</span><span class='line'>                <span class="o">&#39;</span><span class="p">((</span><span class="nv">haml-mode</span> <span class="s">&quot;3.0.20&quot;</span><span class="p">)))</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>The Bad and the Ugly</h2>
+
+<p>While <code>package.el</code> is great on paper, for it to really take off some
+problems need to be resolved.</p>
+
+<h4>Updating should be easy</h4>
+
+<p>One of the best features of OS package managers is that they make it
+really easy to update all of the installed packages to their latest
+versions. Currently <code>package.el</code> doesn&rsquo;t support that (at least to my
+knowledge), with the exception of the &ldquo;U&rdquo; key in the list packages
+view. This seems to me like a pretty basic feature and I (and everyone
+I&rsquo;ve talked with) would really like to see it in Emacs 24 final.</p>
+
+<h4>Too much is riding on Marmalade</h4>
+
+<p>Marmalade has become extremely important in the recent months and the
+list of packages there is growing every day. This would have normally
+filled me with great joy, if it weren&rsquo;t for a few problems.</p>
+
+<p>It seems that the project isn&rsquo;t getting much attention from its maintainer
+(which is understandable, given the fact that he&rsquo;s maintaining several
+high profile projects + the fact he&rsquo;s a full time Google
+employee). As a result Marmalade is quite buggy (especially in the UI
+department) and is missing key features, like the ability to contact a
+package maintainer. At some point it was even lacking the ability to
+delete a package. Uploads don&rsquo;t work reliably there, package refresh
+sometimes yields http errors that require manual <code>M-x
+package-refresh-contents</code> and from time to time there is even downtime
+of the service.</p>
+
+<p>The fact that its backend is written in Node.js (great technology, but
+not widely understood for now) and hosted on Google
+Code, doesn&rsquo;t improve the situation a lot. A Ruby or Python based
+solution hosted on GitHub would certainly gain much more traction in
+the community (and I&rsquo;m planning to start work on one soon).</p>
+
+<h4>Scarce documentation</h4>
+
+<p><code>package.el</code> is light on the documentation and you&rsquo;ll have to explore
+its source code if you want to implement its required interface
+(which luckily is very simple). I hope this will change by the release
+of Emacs 24.</p>
+
+<h4>Too few package authors care about package.el</h4>
+
+<p>Package authors rarely tag versions that could be uploaded to a
+<code>package.el</code> compatible repo and from time to time don&rsquo;t follow the
+basic structure required. I always contact package authors to let them
+know of such shortcomings in their packages and so should you.</p>
+
+<h2>Alternatives</h2>
+
+<p><a href="https://github.com/dimitri/el-get">el-get</a> is another popular Emacs
+add-ons management solution that has recently become popular.</p>
+
+<p>el-get allows you to install and manage elisp code for Emacs. It
+supports lots of differents types of sources (git, svn, apt, elpa,
+etc) and is able to install them, update them and remove them, but
+more importantly it will init them for you.</p>
+
+<p>That means it will require the features you need, load the necessary
+files, set the Info paths so that <code>C-h i</code> shows the new documentation
+you now depend on, and finally call your own <code>:post-init</code> function for
+you to setup the extension. Or call it a package.</p>
+
+<p>el-get is inherently troublesome piece of software on Windows machines
+and was originally designed to make it simple to obtain the latest
+versions of packages from git &ndash; a practice which I profoundly
+dislike. Master package branches are often buggy (but there are also
+authors that never tag versions and rely on the rolling release model)
+and I&rsquo;m generally supportive of the stable version releases. While
+some view it as a nice addition to <code>package.el</code> I feel that el-get is
+too low level tool (in its approach to the problem) and should be
+avoided.</p>
+
+<p><strong>Update</strong></p>
+
+<p>A few hours after I posted this article it got a nice lengthy comment
+by el-get&rsquo;s author. Since I believe, that the comment is quite
+interesting I&rsquo;m adding it here without any alterations.</p>
+
+<blockquote><p>As the author of el-get, good article!  The Emacs extension situation<br/>is far from ideal and needs hard critics so that work is done to<br/>improve it.</p><p>I now want to share with you some of the features that are currently<br/>only available in the development branch of el-get (soon to be<br/>released as 4.1): you can now easily checkout a stable branch from a<br/>git repository (thanks to the :checkout property) and you can even<br/>setup which checksum you want installed.So when using git, the<br/>checksum is in fact a revision, when using emacswiki you have to<br/>compute the checksum (doing M-x el-get-checksum) and register it in<br/>your el-get-sources setup, then if the file change on emacswiki el-get<br/>will refuse loading it (hopefully until you&#8217;ve done your review then<br/>updated the checksum).So while I perfectly understand your reserve<br/>toward depending on el-get, I believe that your concerns are being<br/>solved now.I would like to believe that authors of emacs lisp scripts<br/>would take the time to consider formatting their sources for<br/>package.el. Today it&#8217;s far from granted, so by choosing ELPA you miss<br/>a lot of things. And for the situation to change you need to have the<br/>authors willing to package their extensions, or you have to fork their<br/>work. With el-get you have access to 536 packages from the get-go, and<br/>all of emacswiki (that&#8217;s currently more than 1700 packages) after<br/>you&#8217;ve done M-x el-get-emacswiki-refresh. As of writing this comment,<br/>my M-x el-get-package-list contains 2106 packages ready to install,<br/>almost all with descriptions.el-get is about social packaging where<br/>it&#8217;s easy to prepare a recipe for a package, whatever distribution<br/>means its author picked. Then you can share that recipe very easily,<br/>for example with el-get on github where we&#8217;ll be happy to add your<br/>work and have it installed by default when users either install el-get<br/>or do M-x el-get-self-update.As for windows support, it all depends on<br/>the packages you want to install. Most of them just work out of the<br/>box, being a single emacs lisp file (.el). Some of them require to<br/>have extra tools installed, from git or svn or mercurial to make and<br/>autoconf. That&#8217;s only how the authors are shipping their extensions<br/>though, el-get is only providing for an integrated way to get at it.<br/>We have accepted several improvements so that the windows experience<br/>matches the others OS, and we consider windows a first class citizen<br/>here.</p><footer><strong>Dimitri Fontaine</strong> <cite>Author of El-get</cite></footer></blockquote>
+
+
+<h2>Epilogue</h2>
+
+<p><code>package.el</code> is the future of Emacs add-on management &ndash; of that I&rsquo;m
+quite certain. It&rsquo;s far from perfect, but even in its present flawed
+form it has already simplified the life of many Emacs users
+immensely. I urge all of you to stop distributing Emacs packages via
+sources such as the Emacs Wiki and to put a heavy emphasis on
+<code>package.el</code>. Make your packages compatible with it, upload them to a
+community maintained repo (or the official if possible) and keep them
+up-to-date. Your users will love you for that!</p>
+
+<p>I&rsquo;d like to see a replacement to Marmalade in the future as well. A
+more robust and polished solution, maintained by a team of several
+people. Hopefully that moment is not that far in the future.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Color Theming in Emacs: Reloaded]]></title>
+    <link href="http://bbatsov.github.com/articles/2012/02/19/color-theming-in-emacs-reloaded/"/>
+    <updated>2012-02-19T12:17:00+02:00</updated>
+    <id>http://bbatsov.github.com/articles/2012/02/19/color-theming-in-emacs-reloaded</id>
+    <content type="html"><![CDATA[<h2>Prelude</h2>
+
+<p>If there is something that people love as much as tweaking their
+editing configurations it&rsquo;s probably the selection of color themes. A
+good color theme can make your work much more pleasant and a bad one
+that literally impair your vision. It&rsquo;s a fact of life that I&rsquo;m a firm
+supporter of low-contrast color themes with dark backgrounds &ndash; I find
+them easy on the eyes and I feel that they don&rsquo;t strain the eyes as
+much as most themes. I&rsquo;ve even ported a couple of popular themes to
+Emacs &ndash; <a href="https://github.com/bbatsov/zenburn-emacs">Zenburn</a> and
+<a href="https://github.com/bbatsov/solarized-emacs">Solarized</a>.</p>
+
+<p>In this short article we&rsquo;ll see how color theming has changed in Emacs
+24 and I&rsquo;ll share with you a few tips on theme creation and
+distribution.</p>
+
+<!--more-->
+
+
+<h2>Color Theming in Emacs 24</h2>
+
+<p>Prior to Emacs 24 the most popular way to incorporate custom color
+themes into Emacs was the
+<a href="http://www.emacswiki.org/emacs/ColorTheme">color-theme package</a>. While
+it usually got the job done it had some problems that I won&rsquo;t be
+discussing here and more importantly &ndash; it&rsquo;s a third-party package,
+that&rsquo;s not part of Emacs proper.</p>
+
+<p><a href="http://batsov.com/articles/2011/08/19/a-peek-at-emacs24/">Emacs 24</a>
+finally introduced a new standard way of dealing with color themes
+(based on Emacs&rsquo;s built-in customize facility). While it doesn&rsquo;t have
+a proper name (as far as I know) it&rsquo;s commonly referred to as the
+<code>deftheme</code> facility, since <code>deftheme</code> is the name of the macro you&rsquo;d
+use to create such a theme. ( <code>deftheme</code> has actually been around
+since Emacs 23, but it was heavily improved in Emacs 24 )</p>
+
+<p>Emacs 24 comes with a selection of built-in themes that you can choose
+from, so you&rsquo;re no longer bound to the default theme (which I find
+quite ugly). To choose a new theme just do a <code>M-x load-theme</code> (tab
+completion is available for the names of the available themes). At
+this point you can give the command a try with the <code>tango</code> theme. If you
+like a theme so much that you&rsquo;d want to use it all the time you can
+put in your Emacs configuration (<code>.emacs</code> or <code>init.el</code> for instance) like this:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='cl'><span class='line'><span class="p">(</span><span class="nv">load-theme</span> <span class="ss">&#39;theme-name</span> <span class="no">t</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>If you&rsquo;d like to return to the default-theme just do a <code>M-x disable-theme</code>.</p>
+
+<p>How do you create a <code>deftheme</code> theme? Quite simply actually &ndash; just do
+a &ldquo;M-x customize-create-theme&rdquo;. You&rsquo;ll be presented with an UI
+prompting you for a theme name, description and faces. After you save
+the theme a file called <code>name-theme.el</code> will be written on your
+filesystem. Here&rsquo;s its skeleton:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='cl'><span class='line'><span class="p">(</span><span class="nv">deftheme</span> <span class="nv">demo</span>
+</span><span class='line'>  <span class="s">&quot;Demo theme&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">(</span><span class="nv">custom-theme-set-faces</span>
+</span><span class='line'> <span class="ss">&#39;demo</span>
+</span><span class='line'> <span class="c1">;;; list of custom faces</span>
+</span><span class='line'> <span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">(</span><span class="nv">provide-theme</span> <span class="ss">&#39;demo</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>There was also an online theme generator
+<a href="http://elpa.gnu.org/themes/">here</a>, but it seems to be down at the
+moment.</p>
+
+<p>Personally I dislike customize a lot, so when I needed to create a
+Emacs 24 theme for the first time I&rsquo;ve just opened the source code of
+the built-in tango theme and used it as a reference.</p>
+
+<p>Once you&rsquo;ve created the new theme you&rsquo;ll have to drop it in a folder
+that&rsquo;s on the <code>custom-theme-load-path</code>. I&rsquo;d suggest the following:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='cl'><span class='line'><span class="p">(</span><span class="nv">add-to-list</span> <span class="ss">&#39;custom-theme-load-path</span> <span class="s">&quot;~/.emacs.d/themes&quot;</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>If you&rsquo;re an <a href="https://github.com/bbatsov/prelude">Emacs Prelude</a>
+user you&rsquo;re already covered. This folder exists and is automatically
+added to <code>custom-theme-load-path</code> by Prelude, so all you have to do is
+drop there the themes you&rsquo;d want to try out.</p>
+
+<p>You may find the
+<a href="http://julien.danjou.info/software/rainbow-mode">rainbow-mode</a> useful
+when developing color themes. If fontifies strings that represent
+color codes according to those colors. The mode is known to be a great
+addition to css-mode, but I find it very helpful with color theme
+development as well. It&rsquo;s also included (and enabled) in Prelude by
+default. Here you can see it in action.</p>
+
+<p><img src="http://bbatsov.github.com/images/articles/rainbow-mode.png"></p>
+
+<p>The Emacs package manager <code>package.el</code> (formerly known as ELPA) is
+gaining a lot of popularity lately and the community
+<a href="http://marmalade-repo.org/">Marmalade</a> repository already houses a few
+Emacs 24 themes that you can install from there. If you&rsquo;re developing
+a theme that you&rsquo;d like to submit to Marmalade it&rsquo;s imperative that
+the theme modifies the <code>custom-theme-load-path</code> in an <code>autoload</code> &ndash;
+otherwise it won&rsquo;t be of much use. Add the following snippet (or
+something similar) before the <code>provide-theme</code> line if your custom
+theme:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='cl'><span class='line'><span class="c1">;;;###autoload</span>
+</span><span class='line'><span class="p">(</span><span class="nb">when</span> <span class="nv">load-file-name</span>
+</span><span class='line'>  <span class="p">(</span><span class="nv">add-to-list</span> <span class="ss">&#39;custom-theme-load-path</span>
+</span><span class='line'>               <span class="p">(</span><span class="nv">file-name-as-directory</span> <span class="p">(</span><span class="nv">file-name-directory</span> <span class="nv">load-file-name</span><span class="p">))))</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I&rsquo;d also advise you follow the proper naming convention
+<code>name-theme.el</code> so that it&rsquo;s apparent that your theme is <code>deftheme</code>
+compatible.</p>
+
+<p>Oh, and one more thing &ndash; porting themes from color-theme to deftheme is
+really simple (just have a look at the old and the new version of
+Zenburn in its repo), so you should really consider porting all the
+themes you maintain to <code>deftheme</code>.</p>
+
+<h1>Epilogue</h1>
+
+<p>Color theming in Emacs has never been easier. It&rsquo;s time to kill
+<code>color-theme</code> once and for all. If you&rsquo;ve ever developed a color theme
+for it I urge you to convert it to the <code>deftheme</code> format and upload it
+to Marmalade.</p>
+
+<p>And if you&rsquo;ve never developed a color theme for Emacs because you were
+afraid it was too hard &ndash; now is the time to do it.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Solarized for Emacs]]></title>
+    <link href="http://bbatsov.github.com/articles/2011/12/03/solarized-for-emacs/"/>
+    <updated>2011-12-03T14:44:00+02:00</updated>
+    <id>http://bbatsov.github.com/articles/2011/12/03/solarized-for-emacs</id>
+    <content type="html"><![CDATA[<p>I&rsquo;ve created a new port of the
+<a href="http://ethanschoonover.com/solarized">Solarized color theme</a> for
+Emacs 24. While there is
+<a href="https://github.com/sellout/emacs-color-theme-solarized">another existing port of the theme</a>
+I&rsquo;ve decided to into a separate direction since I&rsquo;ve wanted to keep
+the development of Solarized and
+<a href="https://github.com/bbatsov/zenburn-emacs">Zenburn</a> for Emacs in sync.</p>
+
+<p>So without further ado here&rsquo;s a screenshot of the theme (or the dark
+variant to be precise):</p>
+
+<p><img src="http://bbatsov.github.com/images/articles/solarized-emacs.png"></p>
+
+<p>Note that this is a very early version and I haven&rsquo;t fine tuned all
+the colors yet. The source code and installation instructions can be
+found on <a href="https://github.com/bbatsov/solarized-emacs">GitHub</a>.</p>
+
+<p>The theme is already bundled in
+<a href="https://github.com/bbatsov/prelude">Emacs Prelude</a> and I&rsquo;ll
+submit it to Marmalade soon. Note that I&rsquo;ve dropped some things like
+the degraded palette and the 16 color palette (at least for now),
+since I doubt many people need them. On the other hand &ndash; you&rsquo;ll proper
+coloring in most prominent modes out of the box.</p>
+
+<p>Feedback, suggestions and patches are always welcome.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[The Ultimate Collection of Emacs Resources]]></title>
+    <link href="http://bbatsov.github.com/articles/2011/11/30/the-ultimate-collection-of-emacs-resources/"/>
+    <updated>2011-11-30T20:56:00+02:00</updated>
+    <id>http://bbatsov.github.com/articles/2011/11/30/the-ultimate-collection-of-emacs-resources</id>
+    <content type="html"><![CDATA[<h2>Prelude</h2>
+
+<p>Anyone who&rsquo;s ever dabbled in the dark art that is Emacs knows that
+chances are you&rsquo;ll be overwhelmed before you start making sense of
+Emacs&#8217; unique view of the world. There is just too much information
+out there&hellip;</p>
+
+<p>There are many great Emacs resources targeting different
+groups of Emacs users. The problems is that often the people that would
+benefit the most from some of those resources don&rsquo;t even know about
+their existence. That&rsquo;s why I&rsquo;m putting together this article &ndash; to collect the
+best resources in a single location and categorize them
+accordingly. Surely I&rsquo;ll miss a lot of stuff &ndash; I&rsquo;m just one man and I
+certainly don&rsquo;t know about many great repositories of Emacs wisdom. I
+hope you&rsquo;ll help me by pointing out such repositories in the comments
+section. So here we go&hellip;</p>
+
+<!--more-->
+
+
+<h2>Emacs Squires (Beginners)</h2>
+
+<h4>The Emacs Tutorial</h4>
+
+<p>Built into Emacs itself this should be the first thing you ever read
+about Emacs. The tutorial is interactive (you get to play with
+concepts after you read about them) and you can start it at any point
+(provided you&rsquo;ve started Emacs first) by
+pressing <code>C-h t</code>.</p>
+
+<h4>The Emacs Refcard</h4>
+
+<p><a href="http://www.damtp.cam.ac.uk/user/sje30/ess11/resources/emacs-refcard.pdf">The Emacs Refcard</a>
+is a very useful resource to keep tugged under your keyboard (in
+printed form). It&rsquo;s generally bundled with your Emacs installation in
+both pdf and tex formats, but I&rsquo;ve included a hyperlink to spare you
+the search for it.</p>
+
+<h4>The Emacs Reference Mug</h4>
+
+<p><a href="http://www.cafepress.com/geekcheat.13042487">The Emacs Reference Mug</a>
+is basically a refcard printed on a tea mug. Let&rsquo;s you memorize
+keybindings while enjoying a delightful cup of English Breakfast&hellip;</p>
+
+<h4>Mastering Emacs</h4>
+
+<p><a href="http://www.masteringemacs.org">Mastering Emacs</a> is a relatively new
+web site (it just celebrated it&rsquo;s first birthday), dedicated to
+teaching Emacs to beginners. It has some really nice articles to get
+you started and a nice
+<a href="http://www.masteringemacs.org/reading-guide/">reading guide</a> to go
+alongside them. Mastering Emacs features a few articles, covering more
+advanced topics as well.</p>
+
+<h4>Emacs Fu</h4>
+
+<p><a href="http://emacs-fu.blogspot.com/">Emacs Fu</a> is a blog discussing little
+(and not so little) tweaks to make working with Emacs even nicer. Its
+author has been an Emacs user for the last decade or so and certainly
+has a lot of interesting tips and tricks to share from you. Even I
+happen to learn something new from Emacs Fu from time to time.</p>
+
+<h4>Meet Emacs</h4>
+
+<p><a href="http://peepcode.com/products/meet-emacs">Meet Emacs</a> is a great
+introductory Emacs screencast by <a href="http://peepcode.com">PeepCode</a>. It&rsquo;s
+not free, but if you prefer screencasts over reading manuals you
+should definitely have a look at it.</p>
+
+<h4>Programothesis</h4>
+
+<p><a href="http://www.youtube.com/user/emailataskcom">Programothesis</a> is an
+YouTube channel dedicated to Emacs. It features over 30 short Emacs
+screencasts covering various topics.</p>
+
+<h4>Learning Emacs</h4>
+
+<p><a href="http://shop.oreilly.com/product/9780596006488.do">Learning GNU Emacs</a>
+is the last book that was ever published about Emacs. It&rsquo;s a bit dated
+now (the last edition is from 2004), but Emacs doesn&rsquo;t change that fast
+and you&rsquo;ll still find a lot of relevant info into the book. This was
+the second resource I&rsquo;ve read about Emacs (after the built-in
+tutorial) and while I didn&rsquo;t find the book outstanding I did find it
+very helpful.</p>
+
+<h4>Emacs Rookie</h4>
+
+<p><a href="http://emacsrookie.com/">Emacs Rookie</a> is a web site dedicated to
+Emacs tips (mostly about beginners). There are only a few articles
+there right now, but hopefully their number will grow substantially
+over time.</p>
+
+<h4>Emacs Rocks</h4>
+
+<p><a href="http://emacsrocks.com/">Emacs Rocks</a> is a series of short Emacs
+screencasts. While some of the things suggested there make me grind my
+teeth, there are also quite a bit valuable suggestions that you&rsquo;ll find
+in the short videos.</p>
+
+<h4>Emacs Prelude</h4>
+
+<p><a href="https://github.com/bbatsov/prelude">Emacs Prelude</a> is a custom
+Emacs 24 configuration developed by me and optimized for your joy and
+productivity. It&rsquo;s a good starting point for anyone looking to get
+started with Emacs without too much initial research and ceremony. I&rsquo;m
+always looking for ideas on extending and improving Prelude.</p>
+
+<h4>Emacs Starter Kit</h4>
+
+<p><a href="https://github.com/technomancy/emacs-starter-kit">Emacs Starter Kit</a>
+is a custom Emacs configuration similar to Prelude. The stable version
+targets Emacs 23 and ESK 2.0 targets Emacs 24 and makes heavy use of the
+new Emacs Lisp Package Manager (ELPA) introduced there. I&rsquo;m obviously
+much more fond of Prelude, but it&rsquo;s only fair that I mention the
+competition as well (ESK has been around much longer and is a more
+stable project by all means).</p>
+
+<h4>An Introduction to Programming in Emacs Lisp</h4>
+
+<p>Although Emacs Lisp is usually thought of in association only with
+Emacs, it is a full computer programming language.  You can use Emacs
+Lisp as you would any other programming language.</p>
+
+<p>Perhaps you want to understand programming; perhaps you want to
+extend Emacs; or perhaps you want to become a programmer.  This
+introduction to Emacs Lisp is designed to get you started: to guide you
+in learning the fundamentals of programming, and more importantly, to
+show you how you can teach yourself to go further.</p>
+
+<p>It&rsquo;s also built into Emacs &ndash; you can access it by typing <code>C-h i m
+Emacs Lisp Intro</code>. The book is very light reading and doesn&rsquo;t assume
+any programming experience. If you&rsquo;re an experienced software engineer
+the <em>Emacs Lisp Manual</em> might be a better place to start you Emacs
+Lisp adventure.</p>
+
+<h4>On Twitter</h4>
+
+<p>There are a few Twitter accounts dedicated on Emacs. I recommend you
+to follow <a href="http://twitter.com/#!/emacs_knight">@emacs_knight</a>(operated
+by yours truly), <a href="http://twitter.com/#!/learnemacs">@learnemacs</a>,
+<a href="http://twitter.com/#!/EmacsRocks">@EmacsRocks</a>,
+<a href="http://twitter.com/#!/dotemacs">@dotemacs</a> and
+<a href="http://twitter.com/#!/dotemax">@dotemax</a>. My personal account is
+listed in the sidebar &ndash; while I do tweet about Emacs there from time
+to time, I mostly tweet about programming so follow me at your own
+discretion.</p>
+
+<h4>On IRC</h4>
+
+<p>There is a irc.freenode.org channel named #emacs. I highly recommend
+you to hang around there &ndash; a lot of great Emacs hackers are permanent
+residents of the channel and will kindly answer most questions you
+might have about Emacs.</p>
+
+<p>Given that Emacs has a great IRC mode built-in (that would ERC) you
+have little excuse not be in #emacs. My handle there is <em>bozhidar</em> (I
+know &ndash; total surprise, right?).</p>
+
+<h2>Emacs Knights</h2>
+
+<h4>Effective Emacs</h4>
+
+<p><a href="https://sites.google.com/site/steveyegge2/effective-emacs">Effective Emacs</a>
+is a popular post by Steve Yegge in which he discusses a few
+techniques to make more effective use of Emacs. I don&rsquo;t fully endorse
+them, but still there a few great tips in there.</p>
+
+<h4>A Gentle Introduction to CEDET</h4>
+
+<p>If you&rsquo;re doing any C/C++ programming you owe it to yourself to read
+Alex Ott&rsquo;s excellent article
+<a href="http://alexott.net/en/writings/emacs-devenv/EmacsCedet.html">A Gentle Introduction to CEDET</a>.</p>
+
+<h4>Emacs Wiki</h4>
+
+<p><a href="http://emacswiki.org">The Emacs Wiki</a> is the one stop to find answers
+about all topics related to Emacs. The Wiki, however, is poorly
+moderated and in a state of total chaos and disarray. This makes it a
+bit hard to sift through all the crap there and extract only the
+really valuable bits of information. The amount of wisdom collected on
+the wiki is impressive never-the-less and every experienced Emacs
+user should browse it numerous categories for tips and tricks.</p>
+
+<p>Perhaps surprising for some &ndash; the Emacs Wiki is housing a huge
+collection of Emacs Lisp source files as well. I have a personal
+appeal to all the people using the wiki to house their Emacs Lisp
+projects &ndash; &ldquo;For the love of God &ndash; use <a href="http://github.com">GitHub</a>!&rdquo;.</p>
+
+<h4>The Emacs Manual</h4>
+
+<p>The official Emacs Manual is one of the greatest Emacs resources ever
+written, but only a handful of Emacs users seems to have read it. It&rsquo;s
+built into Emacs itself and you can start perusing it simply by typing
+<code>C-h r</code>. While it&rsquo;s a hefty volume, the Emacs Manual has one serious
+advantage over the competition &ndash; it&rsquo;s always up-to-date.</p>
+
+<h4>The Emacs Lisp Reference Manual</h4>
+
+<p>If you&rsquo;re serious about extending Emacs &ndash; this is the book to
+read. It&rsquo;s targeting experience developers, it&rsquo;s always up-to-date and
+it&rsquo;s the ultimate Emacs Lisp resource in the world. It&rsquo;s also
+available for reading directly from Emacs itself &ndash; <code>C-h i m Emacs Lisp</code>.</p>
+
+<h4>Planet Emacsen</h4>
+
+<p><a href="http://planet.emacsen.org/">Planet Emacsen</a> is a RSS feed aggregating most well-known Emacs blogs out there
+(including this one). If
+you&rsquo;re serious about Emacs you have to subscribe to it.</p>
+
+<p>Mentioning it also spares me the need to list all those great blogs in
+here.</p>
+
+<h2>Emacs Masters</h2>
+
+<h4>Understanding SLIME</h4>
+
+<p><a href="http://bc.tech.coop/blog/081209.html">Understanding SLIME</a> is an
+excellent overview of SLIME, featuring a myriad of links to great
+SLIME resources. You should see the SLIME video tutorial even if you
+don&rsquo;t read anything else from the article.</p>
+
+<h4>SLIME Tips</h4>
+
+<p><a href="http://slime-tips.tumblr.com/">SLIME Tips</a> is a blog dedicated to
+sharing little know features of SLIME with the rest of us. Seems to be
+dormant, but started off pretty nice&hellip;</p>
+
+<h4>Practical Common Lisp</h4>
+
+<p>Common Lisp? We&rsquo;re talking about Emacs, right? Strange or not I found
+more about Emacs Lisp, while studying <a href="http://www.gigamonkeys.com/book/">Practical Common Lisp</a>, than
+the bundled Emacs Lisp manuals. For me the explanation is simply &ndash;
+Practical Common Lisp helped me get the Lisp way of thinking. There is
+also the <code>cl</code> module is Emacs that implements a good deal of Common
+Lisp in Emacs Lisp and I use it all the time. I, personally, dream of
+an Emacs using Common Lisp (or at least Scheme) instead of Emacs Lisp,
+but doubt I&rsquo;ll live to see such beast.</p>
+
+<h2>How to Tackle all that stuff?</h2>
+
+<p>Well, there is no universal formula. What follows is just my personal
+suggestion.</p>
+
+<h4>Squires</h4>
+
+<p>If you&rsquo;re an Emacs beginner start from the Emacs Tutorial and proceed
+with the articles on Mastering
+Emacs. <a href="http://bbatsov.github.com/articles/2011/10/09/getting-started-with-emacs-24/">Get a copy of Emacs 24</a>
+and <a href="https://github.com/bbatsov/prelude">Emacs Prelude</a> to start
+off with a solid initial configuration.</p>
+
+<p>Study the rest of the resources at your own discretion. Following
+Twitter accounts has very low overhead for you and could be very beneficial.</p>
+
+<h4>Knights</h4>
+
+<p>Read the Emacs Manual. Read the Emacs Lisp Manual. Subscribe to Planet
+Emacsen. Read the source code of Prelude or the ESK. The rest is totally up to you.</p>
+
+<h4>Masters</h4>
+
+<p>Read the Emacs source code. Contribute bug fixes and new modes. Share
+your knowledge. Sharpen your Lisp skills.</p>
+
+<h2>Epilogue</h2>
+
+<p>The road to Emacs mastery is a long and tiresome one. But it&rsquo;s also
+one of the most enjoyable roads one may choose to travel. Hopefully
+you&rsquo;ll enjoy it even more armed with the many resources I&rsquo;ve listed
+here.</p>
+
+<p>In the beginning of the article I said I&rsquo;m certainly going to miss
+many great bits of Emacs wisdom. I&rsquo;d like to ask you to mention them
+in the comments section so that I could add them to the article.</p>
+]]></content>
+  </entry>
+  
+</feed>

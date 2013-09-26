@@ -1,0 +1,718 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Style | (think)]]></title>
+  <link href="http://bbatsov.github.com/articles/categories/style/atom.xml" rel="self"/>
+  <link href="http://bbatsov.github.com/"/>
+  <updated>2013-09-26T16:20:56+03:00</updated>
+  <id>http://bbatsov.github.com/</id>
+  <author>
+    <name><![CDATA[Bozhidar Batsov]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[The Elements of Style in Ruby #10: In cryptic Perlisms we do not trust]]></title>
+    <link href="http://bbatsov.github.com/articles/2013/09/05/the-elements-of-style-in-ruby-number-10-in-cryptic-perlisms-we-do-not-trust/"/>
+    <updated>2013-09-05T11:41:00+03:00</updated>
+    <id>http://bbatsov.github.com/articles/2013/09/05/the-elements-of-style-in-ruby-number-10-in-cryptic-perlisms-we-do-not-trust</id>
+    <content type="html"><![CDATA[<p>For better or for worse Perl had significant influence over Ruby&rsquo;s
+initial design. A lot of things were directly borrowed from Perl, but
+over the years the Ruby community rejected most of the Perlisms. In
+this article I&rsquo;ll go over most of the Perl legacy which you should try
+to steer clear from.</p>
+
+<h3>Global variables</h3>
+
+<p>Global variables are the nemesis of object-oriented programming(most
+OO languages don&rsquo;t even have the concept of a global variable). Don&rsquo;t
+introduce any of those in your Ruby programs! In most cases you can
+substitute them for module instance variables:</p>
+
+<p>``` ruby</p>
+
+<h1>bad</h1>
+
+<p>$foo_bar = 1</p>
+
+<h1>good</h1>
+
+<p>module Foo
+  class &lt;&lt; self</p>
+
+<pre><code>attr_accessor :bar
+</code></pre>
+
+<p>  end
+end</p>
+
+<p>Foo.bar = 1
+```</p>
+
+<p>Unfortunately, one cannot code Ruby and get away without using the built-in global
+variables&hellip;</p>
+
+<h3>Special global variables</h3>
+
+<p>Originally Ruby borrowed just about all of Perl&rsquo;s special global
+variables, known worldwide for their <strong>intention revealing names</strong> &ndash;
+<code>$:</code>, <code>$;</code>, <code>$!</code>, <code>$$</code>, <code>$\</code>, etc. I&rsquo;ve coded Ruby for quite some time now and
+still can&rsquo;t remember what half of those meant (and I knew a bit of
+Perl before I knew any Ruby). Luckily at some point the
+<a href="http://www.ruby-doc.org/stdlib-2.0/libdoc/English/rdoc/English.html">English library</a>
+was added to Ruby, which simply adds sensible aliases for the cryptic
+Perl names. With it you can change this code:</p>
+
+<p>``` ruby
+$:.unshift File.dirname(<strong>FILE</strong>)</p>
+
+<p>files = <code>git ls-files</code>.split($)
+```</p>
+
+<p>to:</p>
+
+<p>``` ruby
+require &lsquo;English&rsquo;
+$LOAD_PATH.unshift File.dirname(<strong>FILE</strong>)</p>
+
+<p>files = <code>git ls-files</code>.split($INPUT_RECORD_SEPARATOR)
+```</p>
+
+<p>I think that the improvement is pretty obvious.  Why <code>English</code> is not required by
+default is beyond me. Personally I use it always and I think you should do the same.</p>
+
+<h3>Last regexp captures</h3>
+
+<p>When you do a regexp match (like <code>/regexp/ ~= string</code>) a few special
+global variables with funky names get populated with the prematch,
+match, postmatch, etc. If the regexp has any groups in it, the stuff
+they matched gets assigned to other special variables with the
+descriptive names <code>$1</code> (for the first group), <code>$2</code> (for the second
+group), etc. This idiom is unfortunately very popular with Ruby
+developers, likely because few of them know of <code>Regexp.last_match</code>.</p>
+
+<p>``` ruby
+/(regexp)/ =~ string
+&hellip;</p>
+
+<h1>this is Perl-style</h1>
+
+<p>process $1</p>
+
+<h1>this is the same, but more clear and more object oriented</h1>
+
+<p>process Regexp.last_match[1]
+```</p>
+
+<p>Basically you can extract from <code>Regexp.last_match</code> everything you&rsquo;d get from the special global variables.</p>
+
+<p>Yep, you&rsquo;ll have to type more, but when clarity is at stake a little bit of extra typing is certainly justified.</p>
+
+<p>You can even go a step further and use the <code>Regexp#match</code> method:</p>
+
+<p>``` ruby
+md = /(Bat.+)\s/.match(&lsquo;Batman rules!&rsquo;)</p>
+
+<h1>=> #<MatchData "Batman " 1:"Batman"></h1>
+
+<p>md[1]</p>
+
+<h1>=> &ldquo;Batman&rdquo;</h1>
+
+<p>```</p>
+
+<p>By the way, keep in mind that it&rsquo;s generally a good idea to use named
+regexp groups over positional ones, once you&rsquo;re dealing with more than
+two groups. Numbers simply don&rsquo;t convey that much meaning&hellip;</p>
+
+<h3>BEGIN/END blocks</h3>
+
+<p>Strictly speaking those came from <code>awk</code>, but I still consider them
+part of the Perl legacy. If you don&rsquo;t know what I&rsquo;m talking about feel
+free to skip this section &ndash; your soul has already been saved.</p>
+
+<p>``` ruby
+END {
+  puts &ldquo;Exiting&hellip;&rdquo;
+}</p>
+
+<p>puts &ldquo;Processing&hellip;&rdquo;</p>
+
+<p>BEGIN {
+  puts &ldquo;Starting&hellip;&rdquo;
+}
+```</p>
+
+<p><code>BEGIN</code> blocks are executed before everything else in your program in
+the order in which they are encountered. <code>END</code> blocks are executed right before
+the program exits. Those hideous constructs mess with the flow of
+control of the program and are totally useless. I&rsquo;ve never ever needed
+a <code>BEGIN</code> block and <code>END</code> blocks are totally replaceable with
+<code>Kernel#at_exit</code>. I guess they might have some utility for old-school
+scripting tasks, but application developers should ignore them
+completely!</p>
+
+<h3>Flip-flops</h3>
+
+<p>Same as in the previous section &ndash; if you don&rsquo;t know what I&rsquo;m talking about feel free to
+skip this section &ndash; your soul has already been saved.</p>
+
+<p>Flip-flops are an obscure conditional construct with just a single useful application &ndash; text processing:</p>
+
+<p>``` ruby
+DATA.each_line do |line|
+  print line if (line =~ /begin/)..(line =~ /end/)
+end</p>
+
+<p><strong>END</strong>
+0a
+1begin
+2c
+3end
+4e
+5f
+6begin
+7end
+8i
+9j
+```</p>
+
+<p>This will print:</p>
+
+<p><code>
+1begin
+2c
+3end
+6begin
+7end
+</code></p>
+
+<p>Hopefully you&rsquo;ve managed to deduce how they work from this example, if
+you haven&rsquo;t &ndash; you&rsquo;ve just understood what their main problem is.</p>
+
+<p>I never had to use those and probably you won&rsquo;t have a reason to use them
+either. Their usage is likely going to do just one thing for you &ndash; reduce the
+readability of the code you&rsquo;re writing.</p>
+
+<h3>Epilogue</h3>
+
+<p>I&rsquo;d really love to see some of those Perlisms out of Ruby &ndash; the
+removal of <code>flip-flops</code> and <code>BEGIN/END</code> gets suggested upstream every
+now and then and might happen in Ruby 3.0. Removing the global
+variables, however, is unlikely to ever happen since that would be a
+huge change.</p>
+
+<p>You can use <a href="https://github.com/bbatsov/rubocop">RuboCop</a>
+to identify and fix such shortfalls of your code.</p>
+
+<p>As usual I&rsquo;m looking forward to hearing your thoughts here and on
+<a href="http://twitter.com/bbatsov">Twitter</a>!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[The Elements of Style in Ruby #9: Hash#has_key? and Hash#has_value? are deprecated]]></title>
+    <link href="http://bbatsov.github.com/articles/2013/08/21/the-elements-of-style-in-ruby-number-9-hash-number-has-key-and-hash-number-has-value-are-deprecated/"/>
+    <updated>2013-08-21T17:04:00+03:00</updated>
+    <id>http://bbatsov.github.com/articles/2013/08/21/the-elements-of-style-in-ruby-number-9-hash-number-has-key-and-hash-number-has-value-are-deprecated</id>
+    <content type="html"><![CDATA[<p>One can often similar code in the wild:</p>
+
+<p><code>ruby
+some_hash.has_key?(some_key)
+</code></p>
+
+<p><code>has_something?</code> predicates are not idiomatic in Ruby and
+<code>Hash#has_key?</code> and <code>Hash#has_value?</code> are nothing, but remnants of the
+early days of Ruby. In fact, according to Matz, they are
+<a href="http://blade.nagaokaut.ac.jp/cgi-bin/scat.rb/ruby/ruby-core/43765">deprecated</a>
+in favor of <code>Hash#key?</code> and <code>Hash#value?</code>.</p>
+
+<p>The above snippet should look like:</p>
+
+<p><code>ruby
+some_hash.key?(some_key)
+</code></p>
+
+<p>As usual &ndash; you can use <a href="https://github.com/bbatsov/rubocop">RuboCop</a>
+to identify and fix such shortfalls of your code.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[The Elements of Style in Ruby #8: Know Thy Predicates]]></title>
+    <link href="http://bbatsov.github.com/articles/2013/08/14/the-elements-of-style-in-ruby-number-8-know-thy-predicates/"/>
+    <updated>2013-08-14T17:28:00+03:00</updated>
+    <id>http://bbatsov.github.com/articles/2013/08/14/the-elements-of-style-in-ruby-number-8-know-thy-predicates</id>
+    <content type="html"><![CDATA[<p>I often see people writing code like this:</p>
+
+<p><code>ruby
+if x % 2 == 0 ...
+</code></p>
+
+<p>Obviously <code>Fixnum#even?</code> would have been a better choice:</p>
+
+<p><code>ruby
+if x.even? ...
+</code></p>
+
+<p>There is also <code>Fixnum#odd?</code> if you need to check for odd numbers.</p>
+
+<p>By the way, there is even a <code>Numeric#zero?</code> predicate:</p>
+
+<p>``` ruby
+if x == 0 &hellip;</p>
+
+<h1>same as the above (provided x is a number)</h1>
+
+<p>if x.zero? &hellip;
+```</p>
+
+<p>Personally I feel that <code>x == 0</code> makes more sense for such simple
+numeric checks, but <code>zero?</code> is there for those you who think
+otherwise. <code>x == 0</code> also has the benefit of being <code>nil</code> safe, but
+that&rsquo;s not of significant importance.</p>
+
+<p>The <a href="https://github.com/bbatsov/powerpack">Powerpack library</a> also
+includes the predicate methods <code>Fixnum#pos?</code> and <code>Fixnum#neg?</code>, which
+are roughly the same as <code>&gt; 0</code> and <code>&lt; 0</code> comparisons.</p>
+
+<p>Another bit of code you&rsquo;ll often see is:</p>
+
+<p><code>ruby
+if x &gt; 0 &amp;&amp; x &lt; 7 ...
+</code></p>
+
+<p>While there is nothing particularly bad about that code, I&rsquo;d argue
+that <code>between?</code> makes for a nicer (and more OO) alternative:</p>
+
+<p><code>ruby
+if x.between?(1, 6) ...
+</code></p>
+
+<p>Using a range predicate you can also exclude the end value:</p>
+
+<p>``` ruby
+if x > 0 &amp;&amp; x &lt; 1000 &hellip;</p>
+
+<h1>is the same as</h1>
+
+<p>if (1&hellip;1000).include?(x) &hellip;
+```</p>
+
+<p>When using predicate methods you should be mindful of <code>nil</code>
+receivers. That&rsquo;s generally not a serious issue in practice but still I&rsquo;d ask
+you to consider this example:</p>
+
+<p><code>ruby
+if arr == [] ...
+</code></p>
+
+<p>It&rsquo;s not equivalent to</p>
+
+<p><code>ruby
+if arr.empty?
+</code></p>
+
+<p>Why so? Because <code>arr</code> might be <code>nil</code>. So the equivalent code would be:</p>
+
+<p><code>ruby
+if !arr.nil? &amp;&amp; arr.empty?
+</code></p>
+
+<p>Of course checking for <code>nil</code>s like this is generally not a good idea, but
+that&rsquo;s a discussion for some other time.</p>
+
+<p>On a somewhat related note <code>something.nil?</code> is generally preferred
+over <code>something == nil</code>. If you&rsquo;re reasonably sure that <code>something</code>
+can&rsquo;t have the value <code>false</code> you can, of course, simplify things even
+further:</p>
+
+<p><code>ruby
+if something ...
+</code></p>
+
+<p>As usual I&rsquo;m looking forward to hearing your thoughts here and on
+<a href="http://twitter.com/bbatsov">Twitter</a>!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[The Elements of Style in Ruby #7: The case against ===]]></title>
+    <link href="http://bbatsov.github.com/articles/2013/07/10/the-elements-of-style-in-ruby-number-7-the-case-against-equals-equals-equals/"/>
+    <updated>2013-07-10T15:44:00+03:00</updated>
+    <id>http://bbatsov.github.com/articles/2013/07/10/the-elements-of-style-in-ruby-number-7-the-case-against-equals-equals-equals</id>
+    <content type="html"><![CDATA[<p>Today we&rsquo;ll discuss the following section from the <a href="https://github.com/bbatsov/ruby-style-guide">Ruby Style Guide</a>:</p>
+
+<blockquote><p>Avoid explicit use of the case equality operator <code>===</code>. As it name<br/>
+implies it&rsquo;s meant to be used implicitly by <code>case</code> expressions and<br/>
+outside of them it yields some pretty confusing code.</p></blockquote>
+
+<p>For those of you who don&rsquo;t know of the case equality operator <code>===</code> &ndash;
+it&rsquo;s the magic behind <code>case</code> that allows us to write code like this:</p>
+
+<p><code>ruby
+case something
+when Array then ...
+when 1..100 then ...
+when /some_regexp/ then ...
+end
+</code></p>
+
+<p>Ruby will convert the above code to something like:</p>
+
+<p><code>ruby
+case something
+when Array === something then ...
+when 1..100 === something then ...
+when /some_regexp/ === something then...
+end
+</code></p>
+
+<p>For many classes (like <code>Fixnum</code> and <code>String</code>) <code>===</code> will behave the
+same way as <code>==</code>.  On the other hand &ndash; <code>Module</code>, <code>Range</code> and <code>Regexp</code>
+define customized versions of the operator method <code>===</code>.  Knowing how
+these 3 classes have defined <code>===</code>, the case expression is also
+equivalent to this one:</p>
+
+<p><code>ruby
+case something
+when something.is_a? Array then ...
+when 1..100.include? something then ...
+when something =~ /some_regexp/ then ...
+end
+</code></p>
+
+<p>So far everything is peachy, right?</p>
+
+<p>The problem with the <code>===</code> is that when some people see it they decide
+it&rsquo;s very <em>cool</em> and start using it all over their code instead of
+its much clearer alternatives. I&rsquo;ve seen <code>===</code> (ab)used quite often for <strong>instance of</strong> checks.</p>
+
+<p>``` ruby</p>
+
+<h1>wtf, why doesn&rsquo;t this work???</h1>
+
+<h1>extremely common mistake I&rsquo;ve seen numerous times</h1>
+
+<p>return unless a === Array</p>
+
+<h1>=== is defined in Module</h1>
+
+<p>return unless Array === a # same as Array.===(a)
+```</p>
+
+<p>I&rsquo;ve also seen it used many times for range inclusion
+tests. Fortunately nobody has decided so far that <code>===</code> is preferable
+to <code>=~</code> for regular expressions.</p>
+
+<p>It should be our utmost goal as programmers to produce clear and
+easily digestible code. This means we should abstain ourselves from
+doing clever tricks like:</p>
+
+<p><code>ruby
+Array === something
+(1..100) === 7
+/something/ === some_string
+</code></p>
+
+<p>And bet on clarity instead:</p>
+
+<p><code>ruby
+something.is_a?(Array)
+(1..100).include?(7)
+some_string =~ /something/
+</code></p>
+
+<p>They don&rsquo;t call it the <strong>case equality operator</strong> for no reason &ndash; it&rsquo;s
+meant to be used internally by <code>case</code> expressions. I guess if it were
+a regular method (instead of an operator method) we&rsquo;d never have had
+to deal with its abuse.</p>
+
+<p>As usual I&rsquo;m looking forward
+to hearing your thoughts here and on
+<a href="http://twitter.com/bbatsov">Twitter</a>!</p>
+
+<p>Code long and prosper!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[The Elements of Style in Ruby #6: Attributes Redux]]></title>
+    <link href="http://bbatsov.github.com/articles/2013/07/04/the-elements-of-style-in-ruby-number-6-attributes-redux/"/>
+    <updated>2013-07-04T15:36:00+03:00</updated>
+    <id>http://bbatsov.github.com/articles/2013/07/04/the-elements-of-style-in-ruby-number-6-attributes-redux</id>
+    <content type="html"><![CDATA[<p>Today we&rsquo;ll talk about attributes in Ruby.</p>
+
+<p>Let&rsquo;s start with the following rule from the
+<a href="https://github.com/bbatsov/ruby-style-guide">Ruby Style Guide</a>:</p>
+
+<blockquote><p>Use the <code>attr</code> family of functions to define trivial accessors or mutators.</p></blockquote>
+
+<p>Everyone who&rsquo;s coded a bit of Ruby knows it&rsquo;s preferable to generate
+trivial reader and writer methods via some metaprogramming magic
+instead of writing them by hand. The methods from <code>Module</code> <code>attr</code>,
+<code>attr_reader</code>, <code>attr_writer</code> and <code>attr_accessor</code> do exactly that kind
+of magic. Here&rsquo;s an example using <code>attr_reader</code>:</p>
+
+<p>``` ruby</p>
+
+<h1>bad</h1>
+
+<p>class Person
+  def initialize(first_name, last_name)</p>
+
+<pre><code>@first_name = first_name
+@last_name = last_name
+</code></pre>
+
+<p>  end</p>
+
+<p>  def first_name</p>
+
+<pre><code>@first_name
+</code></pre>
+
+<p>  end</p>
+
+<p>  def last_name</p>
+
+<pre><code>@last_name
+</code></pre>
+
+<p>  end
+end</p>
+
+<h1>good</h1>
+
+<p>class Person
+  attr_reader :first_name, :last_name</p>
+
+<p>  def initialize(first_name, last_name)</p>
+
+<pre><code>@first_name = first_name
+@last_name = last_name
+</code></pre>
+
+<p>  end
+end
+```</p>
+
+<p>Here&rsquo;s <code>attr_writer</code> in action:</p>
+
+<p>``` ruby</p>
+
+<h1>bad</h1>
+
+<p>class Person
+  def initialize(name, name)</p>
+
+<pre><code>@name = name
+</code></pre>
+
+<p>  end</p>
+
+<p>  def name=(name)</p>
+
+<pre><code>@name = name
+</code></pre>
+
+<p>  end
+end</p>
+
+<h1>good</h1>
+
+<p>class Person
+  attr_writer :name</p>
+
+<p>  def initialize(name)</p>
+
+<pre><code>@name = name
+</code></pre>
+
+<p>  end
+end
+```</p>
+
+<p><code>attr_accessor</code> combines the two:</p>
+
+<p>``` ruby</p>
+
+<h1>bad</h1>
+
+<p>class Person
+  def initialize(name, name)</p>
+
+<pre><code>@name = name
+</code></pre>
+
+<p>  end</p>
+
+<p>  def name</p>
+
+<pre><code>@name
+</code></pre>
+
+<p>  end</p>
+
+<p>  def name=(name)</p>
+
+<pre><code>@name = name
+</code></pre>
+
+<p>  end
+end</p>
+
+<h1>good</h1>
+
+<p>class Person
+  attr_accessor :name</p>
+
+<p>  def initialize(name)</p>
+
+<pre><code>@name = name
+</code></pre>
+
+<p>  end
+end
+```</p>
+
+<p>Pretty sure none of you has learned anything new at this point. Now we start with the fun part&hellip;</p>
+
+<p>How many of you know how <code>attr</code> behaves? Are you totally sure? Let&rsquo;s
+see what the style guide says about it:</p>
+
+<blockquote><p>Avoid the use of <code>attr</code>. Use <code>attr_reader</code> and <code>attr_accessor</code> instead.</p></blockquote>
+
+<p><code>attr</code>&rsquo;s behavior changed between Ruby 1.8 and 1.9. In Ruby 1.8 <code>attr</code>
+created a single <em>reader</em> method. With an optional second boolean argument it
+created both a <em>reader</em> and a <em>writer</em> method (a la <code>attr_accessor</code>).</p>
+
+<p>``` ruby</p>
+
+<h1>Ruby 1.8</h1>
+
+<h1>same as attr_reader :something</h1>
+
+<p>attr :something</p>
+
+<h1>creates a single attribute accessor (deprecated in 1.9) &ndash; same as attr_accessor :something</h1>
+
+<p>attr :something, true</p>
+
+<h1>can&rsquo;t do this</h1>
+
+<p>attr :one, :two, :three
+```</p>
+
+<p>Note that you cannot pass multiple attribute names to <code>attr</code> in Ruby 1.8.</p>
+
+<p>In Ruby 1.9 calling <code>attr</code> with an attribute name and a boolean is
+deprecated and it now behaves a lot more like <code>attr_reader</code>.</p>
+
+<p>``` ruby</p>
+
+<h1>Ruby 1.9</h1>
+
+<p>attr :one, :two, :three # behaves as attr_reader
+```</p>
+
+<p>Given all this facts it&rsquo;s not a surprise that so many people think
+it&rsquo;s a bad idea to use <code>attr</code>. I guess if the design of that portion
+of the API were up to me I&rsquo;d have made <code>attr</code> behave like
+<code>attr_accessor</code> from day 1. The name of <code>attr_accessor</code> is a bit of a
+misnomer since <code>accessor</code> is hardly a synonym for <strong>reader and
+writer</strong>. Anyways, this is not of particular importance. Off to the
+next item on our agenda for today.</p>
+
+<p>Is this something that should have been defined with <code>attr_reader</code>?</p>
+
+<p><code>ruby
+def something
+  @something_else
+end
+</code></p>
+
+<p>Basically it call comes down to whether this is a trivial reader method or not.
+Some people would argue that because the name of the instance variable
+and the name of the method are not the same &ndash; it&rsquo;s not. I&rsquo;d argue the
+opposite case &ndash; it is! The name of the method does not change the
+semantics. In essence you&rsquo;re simply in need of an alias for the
+<em>default</em> attribute reader method:</p>
+
+<p><code>ruby
+attr_reader :something_else
+alias_method :something, :something_else
+</code></p>
+
+<p>Boolean attributes are a bit special, since generally we&rsquo;d like to
+have a <code>?</code> at the end of predicate method names, but this cannot be done with
+<code>attr_reader/attr_accessor</code>. Some people would simple hand-code such
+methods:</p>
+
+<p><code>ruby
+def something?
+  @something
+end
+</code></p>
+
+<p>I&rsquo;d employ <code>alias_method</code> again:</p>
+
+<p><code>
+attr_reader :something
+alias_method :something?, :something
+</code></p>
+
+<p>I wouldn&rsquo;t call one style necessary good or bad &ndash; it&rsquo;s more of a personal preference.</p>
+
+<p>One final note &ndash; you should use <code>attr_</code> only for trivial reader and writer methods (trivial means that
+they do not need any defensive copying or pre-update checks).</p>
+
+<p>Consider this:</p>
+
+<p>``` ruby</p>
+
+<h1>attr_reader generates code like this</h1>
+
+<p>def something
+  @something
+end
+```</p>
+
+<p>This would expose <code>@something</code> to external modifications if it&rsquo;s a
+mutable object. To shield yourself from this you can use defensive
+copying (or freezing when applicable):</p>
+
+<p>``` ruby</p>
+
+<h1>defensive copying in action</h1>
+
+<p>def something
+  @something.dup # return a copy of @something
+end
+```</p>
+
+<p>Same goes for attributes writers. If you have an <code>age</code> attribute and you
+want to enforce that it should be a positive number you&rsquo;d generally roll your
+own writer:</p>
+
+<p>``` ruby
+def age=(age)
+  fail &lsquo;Age should be a positive number!&rsquo; unless age > 0</p>
+
+<p>  @age = age
+end
+```</p>
+
+<p>This post has become way too long, so I&rsquo;ll be wrapping it up. I hope
+you&rsquo;ve found my musing on the subject of attributes useful.</p>
+
+<p>As usual I&rsquo;m looking forward to hearing your thoughts here and on
+<a href="http://twitter.com/bbatsov">Twitter</a>!</p>
+
+<p><strong>P.S.</strong> Happy 4th of July to all my American readers! :&ndash;)</p>
+]]></content>
+  </entry>
+  
+</feed>
