@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: misc | (think)]]></title>
-  <link href="http://bbatsov.github.com/articles/categories/misc/atom.xml" rel="self"/>
-  <link href="http://bbatsov.github.com/"/>
-  <updated>2013-09-26T16:20:56+03:00</updated>
-  <id>http://bbatsov.github.com/</id>
+  <link href="http://batsov.com/articles/categories/misc/atom.xml" rel="self"/>
+  <link href="http://batsov.com/"/>
+  <updated>2013-09-26T18:06:30+03:00</updated>
+  <id>http://batsov.com/</id>
   <author>
     <name><![CDATA[Bozhidar Batsov]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[From Linux to OSX - 1 Year Later]]></title>
-    <link href="http://bbatsov.github.com/articles/2012/09/09/from-linux-to-osx-1-year-later/"/>
+    <link href="http://batsov.com/articles/2012/09/09/from-linux-to-osx-1-year-later/"/>
     <updated>2012-09-09T22:11:00+03:00</updated>
-    <id>http://bbatsov.github.com/articles/2012/09/09/from-linux-to-osx-1-year-later</id>
+    <id>http://batsov.com/articles/2012/09/09/from-linux-to-osx-1-year-later</id>
     <content type="html"><![CDATA[<h2>Prelude</h2>
 
 <p>A little more than an year ago I wrote my rant post
@@ -258,9 +258,9 @@ initial feedback I received.</strong></p>
   
   <entry>
     <title type="html"><![CDATA[Long Time, No See]]></title>
-    <link href="http://bbatsov.github.com/articles/2012/09/09/long-time-no-see/"/>
+    <link href="http://batsov.com/articles/2012/09/09/long-time-no-see/"/>
     <updated>2012-09-09T19:50:00+03:00</updated>
-    <id>http://bbatsov.github.com/articles/2012/09/09/long-time-no-see</id>
+    <id>http://batsov.com/articles/2012/09/09/long-time-no-see</id>
     <content type="html"><![CDATA[<p>It&rsquo;s been quite a while since my last blog post. And there hasn&rsquo;t been that
 much action on the open-source projects I happen to maintain
 either. The reason for this is quite simple &ndash; recently I&rsquo;ve joined the

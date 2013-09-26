@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: ActiveAdmin | (think)]]></title>
-  <link href="http://bbatsov.github.com/articles/categories/activeadmin/atom.xml" rel="self"/>
-  <link href="http://bbatsov.github.com/"/>
-  <updated>2013-09-26T16:20:56+03:00</updated>
-  <id>http://bbatsov.github.com/</id>
+  <link href="http://batsov.com/articles/categories/activeadmin/atom.xml" rel="self"/>
+  <link href="http://batsov.com/"/>
+  <updated>2013-09-26T18:06:30+03:00</updated>
+  <id>http://batsov.com/</id>
   <author>
     <name><![CDATA[Bozhidar Batsov]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Admin Interfaces for Rails Apps: RailsAdmin vs ActiveAdmin]]></title>
-    <link href="http://bbatsov.github.com/articles/2011/11/20/admin-interfaces-for-rails-apps-railsadmin-vs-activeadmin/"/>
+    <link href="http://batsov.com/articles/2011/11/20/admin-interfaces-for-rails-apps-railsadmin-vs-activeadmin/"/>
     <updated>2011-11-20T09:24:00+02:00</updated>
-    <id>http://bbatsov.github.com/articles/2011/11/20/admin-interfaces-for-rails-apps-railsadmin-vs-activeadmin</id>
+    <id>http://batsov.com/articles/2011/11/20/admin-interfaces-for-rails-apps-railsadmin-vs-activeadmin</id>
     <content type="html"><![CDATA[<h2>Prelude</h2>
 
 <p>Often in comparisons between <a href="https://www.djangoproject.com/">Django</a>

@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Z Shell | (think)]]></title>
-  <link href="http://bbatsov.github.com/articles/categories/z-shell/atom.xml" rel="self"/>
-  <link href="http://bbatsov.github.com/"/>
-  <updated>2013-09-26T16:20:56+03:00</updated>
-  <id>http://bbatsov.github.com/</id>
+  <link href="http://batsov.com/articles/categories/z-shell/atom.xml" rel="self"/>
+  <link href="http://batsov.com/"/>
+  <updated>2013-09-26T18:06:30+03:00</updated>
+  <id>http://batsov.com/</id>
   <author>
     <name><![CDATA[Bozhidar Batsov]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[One shell to rule them all...]]></title>
-    <link href="http://bbatsov.github.com/articles/2011/04/29/one-shell-to-rule-them-all/"/>
+    <link href="http://batsov.com/articles/2011/04/29/one-shell-to-rule-them-all/"/>
     <updated>2011-04-29T00:00:00+03:00</updated>
-    <id>http://bbatsov.github.com/articles/2011/04/29/one-shell-to-rule-them-all</id>
+    <id>http://batsov.com/articles/2011/04/29/one-shell-to-rule-them-all</id>
     <content type="html"><![CDATA[<h2>Prelude</h2>
 
 <p>I&rsquo;ve been using zsh for about three years now and continue to be
@@ -275,9 +275,9 @@ well enough(of which I&rsquo;m most certain you should have a look at the resour
   
   <entry>
     <title type="html"><![CDATA[Automatically execute programs after zsh login]]></title>
-    <link href="http://bbatsov.github.com/articles/2009/12/05/execute-stuff-after-zsh-login/"/>
+    <link href="http://batsov.com/articles/2009/12/05/execute-stuff-after-zsh-login/"/>
     <updated>2009-12-05T00:00:00+02:00</updated>
-    <id>http://bbatsov.github.com/articles/2009/12/05/execute-stuff-after-zsh-login</id>
+    <id>http://batsov.com/articles/2009/12/05/execute-stuff-after-zsh-login</id>
     <content type="html"><![CDATA[<p>Sometimes you may want to start a couple of programs just after an
 interactive login to your favourite shell, which in my case would be
 zsh.</p>
@@ -299,9 +299,9 @@ incoming connections.</p>
   
   <entry>
     <title type="html"><![CDATA[A nice zsh prompt]]></title>
-    <link href="http://bbatsov.github.com/articles/2008/07/27/zsh-prompt/"/>
+    <link href="http://batsov.com/articles/2008/07/27/zsh-prompt/"/>
     <updated>2008-07-27T00:00:00+03:00</updated>
-    <id>http://bbatsov.github.com/articles/2008/07/27/zsh-prompt</id>
+    <id>http://batsov.com/articles/2008/07/27/zsh-prompt</id>
     <content type="html"><![CDATA[<p>Recently I switched to zsh, after being a bash user for almost 5
 years. I was in love with everything in zsh from day one, except one
 thing – the default prompt. Although zsh ships with several prompt

@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Tips | (think)]]></title>
-  <link href="http://bbatsov.github.com/articles/categories/tips/atom.xml" rel="self"/>
-  <link href="http://bbatsov.github.com/"/>
-  <updated>2013-09-26T16:20:56+03:00</updated>
-  <id>http://bbatsov.github.com/</id>
+  <link href="http://batsov.com/articles/categories/tips/atom.xml" rel="self"/>
+  <link href="http://batsov.com/"/>
+  <updated>2013-09-26T18:06:30+03:00</updated>
+  <id>http://batsov.com/</id>
   <author>
     <name><![CDATA[Bozhidar Batsov]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Ruby Tip #1: Demystifying the Difference Between == and eql?]]></title>
-    <link href="http://bbatsov.github.com/articles/2011/11/28/ruby-tip-number-1-demystifying-the-difference-between-equals-equals-and-eql/"/>
+    <link href="http://batsov.com/articles/2011/11/28/ruby-tip-number-1-demystifying-the-difference-between-equals-equals-and-eql/"/>
     <updated>2011-11-28T16:54:00+02:00</updated>
-    <id>http://bbatsov.github.com/articles/2011/11/28/ruby-tip-number-1-demystifying-the-difference-between-equals-equals-and-eql</id>
+    <id>http://batsov.com/articles/2011/11/28/ruby-tip-number-1-demystifying-the-difference-between-equals-equals-and-eql</id>
     <content type="html"><![CDATA[<p>Newcomers to Ruby are often confused by the fact the <code>Object</code> class
 defines three methods related to equality &ndash; <code>==</code>, <code>eql?</code> and
 <code>equals?</code>. Of the three the one that it&rsquo;s easiest to describe is

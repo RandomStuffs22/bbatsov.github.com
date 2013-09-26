@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Emacs @ (think)]]></title>
-  <link href="http://bbatsov.github.com/emacs.xml" rel="self"/>
-  <link href="http://bbatsov.github.com/"/>
-  <updated>2013-09-26T16:20:56+03:00</updated>
-  <id>http://bbatsov.github.com/</id>
+  <link href="http://batsov.com/emacs.xml" rel="self"/>
+  <link href="http://batsov.com/"/>
+  <updated>2013-09-26T18:06:30+03:00</updated>
+  <id>http://batsov.com/</id>
   <author>
     <name><![CDATA[Bozhidar Batsov]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[WikEmacs lives on under new stewardship]]></title>
-    <link href="http://bbatsov.github.com/articles/2013/04/24/wikemacs-lives-on-under-new-stewardship/"/>
+    <link href="http://batsov.com/articles/2013/04/24/wikemacs-lives-on-under-new-stewardship/"/>
     <updated>2013-04-24T11:36:00+03:00</updated>
-    <id>http://bbatsov.github.com/articles/2013/04/24/wikemacs-lives-on-under-new-stewardship</id>
+    <id>http://batsov.com/articles/2013/04/24/wikemacs-lives-on-under-new-stewardship</id>
     <content type="html"><![CDATA[<p>Several months passed since I stated my intent
 <a href="articles/2013/01/27/the-wikemacs-experiment-is-over-long-live-emacswiki/">to shutdown WikEmacs</a>. While
 I still consider the project a failed experiment and stand by
@@ -40,9 +40,9 @@ moment to show you love and spread the word.</p>
   
   <entry>
     <title type="html"><![CDATA[RuboCop]]></title>
-    <link href="http://bbatsov.github.com/articles/2013/04/15/rubocop/"/>
+    <link href="http://batsov.com/articles/2013/04/15/rubocop/"/>
     <updated>2013-04-15T17:22:00+03:00</updated>
-    <id>http://bbatsov.github.com/articles/2013/04/15/rubocop</id>
+    <id>http://batsov.com/articles/2013/04/15/rubocop</id>
     <content type="html"><![CDATA[<p>After I launched the
 <a href="https://github.com/bbatsov/ruby-style-guide">Ruby Style Guide</a> I
 often received requests to create a tool enforcing the rules in the guide
@@ -65,9 +65,9 @@ Ruby hackers will find it useful!</p>
   
   <entry>
     <title type="html"><![CDATA[Emacs Redux]]></title>
-    <link href="http://bbatsov.github.com/articles/2013/04/15/emacs-redux/"/>
+    <link href="http://batsov.com/articles/2013/04/15/emacs-redux/"/>
     <updated>2013-04-15T17:10:00+03:00</updated>
-    <id>http://bbatsov.github.com/articles/2013/04/15/emacs-redux</id>
+    <id>http://batsov.com/articles/2013/04/15/emacs-redux</id>
     <content type="html"><![CDATA[<p>I&rsquo;ve recently launched a new blog dedicated to Emacs &ndash;
 <a href="http://emacsredux.com/">Emacs Redux</a>.</p>
 
@@ -80,9 +80,9 @@ make your experience with Emacs more productive and more enjoyable.</p>
   
   <entry>
     <title type="html"><![CDATA[The WikEmacs Experiment is over! Long Live EmacsWiki!]]></title>
-    <link href="http://bbatsov.github.com/articles/2013/01/27/the-wikemacs-experiment-is-over-long-live-emacswiki/"/>
+    <link href="http://batsov.com/articles/2013/01/27/the-wikemacs-experiment-is-over-long-live-emacswiki/"/>
     <updated>2013-01-27T09:23:00+02:00</updated>
-    <id>http://bbatsov.github.com/articles/2013/01/27/the-wikemacs-experiment-is-over-long-live-emacswiki</id>
+    <id>http://batsov.com/articles/2013/01/27/the-wikemacs-experiment-is-over-long-live-emacswiki</id>
     <content type="html"><![CDATA[<p>Less than an year ago
 <a href="http://batsov.com/articles/2012/03/20/die-emacswiki/">amid a lot of turmoil</a>
 I&rsquo;ve started
@@ -123,9 +123,9 @@ from now on.</p>
   
   <entry>
     <title type="html"><![CDATA[Emacs Tip #8: Manipulating Word Case]]></title>
-    <link href="http://bbatsov.github.com/articles/2012/12/16/emacs-tip-number-8-manipulating-word-case/"/>
+    <link href="http://batsov.com/articles/2012/12/16/emacs-tip-number-8-manipulating-word-case/"/>
     <updated>2012-12-16T17:57:00+02:00</updated>
-    <id>http://bbatsov.github.com/articles/2012/12/16/emacs-tip-number-8-manipulating-word-case</id>
+    <id>http://batsov.com/articles/2012/12/16/emacs-tip-number-8-manipulating-word-case</id>
     <content type="html"><![CDATA[<p>One operation that we have to do fairly often when editing text is
 manipulating the case of words. The most popular case manipulations
 are probably <strong>capitalize</strong>, <strong>convert to lowercase</strong> and <strong>convert to
@@ -147,9 +147,9 @@ the previous word without moving the cursor.</p>
   
   <entry>
     <title type="html"><![CDATA[Emacs 24.3 introduces native OSX full-screen support]]></title>
-    <link href="http://bbatsov.github.com/articles/2012/12/09/emacs-24-dot-3-introduces-native-osx-full-screen-support/"/>
+    <link href="http://batsov.com/articles/2012/12/09/emacs-24-dot-3-introduces-native-osx-full-screen-support/"/>
     <updated>2012-12-09T13:34:00+02:00</updated>
-    <id>http://bbatsov.github.com/articles/2012/12/09/emacs-24-dot-3-introduces-native-osx-full-screen-support</id>
+    <id>http://batsov.com/articles/2012/12/09/emacs-24-dot-3-introduces-native-osx-full-screen-support</id>
     <content type="html"><![CDATA[<p>One of the most requested Emacs features &ndash; native OSX Lion style
 full-screen support has finally landed in Emacs 24.3 (due to be
 released in a few months). If you&rsquo;re eager to try it out right now
@@ -177,7 +177,7 @@ does) takes like forever.</p>
 
 <p>Here&rsquo;s the beast in action:</p>
 
-<p><img src="http://bbatsov.github.com/images/articles/emacs-full-screen.png"></p>
+<p><img src="http://batsov.com/images/articles/emacs-full-screen.png"></p>
 
 <p>This was a short article, but I do hope you&rsquo;ll find it useful.</p>
 ]]></content>
@@ -185,9 +185,9 @@ does) takes like forever.</p>
   
   <entry>
     <title type="html"><![CDATA[Emacs Tip #7: Remap Return to Control in OSX]]></title>
-    <link href="http://bbatsov.github.com/articles/2012/12/06/emacs-tip-number-7-remap-return-to-control-in-osx/"/>
+    <link href="http://batsov.com/articles/2012/12/06/emacs-tip-number-7-remap-return-to-control-in-osx/"/>
     <updated>2012-12-06T16:06:00+02:00</updated>
-    <id>http://bbatsov.github.com/articles/2012/12/06/emacs-tip-number-7-remap-return-to-control-in-osx</id>
+    <id>http://batsov.com/articles/2012/12/06/emacs-tip-number-7-remap-return-to-control-in-osx</id>
     <content type="html"><![CDATA[<p>One of the major problems when using
 <a href="http://batsov.com/articles/2012/10/14/emacs-on-osx/">Emacs on OSX</a> is
 not related to OSX itself &ndash; the problem has to do with the Mac&rsquo;s
@@ -236,9 +236,9 @@ obtained a good full size keyboard like the
   
   <entry>
     <title type="html"><![CDATA[guru-mode]]></title>
-    <link href="http://bbatsov.github.com/articles/2012/09/09/guru-mode/"/>
+    <link href="http://batsov.com/articles/2012/09/09/guru-mode/"/>
     <updated>2012-09-09T21:17:00+03:00</updated>
-    <id>http://bbatsov.github.com/articles/2012/09/09/guru-mode</id>
+    <id>http://batsov.com/articles/2012/09/09/guru-mode</id>
     <content type="html"><![CDATA[<p>Getting started with Emacs is hard. That&rsquo;s a fact of life and you
 shouldn&rsquo;t believe anyone telling you otherwise.</p>
 
@@ -255,7 +255,7 @@ created <a href="http://github.com/bbatsov/guru-mode">guru-mode</a> &ndash; a si
 minor mode that will show you a (helpful) message in the minibuffer
 every time you try to use a <em>non Emacs way</em> keybinding.</p>
 
-<p><img src="http://bbatsov.github.com/images/articles/guru-mode.png"></p>
+<p><img src="http://batsov.com/images/articles/guru-mode.png"></p>
 
 <p>It will probably annoy you <strong>a lot</strong> in the beginning, but trust me &ndash;
 it&rsquo;ll be worth it in the long run.</p>
@@ -272,9 +272,9 @@ venerable <code>gtypist</code> before looking at <code>guru-mode</code>.</p>
   
   <entry>
     <title type="html"><![CDATA[Emacs Support for the Slim Template Language]]></title>
-    <link href="http://bbatsov.github.com/articles/2012/09/09/emacs-support-for-the-slim-template-language/"/>
+    <link href="http://batsov.com/articles/2012/09/09/emacs-support-for-the-slim-template-language/"/>
     <updated>2012-09-09T20:16:00+03:00</updated>
-    <id>http://bbatsov.github.com/articles/2012/09/09/emacs-support-for-the-slim-template-language</id>
+    <id>http://batsov.com/articles/2012/09/09/emacs-support-for-the-slim-template-language</id>
     <content type="html"><![CDATA[<p>I&rsquo;m mostly a Ruby on Rails developer these days and as such I&rsquo;m pretty
 fond of the <a href="http://slim-lang.com">Slim template language</a>. I&rsquo;ve
 always hated HTML + ERB, since that evil duo encourages all sorts of
@@ -294,7 +294,7 @@ welcome. I very much doubt that me and
 <a href="https://github.com/minad">Daniel Mendler</a> are the only two people
 dreaming of great Slim experience in Emacs. :&ndash;)</p>
 
-<p><img src="http://bbatsov.github.com/images/articles/slim-mode.png"></p>
+<p><img src="http://batsov.com/images/articles/slim-mode.png"></p>
 
 <p>Let us together eliminate that big Haml advantage. :&ndash;)</p>
 ]]></content>
@@ -302,21 +302,21 @@ dreaming of great Slim experience in Emacs. :&ndash;)</p>
   
   <entry>
     <title type="html"><![CDATA[A True Emacs Knight]]></title>
-    <link href="http://bbatsov.github.com/articles/2012/05/28/a-true-emacs-knight/"/>
+    <link href="http://batsov.com/articles/2012/05/28/a-true-emacs-knight/"/>
     <updated>2012-05-28T15:39:00+03:00</updated>
-    <id>http://bbatsov.github.com/articles/2012/05/28/a-true-emacs-knight</id>
+    <id>http://batsov.com/articles/2012/05/28/a-true-emacs-knight</id>
     <content type="html"><![CDATA[<p>Here&rsquo;s one true Emacs Knight (courtesy of my friend Gergana
 Stancheva). Feel free to use it wherever you see fit.</p>
 
-<p><img src="http://bbatsov.github.com/images/articles/emacs_knight.jpg"></p>
+<p><img src="http://batsov.com/images/articles/emacs_knight.jpg"></p>
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[MELPA - homebrew (Emacs Edition)]]></title>
-    <link href="http://bbatsov.github.com/articles/2012/04/06/melpa-homebrew-emacs-edition/"/>
+    <link href="http://batsov.com/articles/2012/04/06/melpa-homebrew-emacs-edition/"/>
     <updated>2012-04-06T18:04:00+03:00</updated>
-    <id>http://bbatsov.github.com/articles/2012/04/06/melpa-homebrew-emacs-edition</id>
+    <id>http://batsov.com/articles/2012/04/06/melpa-homebrew-emacs-edition</id>
     <content type="html"><![CDATA[<p>A few weeks ago I wrote an
 <a href="http://batsov.com/articles/2012/02/19/package-management-in-emacs-the-good-the-bad-and-the-ugly/">article about the state of package management in Emacs</a>. In
 that article I pointed out that on the side of <a href="http://wikemacs.org/wiki/Package.el">package.el</a> too much
@@ -391,9 +391,9 @@ use MELPA instead of Marmalade.</p>
   
   <entry>
     <title type="html"><![CDATA[WikEmacs - The Other Emacs Wiki]]></title>
-    <link href="http://bbatsov.github.com/articles/2012/03/26/wikemacs-the-other-emacs-wiki/"/>
+    <link href="http://batsov.com/articles/2012/03/26/wikemacs-the-other-emacs-wiki/"/>
     <updated>2012-03-26T11:23:00+03:00</updated>
-    <id>http://bbatsov.github.com/articles/2012/03/26/wikemacs-the-other-emacs-wiki</id>
+    <id>http://batsov.com/articles/2012/03/26/wikemacs-the-other-emacs-wiki</id>
     <content type="html"><![CDATA[<p>I&rsquo;d like to apologize to everyone insulted by my previous
 posts. Contrary to popular belief I acknowledge EmacsWiki&rsquo;s
 contribution to the Emacs community. Obviously many people are too
@@ -462,9 +462,9 @@ option to choose.</p>
   
   <entry>
     <title type="html"><![CDATA[All Hands on Deck! (or the Action Plan for a new Emacs community wiki)]]></title>
-    <link href="http://bbatsov.github.com/articles/2012/03/21/all-hands-on-deck-or-the-action-plan-for-a-new-emacs-community-wiki/"/>
+    <link href="http://batsov.com/articles/2012/03/21/all-hands-on-deck-or-the-action-plan-for-a-new-emacs-community-wiki/"/>
     <updated>2012-03-21T11:11:00+02:00</updated>
-    <id>http://bbatsov.github.com/articles/2012/03/21/all-hands-on-deck-or-the-action-plan-for-a-new-emacs-community-wiki</id>
+    <id>http://batsov.com/articles/2012/03/21/all-hands-on-deck-or-the-action-plan-for-a-new-emacs-community-wiki</id>
     <content type="html"><![CDATA[<h2>Prelude</h2>
 
 <p>Yesterday I wrote a highly
@@ -580,9 +580,9 @@ turned out it had several nice advantages over MoinMoin).</p>
   
   <entry>
     <title type="html"><![CDATA[Die EmacsWiki, Die!]]></title>
-    <link href="http://bbatsov.github.com/articles/2012/03/20/die-emacswiki/"/>
+    <link href="http://batsov.com/articles/2012/03/20/die-emacswiki/"/>
     <updated>2012-03-20T14:49:00+02:00</updated>
-    <id>http://bbatsov.github.com/articles/2012/03/20/die-emacswiki</id>
+    <id>http://batsov.com/articles/2012/03/20/die-emacswiki</id>
     <content type="html"><![CDATA[<h2>Prelude</h2>
 
 <p>Emacs is slowly, but firmly moving in the right direction with
@@ -745,9 +745,9 @@ turned out it had several nice advantages over MoinMoin).</p>
   
   <entry>
     <title type="html"><![CDATA[Emacs Tip #5: Save Buffers Automatically on Buffer or Window Switch]]></title>
-    <link href="http://bbatsov.github.com/articles/2012/03/08/emacs-tip-number-5-save-buffers-automatically-on-buffer-or-window-switch/"/>
+    <link href="http://batsov.com/articles/2012/03/08/emacs-tip-number-5-save-buffers-automatically-on-buffer-or-window-switch/"/>
     <updated>2012-03-08T15:58:00+02:00</updated>
-    <id>http://bbatsov.github.com/articles/2012/03/08/emacs-tip-number-5-save-buffers-automatically-on-buffer-or-window-switch</id>
+    <id>http://batsov.com/articles/2012/03/08/emacs-tip-number-5-save-buffers-automatically-on-buffer-or-window-switch</id>
     <content type="html"><![CDATA[<p>When I program in Java I usually leave the comfort of Emacs and use
 IntelliJ IDEA instead (for various reasons that are irrelevant to this
 post). IDEA has one particularly nice feature &ndash; &ldquo;auto-save on focus
@@ -819,9 +819,9 @@ enables this functionality by default.</p>
   
   <entry>
     <title type="html"><![CDATA[Emacs Tip #4: Repeat Last Command]]></title>
-    <link href="http://bbatsov.github.com/articles/2012/03/08/emacs-tip-number-4-repeat-last-command/"/>
+    <link href="http://batsov.com/articles/2012/03/08/emacs-tip-number-4-repeat-last-command/"/>
     <updated>2012-03-08T15:09:00+02:00</updated>
-    <id>http://bbatsov.github.com/articles/2012/03/08/emacs-tip-number-4-repeat-last-command</id>
+    <id>http://batsov.com/articles/2012/03/08/emacs-tip-number-4-repeat-last-command</id>
     <content type="html"><![CDATA[<p>Some times you&rsquo;d want to quickly repeat an Emacs command several times and
 most of the time it won&rsquo;t have a convenient keybinding you can use to
 do this. Enter <code>C-x z</code> (<code>repeat</code>) &ndash; it simply repeats the most
@@ -853,9 +853,9 @@ a few times you can do it like this:</p>
   
   <entry>
     <title type="html"><![CDATA[Package Management in Emacs: The Good, the Bad and the Ugly]]></title>
-    <link href="http://bbatsov.github.com/articles/2012/02/19/package-management-in-emacs-the-good-the-bad-and-the-ugly/"/>
+    <link href="http://batsov.com/articles/2012/02/19/package-management-in-emacs-the-good-the-bad-and-the-ugly/"/>
     <updated>2012-02-19T12:18:00+02:00</updated>
-    <id>http://bbatsov.github.com/articles/2012/02/19/package-management-in-emacs-the-good-the-bad-and-the-ugly</id>
+    <id>http://batsov.com/articles/2012/02/19/package-management-in-emacs-the-good-the-bad-and-the-ugly</id>
     <content type="html"><![CDATA[<h2>Prelude</h2>
 
 <p>Let&rsquo;s face it &ndash; although a vanilla Emacs installation is quite
@@ -915,7 +915,7 @@ automatically (which is really neat).</p>
 <p>The magic starts with the command <code>M-x package-list-packages</code>. At this
 point you should see something in the lines of this.</p>
 
-<p><img src="http://bbatsov.github.com/images/articles/packages-list.png"></p>
+<p><img src="http://batsov.com/images/articles/packages-list.png"></p>
 
 <p>You can navigate the list of packages, mark the ones you want to
 install with the &ldquo;i&rdquo; key or the ones you want removed with the &ldquo;d&rdquo; key
@@ -1166,9 +1166,9 @@ people. Hopefully that moment is not that far in the future.</p>
   
   <entry>
     <title type="html"><![CDATA[Color Theming in Emacs: Reloaded]]></title>
-    <link href="http://bbatsov.github.com/articles/2012/02/19/color-theming-in-emacs-reloaded/"/>
+    <link href="http://batsov.com/articles/2012/02/19/color-theming-in-emacs-reloaded/"/>
     <updated>2012-02-19T12:17:00+02:00</updated>
-    <id>http://bbatsov.github.com/articles/2012/02/19/color-theming-in-emacs-reloaded</id>
+    <id>http://batsov.com/articles/2012/02/19/color-theming-in-emacs-reloaded</id>
     <content type="html"><![CDATA[<h2>Prelude</h2>
 
 <p>If there is something that people love as much as tweaking their
@@ -1276,7 +1276,7 @@ addition to css-mode, but I find it very helpful with color theme
 development as well. It&rsquo;s also included (and enabled) in Prelude by
 default. Here you can see it in action.</p>
 
-<p><img src="http://bbatsov.github.com/images/articles/rainbow-mode.png"></p>
+<p><img src="http://batsov.com/images/articles/rainbow-mode.png"></p>
 
 <p>The Emacs package manager <code>package.el</code> (formerly known as ELPA) is
 gaining a lot of popularity lately and the community
@@ -1322,9 +1322,9 @@ afraid it was too hard &ndash; now is the time to do it.</p>
   
   <entry>
     <title type="html"><![CDATA[Solarized for Emacs]]></title>
-    <link href="http://bbatsov.github.com/articles/2011/12/03/solarized-for-emacs/"/>
+    <link href="http://batsov.com/articles/2011/12/03/solarized-for-emacs/"/>
     <updated>2011-12-03T14:44:00+02:00</updated>
-    <id>http://bbatsov.github.com/articles/2011/12/03/solarized-for-emacs</id>
+    <id>http://batsov.com/articles/2011/12/03/solarized-for-emacs</id>
     <content type="html"><![CDATA[<p>I&rsquo;ve created a new port of the
 <a href="http://ethanschoonover.com/solarized">Solarized color theme</a> for
 Emacs 24. While there is
@@ -1336,7 +1336,7 @@ the development of Solarized and
 <p>So without further ado here&rsquo;s a screenshot of the theme (or the dark
 variant to be precise):</p>
 
-<p><img src="http://bbatsov.github.com/images/articles/solarized-emacs.png"></p>
+<p><img src="http://batsov.com/images/articles/solarized-emacs.png"></p>
 
 <p>Note that this is a very early version and I haven&rsquo;t fine tuned all
 the colors yet. The source code and installation instructions can be
@@ -1355,9 +1355,9 @@ coloring in most prominent modes out of the box.</p>
   
   <entry>
     <title type="html"><![CDATA[The Ultimate Collection of Emacs Resources]]></title>
-    <link href="http://bbatsov.github.com/articles/2011/11/30/the-ultimate-collection-of-emacs-resources/"/>
+    <link href="http://batsov.com/articles/2011/11/30/the-ultimate-collection-of-emacs-resources/"/>
     <updated>2011-11-30T20:56:00+02:00</updated>
-    <id>http://bbatsov.github.com/articles/2011/11/30/the-ultimate-collection-of-emacs-resources</id>
+    <id>http://batsov.com/articles/2011/11/30/the-ultimate-collection-of-emacs-resources</id>
     <content type="html"><![CDATA[<h2>Prelude</h2>
 
 <p>Anyone who&rsquo;s ever dabbled in the dark art that is Emacs knows that
@@ -1605,7 +1605,7 @@ suggestion.</p>
 
 <p>If you&rsquo;re an Emacs beginner start from the Emacs Tutorial and proceed
 with the articles on Mastering
-Emacs. <a href="http://bbatsov.github.com/articles/2011/10/09/getting-started-with-emacs-24/">Get a copy of Emacs 24</a>
+Emacs. <a href="http://batsov.com/articles/2011/10/09/getting-started-with-emacs-24/">Get a copy of Emacs 24</a>
 and <a href="https://github.com/bbatsov/prelude">Emacs Prelude</a> to start
 off with a solid initial configuration.</p>
 

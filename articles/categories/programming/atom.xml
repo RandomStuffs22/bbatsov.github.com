@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: programming | (think)]]></title>
-  <link href="http://bbatsov.github.com/articles/categories/programming/atom.xml" rel="self"/>
-  <link href="http://bbatsov.github.com/"/>
-  <updated>2013-09-26T16:20:56+03:00</updated>
-  <id>http://bbatsov.github.com/</id>
+  <link href="http://batsov.com/articles/categories/programming/atom.xml" rel="self"/>
+  <link href="http://batsov.com/"/>
+  <updated>2013-09-26T18:06:30+03:00</updated>
+  <id>http://batsov.com/</id>
   <author>
     <name><![CDATA[Bozhidar Batsov]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Ruby Tip #3: Matching on an Object's Class in a Case Expression]]></title>
-    <link href="http://bbatsov.github.com/articles/2012/10/14/ruby-tip-number-3-matching-on-an-objects-class-in-a-case-expression/"/>
+    <link href="http://batsov.com/articles/2012/10/14/ruby-tip-number-3-matching-on-an-objects-class-in-a-case-expression/"/>
     <updated>2012-10-14T15:23:00+03:00</updated>
-    <id>http://bbatsov.github.com/articles/2012/10/14/ruby-tip-number-3-matching-on-an-objects-class-in-a-case-expression</id>
+    <id>http://batsov.com/articles/2012/10/14/ruby-tip-number-3-matching-on-an-objects-class-in-a-case-expression</id>
     <content type="html"><![CDATA[<p>From time to time you might want to take different actions depending
 on an object&rsquo;s class. One handy way to do so is with a <code>case</code>
 expression:</p>
@@ -61,9 +61,9 @@ end
   
   <entry>
     <title type="html"><![CDATA[Setting up fallback locale(s) in Rails 3]]></title>
-    <link href="http://bbatsov.github.com/articles/2012/09/12/setting-up-fallback-locale-s-in-rails-3/"/>
+    <link href="http://batsov.com/articles/2012/09/12/setting-up-fallback-locale-s-in-rails-3/"/>
     <updated>2012-09-12T14:56:00+03:00</updated>
-    <id>http://bbatsov.github.com/articles/2012/09/12/setting-up-fallback-locale-s-in-rails-3</id>
+    <id>http://batsov.com/articles/2012/09/12/setting-up-fallback-locale-s-in-rails-3</id>
     <content type="html"><![CDATA[<p>I18n(internationalization) and l10n(localization) are topics that are
 covered superbly by the
 <a href="http://guides.rubyonrails.org/i18n.html">Rails Guides</a>. The one thing

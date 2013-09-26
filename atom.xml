@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[(think)]]></title>
-  <link href="http://bbatsov.github.com/atom.xml" rel="self"/>
-  <link href="http://bbatsov.github.com/"/>
-  <updated>2013-09-26T16:20:56+03:00</updated>
-  <id>http://bbatsov.github.com/</id>
+  <link href="http://batsov.com/atom.xml" rel="self"/>
+  <link href="http://batsov.com/"/>
+  <updated>2013-09-26T18:06:30+03:00</updated>
+  <id>http://batsov.com/</id>
   <author>
     <name><![CDATA[Bozhidar Batsov]]></name>
     
@@ -14,10 +14,59 @@
 
   
   <entry>
+    <title type="html"><![CDATA[The Elements of Style in Ruby #11: Invoking Lambdas/Procs]]></title>
+    <link href="http://batsov.com/articles/2013/09/26/the-elements-of-style-in-ruby-number-11-invoking-lambdas-slash-procs/"/>
+    <updated>2013-09-26T17:43:00+03:00</updated>
+    <id>http://batsov.com/articles/2013/09/26/the-elements-of-style-in-ruby-number-11-invoking-lambdas-slash-procs</id>
+    <content type="html"><![CDATA[<p>There are whopping 4 ways to invoke a lambda (or a proc) in Ruby:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">lambda</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">arg1</span><span class="p">,</span> <span class="n">arg2</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="nb">lambda</span><span class="o">[</span><span class="n">arg1</span><span class="p">,</span> <span class="n">arg2</span><span class="o">]</span>
+</span><span class='line'>
+</span><span class='line'><span class="nb">lambda</span><span class="o">.</span><span class="p">(</span><span class="n">arg1</span><span class="p">,</span> <span class="n">arg2</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># works only with one argument lambdas</span>
+</span><span class='line'><span class="nb">lambda</span> <span class="o">===</span> <span class="n">arg</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The last option <code>Proc#===</code> is a special case, that&rsquo;s quite useful
+in <a href="http://batsov.com/articles/2013/09/24/lambdas-slash-procs-in-case-expressions/">case expressions</a>,
+but should never the used directly.</p>
+
+<p>Of the three general purpose <code>Proc</code> methods that are available (it&rsquo;s
+actually just one method with two aliases) I&rsquo;d strongly encourage you
+to stick with<code>Proc#call</code>. The reasons are quite simple:</p>
+
+<ul>
+<li><p><code>lambda[arg]</code> looks like an index access on some data structure and you&rsquo;d certainly
+have to analyze the code context to understand what&rsquo;s going on (especially since the <code>lambda</code> is unlikely to actually be named
+<code>lambda</code> in actual code :&ndash;)).</p></li>
+<li><p><code>lambda.(arg)</code> is a cute syntactic trick, but it&rsquo;s really easy to overlook the <code>.</code> and assume that this is a normal
+method call (which probably was the point when this syntax was introduced). <code>lambda</code>s in Ruby are not real lambdas (they are instances of the <code>Proc</code> class) and we should simply embrace this fact instead of trying to hide it behind awkward syntax.</p></li>
+</ul>
+
+
+<p>I value code clarity and readability immensely and I&rsquo;m not particularly fond of excessive usage of
+operator overloading. The use of operators for lambda invocations in Ruby represents the ugly side of operator overloading &ndash;
+instead of increasing the readability of the code, the operators actually decrease it.</p>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[Lambdas/Procs in Case Expressions]]></title>
-    <link href="http://bbatsov.github.com/articles/2013/09/24/lambdas-slash-procs-in-case-expressions/"/>
+    <link href="http://batsov.com/articles/2013/09/24/lambdas-slash-procs-in-case-expressions/"/>
     <updated>2013-09-24T12:07:00+03:00</updated>
-    <id>http://bbatsov.github.com/articles/2013/09/24/lambdas-slash-procs-in-case-expressions</id>
+    <id>http://batsov.com/articles/2013/09/24/lambdas-slash-procs-in-case-expressions</id>
     <content type="html"><![CDATA[<p>Most Rubyists know they can use literals, classes, ranges and regular expressions in the <code>when</code> branches of a <code>case</code> expression:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -144,9 +193,9 @@ like:</p>
   
   <entry>
     <title type="html"><![CDATA[The Elements of Style in Ruby #10: In cryptic Perlisms we do not trust]]></title>
-    <link href="http://bbatsov.github.com/articles/2013/09/05/the-elements-of-style-in-ruby-number-10-in-cryptic-perlisms-we-do-not-trust/"/>
+    <link href="http://batsov.com/articles/2013/09/05/the-elements-of-style-in-ruby-number-10-in-cryptic-perlisms-we-do-not-trust/"/>
     <updated>2013-09-05T11:41:00+03:00</updated>
-    <id>http://bbatsov.github.com/articles/2013/09/05/the-elements-of-style-in-ruby-number-10-in-cryptic-perlisms-we-do-not-trust</id>
+    <id>http://batsov.com/articles/2013/09/05/the-elements-of-style-in-ruby-number-10-in-cryptic-perlisms-we-do-not-trust</id>
     <content type="html"><![CDATA[<p>For better or for worse Perl had significant influence over Ruby&rsquo;s
 initial design. A lot of things were directly borrowed from Perl, but
 over the years the Ruby community rejected most of the Perlisms. In
@@ -390,9 +439,9 @@ to identify and fix such shortfalls of your code.</p>
   
   <entry>
     <title type="html"><![CDATA[A couple of useful extensions to Ruby's Enumerable module]]></title>
-    <link href="http://bbatsov.github.com/articles/2013/09/03/a-couple-of-useful-extensions-to-rubys-enumerable-module/"/>
+    <link href="http://batsov.com/articles/2013/09/03/a-couple-of-useful-extensions-to-rubys-enumerable-module/"/>
     <updated>2013-09-03T15:20:00+03:00</updated>
-    <id>http://bbatsov.github.com/articles/2013/09/03/a-couple-of-useful-extensions-to-rubys-enumerable-module</id>
+    <id>http://batsov.com/articles/2013/09/03/a-couple-of-useful-extensions-to-rubys-enumerable-module</id>
     <content type="html"><![CDATA[<p>Ruby&rsquo;s <a href="http://ruby-doc.org/core-2.0.0/Enumerable.html">Enumerable</a>
 module is pretty extensive, but from time to time I wish it had some
 extra methods, that are available in
@@ -494,9 +543,9 @@ share this with me in the comments or on
   
   <entry>
     <title type="html"><![CDATA[Using Ruby's gsub with a block]]></title>
-    <link href="http://bbatsov.github.com/articles/2013/08/30/using-gsub-with-a-block/"/>
+    <link href="http://batsov.com/articles/2013/08/30/using-gsub-with-a-block/"/>
     <updated>2013-08-30T15:29:00+03:00</updated>
-    <id>http://bbatsov.github.com/articles/2013/08/30/using-gsub-with-a-block</id>
+    <id>http://batsov.com/articles/2013/08/30/using-gsub-with-a-block</id>
     <content type="html"><![CDATA[<p><code>String#gsub</code> is one of the most used Ruby methods in the wild. Just
 about every Ruby programmer knows about the method and uses it fairly
 regularly.</p>
@@ -572,9 +621,9 @@ get a single argument denoting the entire regexp match.</p>
   
   <entry>
     <title type="html"><![CDATA[The Elements of Style in Ruby #9: Hash#has_key? and Hash#has_value? are deprecated]]></title>
-    <link href="http://bbatsov.github.com/articles/2013/08/21/the-elements-of-style-in-ruby-number-9-hash-number-has-key-and-hash-number-has-value-are-deprecated/"/>
+    <link href="http://batsov.com/articles/2013/08/21/the-elements-of-style-in-ruby-number-9-hash-number-has-key-and-hash-number-has-value-are-deprecated/"/>
     <updated>2013-08-21T17:04:00+03:00</updated>
-    <id>http://bbatsov.github.com/articles/2013/08/21/the-elements-of-style-in-ruby-number-9-hash-number-has-key-and-hash-number-has-value-are-deprecated</id>
+    <id>http://batsov.com/articles/2013/08/21/the-elements-of-style-in-ruby-number-9-hash-number-has-key-and-hash-number-has-value-are-deprecated</id>
     <content type="html"><![CDATA[<p>One can often similar code in the wild:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -602,9 +651,9 @@ to identify and fix such shortfalls of your code.</p>
   
   <entry>
     <title type="html"><![CDATA[Announcing the Powerpack library]]></title>
-    <link href="http://bbatsov.github.com/articles/2013/08/21/announcing-the-powerpack-library/"/>
+    <link href="http://batsov.com/articles/2013/08/21/announcing-the-powerpack-library/"/>
     <updated>2013-08-21T16:17:00+03:00</updated>
-    <id>http://bbatsov.github.com/articles/2013/08/21/announcing-the-powerpack-library</id>
+    <id>http://batsov.com/articles/2013/08/21/announcing-the-powerpack-library</id>
     <content type="html"><![CDATA[<p><a href="https://github.com/bbatsov/powerpack">Powerpack</a> is a small Ruby
 library containing (at this point) a few extensions to some core Ruby
 classes. I guess that in a way one can say it&rsquo;s something like Rails&rsquo;s
@@ -655,9 +704,9 @@ are at your disposal!</p>
   
   <entry>
     <title type="html"><![CDATA[The Elements of Style in Ruby #8: Know Thy Predicates]]></title>
-    <link href="http://bbatsov.github.com/articles/2013/08/14/the-elements-of-style-in-ruby-number-8-know-thy-predicates/"/>
+    <link href="http://batsov.com/articles/2013/08/14/the-elements-of-style-in-ruby-number-8-know-thy-predicates/"/>
     <updated>2013-08-14T17:28:00+03:00</updated>
-    <id>http://bbatsov.github.com/articles/2013/08/14/the-elements-of-style-in-ruby-number-8-know-thy-predicates</id>
+    <id>http://batsov.com/articles/2013/08/14/the-elements-of-style-in-ruby-number-8-know-thy-predicates</id>
     <content type="html"><![CDATA[<p>I often see people writing code like this:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -767,9 +816,9 @@ further:</p>
   
   <entry>
     <title type="html"><![CDATA[Android is not better. Neither is iOS.]]></title>
-    <link href="http://bbatsov.github.com/articles/2013/08/14/android-is-not-better-neither-is-ios/"/>
+    <link href="http://batsov.com/articles/2013/08/14/android-is-not-better-neither-is-ios/"/>
     <updated>2013-08-14T14:20:00+03:00</updated>
-    <id>http://bbatsov.github.com/articles/2013/08/14/android-is-not-better-neither-is-ios</id>
+    <id>http://batsov.com/articles/2013/08/14/android-is-not-better-neither-is-ios</id>
     <content type="html"><![CDATA[<h2>Prelude</h2>
 
 <p>The following few days Paul Stamatiou’s article
@@ -994,9 +1043,9 @@ you!</p>
   
   <entry>
     <title type="html"><![CDATA[The Elements of Style in Ruby #7: The case against ===]]></title>
-    <link href="http://bbatsov.github.com/articles/2013/07/10/the-elements-of-style-in-ruby-number-7-the-case-against-equals-equals-equals/"/>
+    <link href="http://batsov.com/articles/2013/07/10/the-elements-of-style-in-ruby-number-7-the-case-against-equals-equals-equals/"/>
     <updated>2013-07-10T15:44:00+03:00</updated>
-    <id>http://bbatsov.github.com/articles/2013/07/10/the-elements-of-style-in-ruby-number-7-the-case-against-equals-equals-equals</id>
+    <id>http://batsov.com/articles/2013/07/10/the-elements-of-style-in-ruby-number-7-the-case-against-equals-equals-equals</id>
     <content type="html"><![CDATA[<p>Today we&rsquo;ll discuss the following section from the <a href="https://github.com/bbatsov/ruby-style-guide">Ruby Style Guide</a>:</p>
 
 <blockquote><p>Avoid explicit use of the case equality operator <code>===</code>. As it name<br/>
@@ -1117,9 +1166,9 @@ to hearing your thoughts here and on
   
   <entry>
     <title type="html"><![CDATA[The Elements of Style in Ruby #6: Attributes Redux]]></title>
-    <link href="http://bbatsov.github.com/articles/2013/07/04/the-elements-of-style-in-ruby-number-6-attributes-redux/"/>
+    <link href="http://batsov.com/articles/2013/07/04/the-elements-of-style-in-ruby-number-6-attributes-redux/"/>
     <updated>2013-07-04T15:36:00+03:00</updated>
-    <id>http://bbatsov.github.com/articles/2013/07/04/the-elements-of-style-in-ruby-number-6-attributes-redux</id>
+    <id>http://batsov.com/articles/2013/07/04/the-elements-of-style-in-ruby-number-6-attributes-redux</id>
     <content type="html"><![CDATA[<p>Today we&rsquo;ll talk about attributes in Ruby.</p>
 
 <p>Let&rsquo;s start with the following rule from the
@@ -1442,9 +1491,9 @@ you&rsquo;ve found my musing on the subject of attributes useful.</p>
   
   <entry>
     <title type="html"><![CDATA[The Elements of Style in Ruby #5: Readability of long numeric literals]]></title>
-    <link href="http://bbatsov.github.com/articles/2013/07/02/the-elements-of-style-in-ruby-number-5-readability-of-long-numeric-literals/"/>
+    <link href="http://batsov.com/articles/2013/07/02/the-elements-of-style-in-ruby-number-5-readability-of-long-numeric-literals/"/>
     <updated>2013-07-02T15:01:00+03:00</updated>
-    <id>http://bbatsov.github.com/articles/2013/07/02/the-elements-of-style-in-ruby-number-5-readability-of-long-numeric-literals</id>
+    <id>http://batsov.com/articles/2013/07/02/the-elements-of-style-in-ruby-number-5-readability-of-long-numeric-literals</id>
     <content type="html"><![CDATA[<p>Today&rsquo;s topic is the following rule from the <a href="https://github.com/bbatsov/ruby-style-guide">Ruby Style Guide</a>:</p>
 
 <blockquote><p>Add underscores to large numeric literals to improve their readability.</p></blockquote>
@@ -1521,9 +1570,9 @@ of you of the benefits of using underscores in your long numeric literals.</p>
   
   <entry>
     <title type="html"><![CDATA[RuboCop 0.9 is now patrolling the streets!]]></title>
-    <link href="http://bbatsov.github.com/articles/2013/07/01/rubocop-0-dot-9-is-now-patrolling-the-streets/"/>
+    <link href="http://batsov.com/articles/2013/07/01/rubocop-0-dot-9-is-now-patrolling-the-streets/"/>
     <updated>2013-07-01T17:06:00+03:00</updated>
-    <id>http://bbatsov.github.com/articles/2013/07/01/rubocop-0-dot-9-is-now-patrolling-the-streets</id>
+    <id>http://batsov.com/articles/2013/07/01/rubocop-0-dot-9-is-now-patrolling-the-streets</id>
     <content type="html"><![CDATA[<p><a href="https://github.com/bbatsov/rubocop">RuboCop</a> 0.9 is finally out! This
 was one of our most ambitious releases &ndash; over a month of work, ~250
 commits, lots of new cops and features and a lot less bugs (OK, I&rsquo;m
@@ -1603,9 +1652,9 @@ look at the epic
   
   <entry>
     <title type="html"><![CDATA[The Elements of Style in Ruby #4: Array#join vs Array#*]]></title>
-    <link href="http://bbatsov.github.com/articles/2013/07/01/the-elements-of-style-in-ruby-number-4-array-number-join-vs-array-number-star/"/>
+    <link href="http://batsov.com/articles/2013/07/01/the-elements-of-style-in-ruby-number-4-array-number-join-vs-array-number-star/"/>
     <updated>2013-07-01T16:28:00+03:00</updated>
-    <id>http://bbatsov.github.com/articles/2013/07/01/the-elements-of-style-in-ruby-number-4-array-number-join-vs-array-number-star</id>
+    <id>http://batsov.com/articles/2013/07/01/the-elements-of-style-in-ruby-number-4-array-number-join-vs-array-number-star</id>
     <content type="html"><![CDATA[<p>Today&rsquo;s topic is the following rule from the <a href="https://github.com/bbatsov/ruby-style-guide">Ruby Style Guide</a>:</p>
 
 <blockquote><p>Favor the use of <code>Array#join</code> over the fairly cryptic <code>Array#*</code> with
@@ -1696,9 +1745,9 @@ because it&rsquo;s bad idea to make use of them.</p>
   
   <entry>
     <title type="html"><![CDATA[The Elements of Style in Ruby #3: Make sure something is an array]]></title>
-    <link href="http://bbatsov.github.com/articles/2013/06/28/the-elements-of-style-in-ruby-number-3-make-sure-something-is-an-array/"/>
+    <link href="http://batsov.com/articles/2013/06/28/the-elements-of-style-in-ruby-number-3-make-sure-something-is-an-array/"/>
     <updated>2013-06-28T15:39:00+03:00</updated>
-    <id>http://bbatsov.github.com/articles/2013/06/28/the-elements-of-style-in-ruby-number-3-make-sure-something-is-an-array</id>
+    <id>http://batsov.com/articles/2013/06/28/the-elements-of-style-in-ruby-number-3-make-sure-something-is-an-array</id>
     <content type="html"><![CDATA[<p>The subject of today&rsquo;s post is the following rule from the
 <a href="https://github.com/bbatsov/ruby-style-guide">Ruby Style Guide</a>:</p>
 
@@ -1794,9 +1843,9 @@ to hearing your thoughts here and on
   
   <entry>
     <title type="html"><![CDATA[The Elements of Style in Ruby #2: Favor sprintf(format) over String#%]]></title>
-    <link href="http://bbatsov.github.com/articles/2013/06/27/the-elements-of-style-in-ruby-number-2-favor-sprintf-format-over-string-number-percent/"/>
+    <link href="http://batsov.com/articles/2013/06/27/the-elements-of-style-in-ruby-number-2-favor-sprintf-format-over-string-number-percent/"/>
     <updated>2013-06-27T13:15:00+03:00</updated>
-    <id>http://bbatsov.github.com/articles/2013/06/27/the-elements-of-style-in-ruby-number-2-favor-sprintf-format-over-string-number-percent</id>
+    <id>http://batsov.com/articles/2013/06/27/the-elements-of-style-in-ruby-number-2-favor-sprintf-format-over-string-number-percent</id>
     <content type="html"><![CDATA[<p>Today&rsquo;s topic is the following rule from the <a href="https://github.com/bbatsov/ruby-style-guide">Ruby Style Guide</a>:</p>
 
 <blockquote><p>Favor the use of <code>sprintf</code> and its alias <code>format</code> over the fairly </br>
@@ -1917,9 +1966,9 @@ consistency. I encourage you to use them (<code>format</code> in particular)!</p
   
   <entry>
     <title type="html"><![CDATA[The Elements of Style in Ruby #1: Maximum line length]]></title>
-    <link href="http://bbatsov.github.com/articles/2013/06/26/the-elements-of-style-in-ruby-number-1-maximum-line-length/"/>
+    <link href="http://batsov.com/articles/2013/06/26/the-elements-of-style-in-ruby-number-1-maximum-line-length/"/>
     <updated>2013-06-26T16:57:00+03:00</updated>
-    <id>http://bbatsov.github.com/articles/2013/06/26/the-elements-of-style-in-ruby-number-1-maximum-line-length</id>
+    <id>http://batsov.com/articles/2013/06/26/the-elements-of-style-in-ruby-number-1-maximum-line-length</id>
     <content type="html"><![CDATA[<p>Welcome to the first installment of <strong>The Elements of Style in Ruby</strong>.</p>
 
 <p>We&rsquo;ll start off with something pretty generic, that&rsquo;s not specific to
@@ -1977,9 +2026,9 @@ ping me on <a href="http://twitter.com/bbatsov">Twitter</a>.</p>
   
   <entry>
     <title type="html"><![CDATA[The Elements of Style in Ruby: An Essay in N parts]]></title>
-    <link href="http://bbatsov.github.com/articles/2013/06/26/the-elements-of-style-in-ruby-an-essay-in-n-parts/"/>
+    <link href="http://batsov.com/articles/2013/06/26/the-elements-of-style-in-ruby-an-essay-in-n-parts/"/>
     <updated>2013-06-26T16:30:00+03:00</updated>
-    <id>http://bbatsov.github.com/articles/2013/06/26/the-elements-of-style-in-ruby-an-essay-in-n-parts</id>
+    <id>http://batsov.com/articles/2013/06/26/the-elements-of-style-in-ruby-an-essay-in-n-parts</id>
     <content type="html"><![CDATA[<p><a href="https://github.com/bbatsov/ruby-style-guide">The Ruby Style Guide</a> is
 nearing its second birthday. The project has gained more attention and
 more traction than I could have imagined. For the millionth time I was
@@ -2015,20 +2064,20 @@ on no particular schedule.</p>
 interesting discussions with you!</p>
 
 <p>Feel free to take a look at the
-<a href="http://bbatsov.github.com/articles/2013/06/26/the-elements-of-style-in-ruby-number-1-maximum-line-length/">first article in the series, dedicated to the maximum line length we should aim for</a>.</p>
+<a href="http://batsov.com/articles/2013/06/26/the-elements-of-style-in-ruby-number-1-maximum-line-length/">first article in the series, dedicated to the maximum line length we should aim for</a>.</p>
 
 <h2>Articles in the Series</h2>
 
 <ol>
-<li><a href="http://bbatsov.github.com/articles/2013/06/26/the-elements-of-style-in-ruby-number-1-maximum-line-length/">Maximum Line Length</a></li>
-<li><a href="http://bbatsov.github.com/articles/2013/06/27/the-elements-of-style-in-ruby-number-2-favor-sprintf-format-over-string-number-percent/">Favor sprintf(format) Over String#%</a></li>
-<li><a href="http://bbatsov.github.com/articles/2013/06/28/the-elements-of-style-in-ruby-number-3-make-sure-something-is-an-array/">Make Sure Something Is an Array</a></li>
-<li><a href="http://bbatsov.github.com/articles/2013/07/01/the-elements-of-style-in-ruby-number-4-array-number-join-vs-array-number-star/">Array#join vs Array#*</a></li>
-<li><a href="http://bbatsov.github.com/articles/2013/07/02/the-elements-of-style-in-ruby-number-5-readability-of-long-numeric-literals">Readability of Long Numeric Literals</a></li>
-<li><a href="http://bbatsov.github.com/articles/2013/07/04/the-elements-of-style-in-ruby-number-6-attributes-redux">Attributes Redux</a></li>
-<li><a href="http://bbatsov.github.com/articles/2013/07/10/the-elements-of-style-in-ruby-number-7-the-case-against-equals-equals-equals">The case against <code>===</code></a></li>
-<li><a href="http://bbatsov.github.com/articles/2013/08/14/the-elements-of-style-in-ruby-number-8-know-thy-predicates/">Know Thy Predicates</a></li>
-<li><a href="http://bbatsov.github.com/articles/2013/08/21/the-elements-of-style-in-ruby-number-9-hash-number-has-key-and-hash-number-has-value-are-deprecated/">Hash#has_key? and Hash#has_value? are deprecated</a></li>
+<li><a href="http://batsov.com/articles/2013/06/26/the-elements-of-style-in-ruby-number-1-maximum-line-length/">Maximum Line Length</a></li>
+<li><a href="http://batsov.com/articles/2013/06/27/the-elements-of-style-in-ruby-number-2-favor-sprintf-format-over-string-number-percent/">Favor sprintf(format) Over String#%</a></li>
+<li><a href="http://batsov.com/articles/2013/06/28/the-elements-of-style-in-ruby-number-3-make-sure-something-is-an-array/">Make Sure Something Is an Array</a></li>
+<li><a href="http://batsov.com/articles/2013/07/01/the-elements-of-style-in-ruby-number-4-array-number-join-vs-array-number-star/">Array#join vs Array#*</a></li>
+<li><a href="http://batsov.com/articles/2013/07/02/the-elements-of-style-in-ruby-number-5-readability-of-long-numeric-literals">Readability of Long Numeric Literals</a></li>
+<li><a href="http://batsov.com/articles/2013/07/04/the-elements-of-style-in-ruby-number-6-attributes-redux">Attributes Redux</a></li>
+<li><a href="http://batsov.com/articles/2013/07/10/the-elements-of-style-in-ruby-number-7-the-case-against-equals-equals-equals">The case against <code>===</code></a></li>
+<li><a href="http://batsov.com/articles/2013/08/14/the-elements-of-style-in-ruby-number-8-know-thy-predicates/">Know Thy Predicates</a></li>
+<li><a href="http://batsov.com/articles/2013/08/21/the-elements-of-style-in-ruby-number-9-hash-number-has-key-and-hash-number-has-value-are-deprecated/">Hash#has_key? and Hash#has_value? are deprecated</a></li>
 </ol>
 
 ]]></content>
@@ -2036,9 +2085,9 @@ interesting discussions with you!</p>
   
   <entry>
     <title type="html"><![CDATA[RuboCop 0.8.0 is out, support for JRuby and Rubinius is in!]]></title>
-    <link href="http://bbatsov.github.com/articles/2013/05/28/rubocop-0-dot-8-0-is-out/"/>
+    <link href="http://batsov.com/articles/2013/05/28/rubocop-0-dot-8-0-is-out/"/>
     <updated>2013-05-28T12:11:00+03:00</updated>
-    <id>http://bbatsov.github.com/articles/2013/05/28/rubocop-0-dot-8-0-is-out</id>
+    <id>http://batsov.com/articles/2013/05/28/rubocop-0-dot-8-0-is-out</id>
     <content type="html"><![CDATA[<p><a href="http://github.com/bbatsov/rubocop">RuboCop</a> 0.8.0 is out!</p>
 
 <p>While the version bump is minor, this release represents an almost
@@ -2069,9 +2118,9 @@ more precise diagnostic messages(a-la <code>clang</code>).</p>
   
   <entry>
     <title type="html"><![CDATA[WikEmacs lives on under new stewardship]]></title>
-    <link href="http://bbatsov.github.com/articles/2013/04/24/wikemacs-lives-on-under-new-stewardship/"/>
+    <link href="http://batsov.com/articles/2013/04/24/wikemacs-lives-on-under-new-stewardship/"/>
     <updated>2013-04-24T11:36:00+03:00</updated>
-    <id>http://bbatsov.github.com/articles/2013/04/24/wikemacs-lives-on-under-new-stewardship</id>
+    <id>http://batsov.com/articles/2013/04/24/wikemacs-lives-on-under-new-stewardship</id>
     <content type="html"><![CDATA[<p>Several months passed since I stated my intent
 <a href="articles/2013/01/27/the-wikemacs-experiment-is-over-long-live-emacswiki/">to shutdown WikEmacs</a>. While
 I still consider the project a failed experiment and stand by
@@ -2089,64 +2138,6 @@ handed over the domain and the data to Jesse.</p>
 for a couple of weeks now under his management and will continue to
 exist for a long time. If you liked the project I guess this is a good
 moment to show you love and spread the word.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[RuboCop 0.6.0 released]]></title>
-    <link href="http://bbatsov.github.com/articles/2013/04/23/rubocop-0-dot-6-0-released/"/>
-    <updated>2013-04-23T14:46:00+03:00</updated>
-    <id>http://bbatsov.github.com/articles/2013/04/23/rubocop-0-dot-6-0-released</id>
-    <content type="html"><![CDATA[<p><a href="https://github.com/bbatsov/rubocop">RuboCop</a> 0.6.0 was just released!
-It&rsquo;s RuboCop&rsquo;s biggest and most ambitious release yet.  Here&rsquo;s the
-highlights:</p>
-
-<ul>
-<li>15 new cops(checks)</li>
-<li>Support for disabling cops locally in a file with <code>rubocop:disable</code> comments</li>
-<li>Half a dozen bugs squashed</li>
-<li>Small improvements across the board</li>
-</ul>
-
-
-<p>I guess the support for disabling cops locally deserves a bit of special treatment.</p>
-
-<p>So here&rsquo;s the basics &ndash; you&rsquo;re now allowed to enable/disable certain cops
-(checks) and to alter their behavior if they accept any parameters.</p>
-
-<p>One or more individual cops can be disabled locally in a section of a
-file by adding a comment such as:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># rubocop:disable LineLength, StringLiterals</span>
-</span><span class='line'><span class="o">[.</span><span class="n">.</span><span class="o">.]</span>
-</span><span class='line'><span class="c1"># rubocop:enable LineLength, StringLiterals</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>You can also disable <em>all</em> cops with:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># rubocop:disable all</span>
-</span><span class='line'><span class="o">[.</span><span class="n">.</span><span class="o">.]</span>
-</span><span class='line'><span class="c1"># rubocop:enable all</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>One or more cops can be disabled on a single line with an end-of-line
-comment:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">for</span> <span class="n">x</span> <span class="k">in</span> <span class="p">(</span><span class="mi">0</span><span class="o">.</span><span class="n">.</span><span class="mi">19</span><span class="p">)</span> <span class="c1"># rubocop:disable AvoidFor</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>You can see all the gory details in the
-<a href="https://github.com/bbatsov/rubocop/blob/master/CHANGELOG.md">changelog</a>. I hope you&rsquo;ll enjoy RuboCop 0.6.0!</p>
 ]]></content>
   </entry>
   

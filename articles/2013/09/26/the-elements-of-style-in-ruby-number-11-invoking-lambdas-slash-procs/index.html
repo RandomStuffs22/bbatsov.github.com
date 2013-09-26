@@ -5,11 +5,19 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Every blog has its first post... - (think)</title>
+  <title>The Elements of Style in Ruby #11: Invoking Lambdas/Procs - (think)</title>
   <meta name="author" content="Bozhidar Batsov">
 
   
-  <meta name="description" content="Every Generation Has A Legend. Every Journey Has A First Step. EverySaga Has A Beginning.Star Wars Episode I: The Phantom Menace Trailer Hello, &hellip;">
+  <meta name="description" content="There are whopping 4 ways to invoke a lambda (or a proc) in Ruby: 1
+2
+3
+4
+5
+6
+7
+8
+lambda.call(arg1, arg2) lambda[arg1, arg2] lambda.(arg1, arg2) # &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +26,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://batsov.com/articles/2008/05/05/first-post">
+  <link rel="canonical" href="http://batsov.com/articles/2013/09/26/the-elements-of-style-in-ruby-number-11-invoking-lambdas-slash-procs">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="(think)" type="application/atom+xml">
@@ -82,7 +90,7 @@
   
   <header>
     
-      <h1 class="entry-title">Every Blog Has Its First Post...</h1>
+      <h1 class="entry-title">The Elements of Style in Ruby #11: Invoking Lambdas/Procs</h1>
     
     
       <p class="meta">
@@ -98,35 +106,54 @@
   
 
 
-<time datetime="2008-05-05T00:00:00+03:00" pubdate data-updated="true">May 5<span>th</span>, 2008</time>
+<time datetime="2013-09-26T17:43:00+03:00" pubdate data-updated="true">Sep 26<span>th</span>, 2013</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><blockquote><p>Every Generation Has A Legend. Every Journey Has A First Step. Every<br/>Saga Has A Beginning.</p><footer><strong>Star Wars Episode I: The Phantom Menace</strong> <cite>Trailer</cite></footer></blockquote>
+<div class="entry-content"><p>There are whopping 4 ways to invoke a lambda (or a proc) in Ruby:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">lambda</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">arg1</span><span class="p">,</span> <span class="n">arg2</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="nb">lambda</span><span class="o">[</span><span class="n">arg1</span><span class="p">,</span> <span class="n">arg2</span><span class="o">]</span>
+</span><span class='line'>
+</span><span class='line'><span class="nb">lambda</span><span class="o">.</span><span class="p">(</span><span class="n">arg1</span><span class="p">,</span> <span class="n">arg2</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># works only with one argument lambdas</span>
+</span><span class='line'><span class="nb">lambda</span> <span class="o">===</span> <span class="n">arg</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
-<p>Hello, everyone! Welcome to my blog!</p>
+<p>The last option <code>Proc#===</code> is a special case, that&rsquo;s quite useful
+in <a href="http://batsov.com/articles/2013/09/24/lambdas-slash-procs-in-case-expressions/">case expressions</a>,
+but should never the used directly.</p>
 
-<p>I&rsquo;ll post here bits and pieces inspired by my humble experience as a
-software developer. Expect to see primarily articles about Lisp,
-Emacs, Java and Ruby, but also about software development in general.</p>
+<p>Of the three general purpose <code>Proc</code> methods that are available (it&rsquo;s
+actually just one method with two aliases) I&rsquo;d strongly encourage you
+to stick with<code>Proc#call</code>. The reasons are quite simple:</p>
 
-<p>As a fan of the Star Wars franchise I often like to quote characters
-from the movies. I feel that this is the time for one such quote.</p>
+<ul>
+<li><p><code>lambda[arg]</code> looks like an index access on some data structure and you&rsquo;d certainly
+have to analyze the code context to understand what&rsquo;s going on (especially since the <code>lambda</code> is unlikely to actually be named
+<code>lambda</code> in actual code :&ndash;)).</p></li>
+<li><p><code>lambda.(arg)</code> is a cute syntactic trick, but it&rsquo;s really easy to overlook the <code>.</code> and assume that this is a normal
+method call (which probably was the point when this syntax was introduced). <code>lambda</code>s in Ruby are not real lambdas (they are instances of the <code>Proc</code> class) and we should simply embrace this fact instead of trying to hide it behind awkward syntax.</p></li>
+</ul>
 
-<blockquote><p>Always two there are, no more, no less. A master and an<br/>apprentice.</p><footer><strong>Master Yoda</strong> <cite>The Phantom Menace</cite></footer></blockquote>
 
-
-<p>I’m no hacker wizard by any means, but I hope that I can
-help someone learn something useful and maybe I&rsquo;ll manage to learn something
-from the readers of my blog(if I have any, that is). In this sense
-one can say that in life we&rsquo;re always the master and the apprentice at
-the same time&hellip;</p>
-
-<p>I hope you&rsquo;ll enjoy reading my blog!</p>
+<p>I value code clarity and readability immensely and I&rsquo;m not particularly fond of excessive usage of
+operator overloading. The use of operators for lambda invocations in Ruby represents the ugly side of operator overloading &ndash;
+instead of increasing the readability of the code, the operators actually decrease it.</p>
 </div>
 
 
@@ -149,12 +176,12 @@ the same time&hellip;</p>
   
 
 
-<time datetime="2008-05-05T00:00:00+03:00" pubdate data-updated="true">May 5<span>th</span>, 2008</time>
+<time datetime="2013-09-26T17:43:00+03:00" pubdate data-updated="true">Sep 26<span>th</span>, 2013</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/articles/categories/misc/'>Misc</a>
+    <a class='category' href='/articles/categories/ruby/'>Ruby</a>, <a class='category' href='/articles/categories/style/'>Style</a>
   
 </span>
 
@@ -163,7 +190,7 @@ the same time&hellip;</p>
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://batsov.com/articles/2008/05/05/first-post/" data-via="bbatsov" data-counturl="http://batsov.com/articles/2008/05/05/first-post/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://batsov.com/articles/2013/09/26/the-elements-of-style-in-ruby-number-11-invoking-lambdas-slash-procs/" data-via="bbatsov" data-counturl="http://batsov.com/articles/2013/09/26/the-elements-of-style-in-ruby-number-11-invoking-lambdas-slash-procs/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -174,8 +201,8 @@ the same time&hellip;</p>
     
     <p class="meta">
       
+        <a class="basic-alignment left" href="/articles/2013/09/24/lambdas-slash-procs-in-case-expressions/" title="Previous Post: Lambdas/Procs in Case Expressions">&laquo; Lambdas/Procs in Case Expressions</a>
       
-        <a class="basic-alignment right" href="/articles/2008/06/16/das-keyboard/" title="Next Post: Das Keyboard">Das Keyboard &raquo;</a>
       
     </p>
   </footer>
@@ -292,8 +319,8 @@ the same time&hellip;</p>
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://batsov.com/articles/2008/05/05/first-post/';
-        var disqus_url = 'http://batsov.com/articles/2008/05/05/first-post/';
+        var disqus_identifier = 'http://batsov.com/articles/2013/09/26/the-elements-of-style-in-ruby-number-11-invoking-lambdas-slash-procs/';
+        var disqus_url = 'http://batsov.com/articles/2013/09/26/the-elements-of-style-in-ruby-number-11-invoking-lambdas-slash-procs/';
         var disqus_script = 'embed.js';
       
     (function () {
