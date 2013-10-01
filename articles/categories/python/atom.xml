@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Python | (think)]]></title>
   <link href="http://batsov.com/articles/categories/python/atom.xml" rel="self"/>
   <link href="http://batsov.com/"/>
-  <updated>2013-09-27T15:35:42+03:00</updated>
+  <updated>2013-10-01T18:26:59+03:00</updated>
   <id>http://batsov.com/</id>
   <author>
     <name><![CDATA[Bozhidar Batsov]]></name>
@@ -533,8 +533,8 @@ functions:</p>
 
 &lt;p&gt;urlpatterns = patterns(&amp;lsquo;&amp;rsquo;,&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;url(r'^$', 'djangodemo.views.home', name='home')
-url(r'^users', 'djangodemo.view.users', name='list_users'))
+&lt;pre&gt;&lt;code&gt;url(r&#39;^$&#39;, &#39;djangodemo.views.home&#39;, name=&#39;home&#39;)
+url(r&#39;^users&#39;, &#39;djangodemo.view.users&#39;, name=&#39;list_users&#39;))
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;</code></pre>

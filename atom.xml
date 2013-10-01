@@ -4,7 +4,7 @@
   <title><![CDATA[(think)]]></title>
   <link href="http://batsov.com/atom.xml" rel="self"/>
   <link href="http://batsov.com/"/>
-  <updated>2013-09-27T15:35:42+03:00</updated>
+  <updated>2013-10-01T18:26:59+03:00</updated>
   <id>http://batsov.com/</id>
   <author>
     <name><![CDATA[Bozhidar Batsov]]></name>
@@ -142,7 +142,7 @@ like:</p>
 </span><span class='line'><span class="k">case</span> <span class="n">x</span>
 </span><span class='line'><span class="k">when</span> <span class="n">even?</span> <span class="k">then</span> <span class="nb">puts</span> <span class="s1">&#39;even&#39;</span>
 </span><span class='line'><span class="k">when</span> <span class="n">odd?</span> <span class="k">then</span> <span class="nb">puts</span> <span class="s1">&#39;odd&#39;</span>
-</span><span class='line'><span class="k">else</span> <span class="nb">puts</span> <span class="s1">&#39;zero&#39;</span>
+</span><span class='line'><span class="k">else</span> <span class="nb">puts</span> <span class="s1">&#39;Impossible!&#39;</span>
 </span><span class='line'><span class="k">end</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -157,7 +157,7 @@ like:</p>
 </pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">case</span> <span class="n">x</span>
 </span><span class='line'><span class="k">when</span> <span class="o">-&gt;</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="p">{</span> <span class="n">n</span><span class="o">.</span><span class="n">even?</span> <span class="p">}</span> <span class="k">then</span> <span class="nb">puts</span> <span class="s1">&#39;even&#39;</span>
 </span><span class='line'><span class="k">when</span> <span class="o">-&gt;</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="p">{</span> <span class="n">n</span><span class="o">.</span><span class="n">odd?</span> <span class="p">}</span> <span class="k">then</span> <span class="nb">puts</span> <span class="s1">&#39;odd&#39;</span>
-</span><span class='line'><span class="k">else</span> <span class="nb">puts</span> <span class="s1">&#39;zero&#39;</span>
+</span><span class='line'><span class="k">else</span> <span class="nb">puts</span> <span class="s1">&#39;Impossible!&#39;</span>
 </span><span class='line'><span class="k">end</span>
 </span></code></pre></td></tr></table></div></figure>
 
