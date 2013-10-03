@@ -4,7 +4,7 @@
   <title><![CDATA[(think)]]></title>
   <link href="http://batsov.com/atom.xml" rel="self"/>
   <link href="http://batsov.com/"/>
-  <updated>2013-10-01T18:32:28+03:00</updated>
+  <updated>2013-10-03T16:31:07+03:00</updated>
   <id>http://batsov.com/</id>
   <author>
     <name><![CDATA[Bozhidar Batsov]]></name>
@@ -12,6 +12,50 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Using Ruby's gsub with a hash]]></title>
+    <link href="http://batsov.com/articles/2013/10/03/using-rubys-gsub-with-a-hash/"/>
+    <updated>2013-10-03T16:12:00+03:00</updated>
+    <id>http://batsov.com/articles/2013/10/03/using-rubys-gsub-with-a-hash</id>
+    <content type="html"><![CDATA[<p>Recently we discussed <a href="http://batsov.com/articles/2013/08/30/using-gsub-with-a-block/">how you can use <code>String#gsub</code> with a block</a>.
+Today we&rsquo;ll examine another somewhat unknown feature of the <code>gsub</code> method &ndash; the ability to supply a replacement hash as the second argument (which is normally a string).</p>
+
+<p>If the replacement argument is a hash, and the matched text is one of its keys, the corresponding value is the replacement string. Here&rsquo;s a simple example:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>def geekify(string)
+</span><span class='line'>  string.gsub([leto], 'l' =&gt; '1', 'e' =&gt; '3', 't' =&gt; '7', 'o' =&gt; '0')
+</span><span class='line'>end
+</span><span class='line'>
+</span><span class='line'>geekify('leet') # =&gt; '1337'
+</span><span class='line'>geekify('noob') # =&gt; 'n00b'</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Keep in mind you&rsquo;re not restricted to single character replacements:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>def doctorize(string)
+</span><span class='line'>  string.gsub(/M(iste)?r/, 'Mister' =&gt; 'Doctor', 'Mr' =&gt; 'Dr')
+</span><span class='line'>end
+</span><span class='line'>
+</span><span class='line'>doctorize('Mister Freeze') # =&gt; 'Doctor Freeze'
+</span><span class='line'>doctorize('Mr Smith')   # =&gt; 'Dr Smith'</span></code></pre></td></tr></table></div></figure>
+
+
+<p>That&rsquo;s all for today folks! I hope you&rsquo;ll find this short article useful!</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[The Elements of Style in Ruby #11: Invoking Lambdas/Procs]]></title>
@@ -2301,6 +2345,8 @@ interesting discussions with you!</p>
 
 <li><a href="">The Elements of Style in Ruby #11: Invoking Lambdas/Procs</a></li>
   <!-- categories if -->
+
+  <!-- categories if -->
  <!-- posts for -->
 </ul>
 
@@ -2337,31 +2383,6 @@ more precise diagnostic messages(a-la <code>clang</code>).</p>
 <p>The changelog for 0.8.0 is available <a href="https://github.com/bbatsov/rubocop/blob/master/CHANGELOG.md">here</a>.</p>
 
 <p>Stay tuned for more!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[WikEmacs lives on under new stewardship]]></title>
-    <link href="http://batsov.com/articles/2013/04/24/wikemacs-lives-on-under-new-stewardship/"/>
-    <updated>2013-04-24T11:36:00+03:00</updated>
-    <id>http://batsov.com/articles/2013/04/24/wikemacs-lives-on-under-new-stewardship</id>
-    <content type="html"><![CDATA[<p>Several months passed since I stated my intent
-<a href="articles/2013/01/27/the-wikemacs-experiment-is-over-long-live-emacswiki/">to shutdown WikEmacs</a>. While
-I still consider the project a failed experiment and stand by
-everything I wrote in that post, I have received since lots of messages from
-people who were sad to see WikEmacs go. One person in particular,
-<a href="https://twitter.com/holocronweaver">Jesse Johnson</a>, was committed to
-seeing the project move forward and offered to take over its stewardship.</p>
-
-<p>In the end I&rsquo;ve decided that in spirit of the FOSS ideals I don&rsquo;t have
-the right to take away something people like and want to use(especially
-given the fact that they contributed most of the content there) and
-handed over the domain and the data to Jesse.</p>
-
-<p><a href="http://wikemacs.org/index.php/Main_Page">WikEmacs</a> has been running
-for a couple of weeks now under his management and will continue to
-exist for a long time. If you liked the project I guess this is a good
-moment to show you love and spread the word.</p>
 ]]></content>
   </entry>
   

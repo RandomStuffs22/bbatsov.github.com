@@ -485,12 +485,16 @@
         <lastmod>2013-09-26T18:05:50+03:00</lastmod>
     </url>
     <url>
+        <loc>http://batsov.com/articles/2013/10/03/using-rubys-gsub-with-a-hash/</loc>
+        <lastmod>2013-10-03T16:30:43+03:00</lastmod>
+    </url>
+    <url>
         <loc>http://batsov.com/about/</loc>
         <lastmod>2013-09-26T16:50:45+03:00</lastmod>
     </url>
     <url>
         <loc>http://batsov.com/blog/archives/</loc>
-        <lastmod>2013-10-01T18:22:38+03:00</lastmod>
+        <lastmod>2013-10-03T16:30:43+03:00</lastmod>
     </url>
     <url>
         <loc>http://batsov.com/colophon/</loc>
@@ -502,7 +506,7 @@
     </url>
     <url>
         <loc>http://batsov.com/</loc>
-        <lastmod>2013-10-01T18:22:38+03:00</lastmod>
+        <lastmod>2013-10-03T16:30:43+03:00</lastmod>
     </url>
     <url>
         <loc>http://batsov.com/lisp-problems/</loc>
