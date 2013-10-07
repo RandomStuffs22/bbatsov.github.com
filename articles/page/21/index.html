@@ -9,8 +9,9 @@
   <meta name="author" content="Bozhidar Batsov">
 
   
-  <meta name="description" content="I&rsquo;ve always been frustrated with the inability to write a switch on
-String in Java. However the enum type introduced in Java 5.0 somewhat &hellip;">
+  <meta name="description" content="I’m very fond of the ability to insert a new line below the line I’m
+currently at, and to position the cursor at the beginning of that new
+line, &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,6 +81,68 @@ String in Java. However the enum type introduced in Java 5.0 somewhat &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/articles/2009/05/19/emacs-shift-return/">Emulate the Behaviour of Return+Shift(insert New Line) From Popular IDEs(IDEA, Eclipse) in Emacs</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-05-19T00:00:00+03:00" pubdate data-updated="true">May 19<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I’m very fond of the ability to insert a new line below the line I’m
+currently at, and to position the cursor at the beginning of that new
+line, offered by most IDEs, such as IntelliJ IDEA, Eclipse. It’s
+usually bound to Return(Enter)+Shift. Emacs(as far as I know) doesn’t
+have a function that does this thing by default, but one can easily
+create one, combining several well known functions in the process and
+bind that new function to the desired key combination. Here’s the
+snippet one might have in his .emacs(or other) “configuration” file:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='cl'><span class='line'><span class="c1">;; insert an empty line after the current line and position the cursor on its beginning</span>
+</span><span class='line'><span class="p">(</span><span class="nb">defun</span> <span class="nv">insert-empty-line</span> <span class="p">()</span>
+</span><span class='line'> <span class="p">(</span><span class="nv">interactive</span><span class="p">)</span>
+</span><span class='line'> <span class="p">(</span><span class="nv">move-end-of-line</span> <span class="no">nil</span><span class="p">)</span>
+</span><span class='line'> <span class="p">(</span><span class="nv">open-line</span> <span class="mi">1</span><span class="p">)</span>
+</span><span class='line'> <span class="p">(</span><span class="nv">next-line</span> <span class="mi">1</span><span class="p">))</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">(</span><span class="nv">global-set-key</span> <span class="nv">[</span><span class="p">(</span><span class="nv">shift</span> <span class="nb">return</span><span class="p">)</span><span class="nv">]</span> <span class="ss">&#39;insert-empty-line</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -379,79 +442,6 @@ other goodies(projectile being one of my favourites).</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/articles/2008/06/16/das-keyboard/">Das Keyboard</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-06-16T00:00:00+03:00" pubdate data-updated="true">Jun 16<span>th</span>, 2008</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Every professional developer knows how important to the development
-process the keyboard is, so it is only natural to be on the look for
-some quality piece of hardware. After a long research in the area of
-good keyboards I decided to upgrade my current rig to the recently
-released <a href="http://www.daskeyboard.com/">Das Keyboard 3</a>.</p>
-
-<p><img class="mechanical_keyboard.jpg" src="http://www.daskeyboard.com/images/products/mechanical_keyboard.jpg"></p>
-
-<p>Das Keyboard comes in three flavours &ndash; Professional(mechanical
-keyboard with labelled keys), Ultimate(the original mechanical
-keyboard with blank keys) and Silent(mechanical keyboard with labelled
-keys that doesn&rsquo;t produce the trademarked clicking sound of the
-original Das Keyboard).</p>
-
-<p>I bought the Ultimate model, of course. I&rsquo;ve been a touch typist for
-several years now and I didn&rsquo;t really cared about the labelled
-keys(though I did miss them in games). Two words describe this
-keyboard perfectly &ndash; <strong>Bad Ass</strong>. It&rsquo;s without a doubt the single
-finest piece of keyboard hardware that I&rsquo;ve touched, it&rsquo;s very
-comfortable, very solid and I feel that I&rsquo;ve actually improved my
-typing speed with it. My colleagues don&rsquo;t like the noisy work of the
-keyboard very much, but I have no problems with it. I actually have
-grown quite fond of it.</p>
-
-<p>The keyboard also features a two port USB hub, that I didn&rsquo;t really
-consider when I was buying it, but it turned out quite helpful. I&rsquo;ve
-actually stopped using the USB ports of my computer entirely(except
-for input devices) &ndash; I use the keyboard hub to plug-in flash drives
-and charge devices. When your computer is sitting beneath a desk you
-learn to appreciate USB hubs very quickly.</p>
-
-<p>I have long heard stories about Das Keyboard&rsquo;s quality
-and comfort and I it has totally lived up to its hype. They price is
-admittedly a bit steep(I bought two keyboards for home and for work
-each costing 130$), but this is our hands and productivity we&rsquo;re
-talking about so we shouldn&rsquo;t be cheap. So what are
-waiting for &ndash; research the market yourselves and make your pick, your
-hands deserve a quality keyboard(the Das Keyboard)!</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/articles/page/22/">&larr; Older</a>
@@ -474,6 +464,10 @@ hands deserve a quality keyboard(the Das Keyboard)!</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/articles/2013/10/07/rubocop-0-dot-14-beyond-the-ruby-style-guide/">RuboCop 0.14: Beyond the Ruby Style Guide</a>
+      </li>
+    
+      <li class="post">
         <a href="/articles/2013/10/03/using-rubys-gsub-with-a-hash/">Using Ruby&#8217;s Gsub With a Hash</a>
       </li>
     
@@ -487,10 +481,6 @@ hands deserve a quality keyboard(the Das Keyboard)!</p>
     
       <li class="post">
         <a href="/articles/2013/09/05/the-elements-of-style-in-ruby-number-10-in-cryptic-perlisms-we-do-not-trust/">The Elements of Style in Ruby #10: In Cryptic Perlisms We Do Not Trust</a>
-      </li>
-    
-      <li class="post">
-        <a href="/articles/2013/09/03/a-couple-of-useful-extensions-to-rubys-enumerable-module/">A Couple of Useful Extensions to Ruby&#8217;s Enumerable Module</a>
       </li>
     
   </ul>

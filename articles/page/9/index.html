@@ -9,9 +9,8 @@
   <meta name="author" content="Bozhidar Batsov">
 
   
-  <meta name="description" content="I&rsquo;m mostly a Ruby on Rails developer these days and as such I&rsquo;m pretty
-fond of the Slim template language. I&rsquo;ve
-always hated HTML &hellip;">
+  <meta name="description" content="Getting started with Emacs is hard. That&rsquo;s a fact of life and you
+shouldn&rsquo;t believe anyone telling you otherwise. One of the harder parts &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,6 +80,69 @@ always hated HTML &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/articles/2012/09/09/guru-mode/">Guru-mode</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-09-09T21:17:00+03:00" pubdate data-updated="true">Sep 9<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Getting started with Emacs is hard. That&rsquo;s a fact of life and you
+shouldn&rsquo;t believe anyone telling you otherwise.</p>
+
+<p>One of the harder parts of the journey to Emacs mastery is remembering
+all those keybindings at the beginning (<code>C-h t</code>), which can be really
+overwhelming. To make matters worse for many common commands there are
+two sets of keybindings &ndash; the Emacs ones (that are touch typing
+friendly) and the popular ones (that typically involve the use of the
+arrow keys). Most people never get to use the <em>proper</em> keybindings and
+forever make use of the arrow keys.</p>
+
+<p>To help Emacs newcomers get used to the proper Emacs keybindings I&rsquo;ve
+created <a href="http://github.com/bbatsov/guru-mode">guru-mode</a> &ndash; a simple
+minor mode that will show you a (helpful) message in the minibuffer
+every time you try to use a <em>non Emacs way</em> keybinding.</p>
+
+<p><img src="/images/articles/guru-mode.png"></p>
+
+<p>It will probably annoy you <strong>a lot</strong> in the beginning, but trust me &ndash;
+it&rsquo;ll be worth it in the long run.</p>
+
+<p><code>guru-mode</code> comes bundled with
+<a href="http://github.com/bbatsov/prelude">Emacs Prelude</a> and is available
+for installation from <a href="http://marmalade-repo.org">Marmalade</a> and <a href="http://melpa.milkbox.net">MELPA</a>.</p>
+
+<p>P.S. True Emacs mastery cannot be achieved if you do not practice
+touch typing; if you&rsquo;re doing hunt-and-peck typing you&rsquo;d better fire up the
+venerable <code>gtypist</code> before looking at <code>guru-mode</code>.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -308,110 +370,6 @@ Please cast your vote in the comments or visit the
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/articles/2012/04/06/melpa-homebrew-emacs-edition/">MELPA - Homebrew (Emacs Edition)</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-04-06T18:04:00+03:00" pubdate data-updated="true">Apr 6<span>th</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>A few weeks ago I wrote an
-<a href="http://batsov.com/articles/2012/02/19/package-management-in-emacs-the-good-the-bad-and-the-ugly/">article about the state of package management in Emacs</a>. In
-that article I pointed out that on the side of <a href="http://wikemacs.org/wiki/Package.el">package.el</a> too much
-was riding on the poorly maintained Marmalade repo. Today
-Marmalade went dark (again) and many people are wondering what to do
-now. The answer is simple &ndash; start using <a href="http://melpa.milkbox.net/">MELPA</a> instead.</p>
-
-<p>I was thinking of starting a project similar to Marmalade to alleviate
-its problems, but then the MELPA project was brought to my
-attention. This project follows the Homebrew (unofficial OSX package
-manager) model of using simple GitHub collaboration to maintain and
-grow a bunch of build recipes. In the case of MELPA, those recipes
-show how to bundle upstream source packages into package.el-compliant
-packages. The recipes can be tested locally by package authors, and
-they are run hourly on the MELPA server to create an HTTP package
-archive that Emacs users can simply add to their <code>'package-archives</code>
-list. As <a href="http://technomancy.us">Phil Hagelberg</a> said &ndash; there&rsquo;s no reason to drag in
-complicated dependencies like Node for something that&rsquo;s essentially a
-pile of static files. MELPA on the other hand is written mostly in
-Emacs Lisp and is thus much more comprehensible to casual Emacs hackers.</p>
-
-<p>Most packages currently contained in MELPA are development snapshots,
-but the project maintainer
-<a href="https://github.com/milkypostman">Donald Curtis</a> and
-<a href="http://www.sanityinc.com/">Steve Purcell</a> (aka <code>sanityinc</code>) are
-working on extending the MELPA build scripts to support stable
-packages, using upstream version tags.</p>
-
-<p>Adding a new package to MELPA is as simple as adding a few lines of
-code to the <code>pkglist</code> file in MELPA&rsquo;s source code repo:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='cl'><span class='line'><span class="p">(</span><span class="nv">name</span> <span class="ss">:url</span> <span class="s">&quot;&lt;repo url&gt;&quot;</span>
-</span><span class='line'> <span class="ss">:fetcher</span> <span class="nv">[git|svn|darcs</span><span class="err">|</span><span class="nv">wiki]</span>
-</span><span class='line'> <span class="nv">[:files</span> <span class="p">(</span><span class="s">&quot;&lt;file1&gt;&quot;</span><span class="o">,</span> <span class="o">...</span><span class="p">)</span><span class="nv">]</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>You simply have to fork the <a href="https://github.com/milkypostman/melpa">official repo</a>, modify <code>pkglist</code>, send a pull
-request and <code>package.el</code> compatible packages will be built
-automatically for you on MELPA&rsquo;s server (you can also build the
-packages locally to test if everything is OK with your recipes). Sure it&rsquo;s not as easy as
-submitting a package via a web UI, but it&rsquo;s a much more robust
-approach. It also eliminates a common problem in Marmalade &ndash; there
-only the original uploader (+ people selected by him) can update a
-package. Often the original uploaders are very hard to find&hellip;</p>
-
-<p>To use MELPA with Emacs 24 (or a recent version of <code>package.el</code>) just
-add this to your <code>.emacs</code> (or equivalent):</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='cl'><span class='line'><span class="p">(</span><span class="nv">add-to-list</span> <span class="ss">&#39;package-archives</span>
-</span><span class='line'><span class="o">&#39;</span><span class="p">(</span><span class="s">&quot;melpa&quot;</span> <span class="o">.</span> <span class="s">&quot;http://melpa.milkbox.net/packages/&quot;</span><span class="p">)</span> <span class="no">t</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>There&rsquo;s a lot more info regarding MELPA on its official website and
-I&rsquo;d rather not duplicate it here.</p>
-
-<p>I would encourage package authors and users to investigate and
-contribute to MELPA. I&rsquo;ve already submitted a bunch of packages
-there and rebased <a href="http://batsov.com/prelude">Emacs Prelude</a> to
-use MELPA instead of Marmalade.</p>
-
-<p>Together we can turn MELPA into the most extensive and robust community-supported
-<code>package.el</code> repo! Emacs users deserve one of those :&ndash;)</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/articles/page/10/">&larr; Older</a>
@@ -434,6 +392,10 @@ use MELPA instead of Marmalade.</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/articles/2013/10/07/rubocop-0-dot-14-beyond-the-ruby-style-guide/">RuboCop 0.14: Beyond the Ruby Style Guide</a>
+      </li>
+    
+      <li class="post">
         <a href="/articles/2013/10/03/using-rubys-gsub-with-a-hash/">Using Ruby&#8217;s Gsub With a Hash</a>
       </li>
     
@@ -447,10 +409,6 @@ use MELPA instead of Marmalade.</p>
     
       <li class="post">
         <a href="/articles/2013/09/05/the-elements-of-style-in-ruby-number-10-in-cryptic-perlisms-we-do-not-trust/">The Elements of Style in Ruby #10: In Cryptic Perlisms We Do Not Trust</a>
-      </li>
-    
-      <li class="post">
-        <a href="/articles/2013/09/03/a-couple-of-useful-extensions-to-rubys-enumerable-module/">A Couple of Useful Extensions to Ruby&#8217;s Enumerable Module</a>
       </li>
     
   </ul>

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: RuboCop | (think)]]></title>
   <link href="http://batsov.com/articles/categories/rubocop/atom.xml" rel="self"/>
   <link href="http://batsov.com/"/>
-  <updated>2013-10-04T11:20:29+03:00</updated>
+  <updated>2013-10-07T15:31:46+03:00</updated>
   <id>http://batsov.com/</id>
   <author>
     <name><![CDATA[Bozhidar Batsov]]></name>
@@ -12,6 +12,41 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[RuboCop 0.14: Beyond the Ruby Style Guide]]></title>
+    <link href="http://batsov.com/articles/2013/10/07/rubocop-0-dot-14-beyond-the-ruby-style-guide/"/>
+    <updated>2013-10-07T14:56:00+03:00</updated>
+    <id>http://batsov.com/articles/2013/10/07/rubocop-0-dot-14-beyond-the-ruby-style-guide</id>
+    <content type="html"><![CDATA[<p>Good news, everyone &ndash; <a href="https://github.com/bbatsov/rubocop">RuboCop</a> 0.14 was just released!</p>
+
+<p>Generally I announce RuboCop releases in only <a href="https://twitter.com/bbatsov">140 characters</a>,
+but this time I&rsquo;ll make an exception. This release is more significant
+than most of our recent releases for one particular reason &ndash; we&rsquo;ve
+made an effort to make more aspects of RuboCop configurable than ever
+before. For instance now you can make RuboCop enforce the use of
+double-quoted strings, hashes that only use hash rockets, no spaces
+inside block parentheses and more of that sort.</p>
+
+<p>I&rsquo;ve started the project with the simple goal of creating a tool to help you follow the
+<a href="https://github.com/bbatsov/ruby-style-guide">Ruby Style Guide</a> to the
+letter &ndash; originally it didn&rsquo;t even have configuration options for that very reason :&ndash;)
+The project, however, quickly outgrew its humble origin and became much more popular than I could have envisioned.
+Today we have a core team of RuboCop hackers, dozens of contributors and thousands of users.
+Having received a lot of feedback over the past year from people who use slightly
+modified version of the style guide, I&rsquo;ve come to realize that the initial
+approach was hardly optimal and now supporting various popular coding
+practices is one of the core values of RuboCop.</p>
+
+<p>If you&rsquo;ve abstained from trying out RuboCop, because you don&rsquo;t agree
+with portions of the style guide &ndash; now it&rsquo;s a good time to take it out
+for a spin. A list of all changes in 0.14 can be found
+<a href="https://github.com/bbatsov/rubocop/blob/master/CHANGELOG.md">here</a>.
+All configurable aspects of RuboCop are listed <a href="https://github.com/bbatsov/rubocop/blob/master/config/default.yml">here</a>.</p>
+
+<p>P.S. As usual &ndash; suggestion for new features and improvements are always welcome! We can make RuboCop only as good as you want it to be!</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[RuboCop 0.9 is now patrolling the streets!]]></title>

@@ -489,12 +489,18 @@
         <lastmod>2013-10-04T11:20:20+03:00</lastmod>
     </url>
     <url>
+        <loc>
+            http://batsov.com/articles/2013/10/07/rubocop-0-dot-14-beyond-the-ruby-style-guide/
+        </loc>
+        <lastmod>2013-10-07T15:31:24+03:00</lastmod>
+    </url>
+    <url>
         <loc>http://batsov.com/about/</loc>
         <lastmod>2013-09-26T16:50:45+03:00</lastmod>
     </url>
     <url>
         <loc>http://batsov.com/blog/archives/</loc>
-        <lastmod>2013-10-04T11:20:20+03:00</lastmod>
+        <lastmod>2013-10-07T15:31:24+03:00</lastmod>
     </url>
     <url>
         <loc>http://batsov.com/colophon/</loc>
@@ -506,7 +512,7 @@
     </url>
     <url>
         <loc>http://batsov.com/</loc>
-        <lastmod>2013-10-04T11:20:20+03:00</lastmod>
+        <lastmod>2013-10-07T15:31:24+03:00</lastmod>
     </url>
     <url>
         <loc>http://batsov.com/lisp-problems/</loc>

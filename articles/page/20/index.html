@@ -9,9 +9,9 @@
   <meta name="author" content="Bozhidar Batsov">
 
   
-  <meta name="description" content="Most people have been in a situation requiring them to change one or
-more of the parameters passed to the JVM on top of which JBoss AS is
-running. &hellip;">
+  <meta name="description" content="The driver selected by default by Fedora 11 is not appropriate for
+Xerox Phaser 3117 &ndash; it will not print with it. However there is a very
+easy &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,6 +81,53 @@ running. &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/articles/2009/09/25/xerox-phaser-3117-fedora/">Using Xerox Phaser 3117 on Fedora</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-09-25T00:00:00+03:00" pubdate data-updated="true">Sep 25<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>The driver selected by default by Fedora 11 is not appropriate for
+Xerox Phaser 3117 &ndash; it will not print with it. However there is a very
+easy solution to the problem.</p>
+
+<p>Go to <strong>System &ndash;> Administration &ndash;> Printing</strong> (In GNOME at least, in KDE
+it’s probably something similar). Right click the Xerox Phaser 3117
+printer icon there and select &ldquo;Properties&rdquo; from the menu. Then in the
+&ldquo;Make and model&rdquo; section choose change and then select Samsung
+ML-1710.</p>
+
+<p>After you apply the change you&rsquo;ve just made, you can start printing
+with your Phaser.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -311,68 +358,6 @@ included in previous releases as well.</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/articles/2009/05/19/emacs-shift-return/">Emulate the Behaviour of Return+Shift(insert New Line) From Popular IDEs(IDEA, Eclipse) in Emacs</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-05-19T00:00:00+03:00" pubdate data-updated="true">May 19<span>th</span>, 2009</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I’m very fond of the ability to insert a new line below the line I’m
-currently at, and to position the cursor at the beginning of that new
-line, offered by most IDEs, such as IntelliJ IDEA, Eclipse. It’s
-usually bound to Return(Enter)+Shift. Emacs(as far as I know) doesn’t
-have a function that does this thing by default, but one can easily
-create one, combining several well known functions in the process and
-bind that new function to the desired key combination. Here’s the
-snippet one might have in his .emacs(or other) “configuration” file:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='cl'><span class='line'><span class="c1">;; insert an empty line after the current line and position the cursor on its beginning</span>
-</span><span class='line'><span class="p">(</span><span class="nb">defun</span> <span class="nv">insert-empty-line</span> <span class="p">()</span>
-</span><span class='line'> <span class="p">(</span><span class="nv">interactive</span><span class="p">)</span>
-</span><span class='line'> <span class="p">(</span><span class="nv">move-end-of-line</span> <span class="no">nil</span><span class="p">)</span>
-</span><span class='line'> <span class="p">(</span><span class="nv">open-line</span> <span class="mi">1</span><span class="p">)</span>
-</span><span class='line'> <span class="p">(</span><span class="nv">next-line</span> <span class="mi">1</span><span class="p">))</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">(</span><span class="nv">global-set-key</span> <span class="nv">[</span><span class="p">(</span><span class="nv">shift</span> <span class="nb">return</span><span class="p">)</span><span class="nv">]</span> <span class="ss">&#39;insert-empty-line</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/articles/page/21/">&larr; Older</a>
@@ -395,6 +380,10 @@ snippet one might have in his .emacs(or other) “configuration” file:</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/articles/2013/10/07/rubocop-0-dot-14-beyond-the-ruby-style-guide/">RuboCop 0.14: Beyond the Ruby Style Guide</a>
+      </li>
+    
+      <li class="post">
         <a href="/articles/2013/10/03/using-rubys-gsub-with-a-hash/">Using Ruby&#8217;s Gsub With a Hash</a>
       </li>
     
@@ -408,10 +397,6 @@ snippet one might have in his .emacs(or other) “configuration” file:</p>
     
       <li class="post">
         <a href="/articles/2013/09/05/the-elements-of-style-in-ruby-number-10-in-cryptic-perlisms-we-do-not-trust/">The Elements of Style in Ruby #10: In Cryptic Perlisms We Do Not Trust</a>
-      </li>
-    
-      <li class="post">
-        <a href="/articles/2013/09/03/a-couple-of-useful-extensions-to-rubys-enumerable-module/">A Couple of Useful Extensions to Ruby&#8217;s Enumerable Module</a>
       </li>
     
   </ul>
