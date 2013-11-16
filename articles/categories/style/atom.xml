@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Style | (think)]]></title>
   <link href="http://batsov.com/articles/categories/style/atom.xml" rel="self"/>
   <link href="http://batsov.com/"/>
-  <updated>2013-10-07T16:12:51+03:00</updated>
+  <updated>2013-11-16T09:48:54+02:00</updated>
   <id>http://batsov.com/</id>
   <author>
     <name><![CDATA[Bozhidar Batsov]]></name>
@@ -259,7 +259,7 @@ to identify and fix such shortfalls of your code.</p>
     <link href="http://batsov.com/articles/2013/08/21/the-elements-of-style-in-ruby-number-9-hash-number-has-key-and-hash-number-has-value-are-deprecated/"/>
     <updated>2013-08-21T17:04:00+03:00</updated>
     <id>http://batsov.com/articles/2013/08/21/the-elements-of-style-in-ruby-number-9-hash-number-has-key-and-hash-number-has-value-are-deprecated</id>
-    <content type="html"><![CDATA[<p>One can often similar code in the wild:</p>
+    <content type="html"><![CDATA[<p>One can often find similar code in the wild:</p>
 
 <p><code>ruby
 some_hash.has_key?(some_key)
