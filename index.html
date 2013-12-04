@@ -9,9 +9,9 @@
   <meta name="author" content="Bozhidar Batsov">
 
   
-  <meta name="description" content="Some Rubyists, when faced with the task of matching against the
-beginning or the end of a string, are prone to using ^ and $ in
-their regular &hellip;">
+  <meta name="description" content="Sometimes we&rsquo;d like to build a new collection object from the elements
+of another collection. One trivial example would be element
+occurrence &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,6 +81,105 @@ their regular &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/articles/2013/12/04/using-rubys-each-with-object/">Using Ruby&#8217;s Each_with_object</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-04T16:29:00+02:00" pubdate data-updated="true">Dec 4<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Sometimes we&rsquo;d like to build a new collection object from the elements
+of another collection.  One trivial example would be element
+occurrence counting, which basically means you need to build a hash
+from an array.</p>
+
+<p>People coming from an imperative background will probably implement this in terms of <code>each</code> (or <code>for</code>):</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">nums</span> <span class="o">=</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="o">]</span>
+</span><span class='line'><span class="n">result</span> <span class="o">=</span> <span class="no">Hash</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># with each</span>
+</span><span class='line'><span class="n">nums</span><span class="o">.</span><span class="n">each</span> <span class="p">{</span> <span class="o">|</span><span class="n">n</span><span class="o">|</span> <span class="n">result</span><span class="o">[</span><span class="n">n</span><span class="o">]</span> <span class="o">+=</span> <span class="mi">1</span> <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># with for</span>
+</span><span class='line'><span class="k">for</span> <span class="n">num</span> <span class="k">in</span> <span class="n">nums</span>
+</span><span class='line'>  <span class="n">result</span><span class="o">[</span><span class="n">num</span><span class="o">]</span> <span class="o">+=</span> <span class="mi">1</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This is a reasonable solution, but surely we can do better!</p>
+
+<p>Rubyists fond of functional programming techniques might use <code>reduce</code> to solve the problem at hand:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">nums</span> <span class="o">=</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="o">]</span>
+</span><span class='line'><span class="n">nums</span><span class="o">.</span><span class="n">reduce</span><span class="p">(</span><span class="no">Hash</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span> <span class="p">{</span> <span class="o">|</span><span class="n">a</span><span class="p">,</span> <span class="n">e</span><span class="o">|</span> <span class="n">a</span><span class="o">[</span><span class="n">e</span><span class="o">]</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">a</span> <span class="p">}</span>
+</span><span class='line'><span class="c1"># =&gt; {1=&gt;2, 2=&gt;1, 3=&gt;2, 5=&gt;1}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This code works well, but it&rsquo;s a bit more complex than it needs to be &ndash;
+mostly because of the need to return the hash explicitly in <code>reduce</code>&rsquo;s block.
+Enter <code>Enumerable#each_with_object</code>:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">nums</span> <span class="o">=</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="o">]</span>
+</span><span class='line'><span class="n">nums</span><span class="o">.</span><span class="n">each_with_object</span><span class="p">(</span><span class="no">Hash</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span> <span class="p">{</span> <span class="o">|</span><span class="n">e</span><span class="p">,</span> <span class="n">a</span><span class="o">|</span> <span class="n">a</span><span class="o">[</span><span class="n">e</span><span class="o">]</span> <span class="o">+=</span> <span class="mi">1</span> <span class="p">}</span>
+</span><span class='line'><span class="c1"># =&gt; {1=&gt;2, 2=&gt;1, 3=&gt;2, 5=&gt;1}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>each_with_object</code> invokes its block for each element with an
+arbitrary object argument, and returns the initially given object,
+thus eliminating the need to return it ourselves as the block&rsquo;s
+result. Simple and neat!</p>
+
+<p>That&rsquo;s all for now, folks. I hope you&rsquo;ll find this article useful.
+As usual I&rsquo;m looking forward to hearing your thoughts here and on
+<a href="http://twitter.com/bbatsov">Twitter</a>!</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -380,162 +479,6 @@ instead of increasing the readability of the code, the operators actually decrea
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/articles/2013/09/24/lambdas-slash-procs-in-case-expressions/">Lambdas/Procs in Case Expressions</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-09-24T12:07:00+03:00" pubdate data-updated="true">Sep 24<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Most Rubyists know they can use literals, classes, ranges and regular expressions in the <code>when</code> branches of a <code>case</code> expression:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">case</span> <span class="n">something</span>
-</span><span class='line'><span class="k">when</span> <span class="nb">Array</span> <span class="k">then</span> <span class="o">.</span><span class="n">.</span><span class="o">.</span>
-</span><span class='line'><span class="k">when</span> <span class="mi">1</span><span class="o">.</span><span class="n">.</span><span class="mi">100</span> <span class="k">then</span> <span class="o">.</span><span class="n">.</span><span class="o">.</span>
-</span><span class='line'><span class="k">when</span> <span class="sr">/some_regexp/</span> <span class="k">then</span> <span class="o">.</span><span class="n">.</span><span class="o">.</span>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>As you probably know <code>case</code> relies on the <code>===</code> (a.k.a. the case equality operator) being defined for
-the supplied conditions. Ruby will convert the above code to something
-like:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">case</span> <span class="n">something</span>
-</span><span class='line'><span class="k">when</span> <span class="nb">Array</span> <span class="o">===</span> <span class="n">something</span> <span class="k">then</span> <span class="o">.</span><span class="n">.</span><span class="o">.</span>
-</span><span class='line'><span class="k">when</span> <span class="mi">1</span><span class="o">.</span><span class="n">.</span><span class="mi">100</span> <span class="o">===</span> <span class="n">something</span> <span class="k">then</span> <span class="o">.</span><span class="n">.</span><span class="o">.</span>
-</span><span class='line'><span class="k">when</span> <span class="sr">/some_regexp/</span> <span class="o">===</span> <span class="n">something</span> <span class="k">then</span><span class="o">.</span><span class="n">.</span><span class="o">.</span>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Perhaps somewhat surprisingly <code>===</code> is also defined in the <code>Proc</code> class, used to create <code>procs</code> and <code>lambdas</code>. It&rsquo;s defined to simply issue a <code>Proc#call</code> with the right-hand side argument of <code>===</code> as an argument:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">is_even</span> <span class="o">=</span> <span class="o">-&gt;</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="p">{</span> <span class="n">n</span><span class="o">.</span><span class="n">even?</span> <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">is_even</span> <span class="o">===</span> <span class="mi">5</span> <span class="c1"># =&gt; false</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1"># same as</span>
-</span><span class='line'><span class="n">is_even</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>This gives us the possibility to leverage <code>procs</code> and <code>lambdas</code> as the conditions for <code>when</code> branches. Here&rsquo;s a trivial example:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">even?</span>
-</span><span class='line'>  <span class="o">-&gt;</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="p">{</span> <span class="n">n</span><span class="o">.</span><span class="n">even?</span> <span class="p">}</span>
-</span><span class='line'><span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">def</span> <span class="nf">odd?</span>
-</span><span class='line'>  <span class="o">-&gt;</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="p">{</span> <span class="n">n</span><span class="o">.</span><span class="n">odd?</span> <span class="p">}</span>
-</span><span class='line'><span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">case</span> <span class="n">x</span>
-</span><span class='line'><span class="k">when</span> <span class="n">even?</span> <span class="k">then</span> <span class="nb">puts</span> <span class="s1">&#39;even&#39;</span>
-</span><span class='line'><span class="k">when</span> <span class="n">odd?</span> <span class="k">then</span> <span class="nb">puts</span> <span class="s1">&#39;odd&#39;</span>
-</span><span class='line'><span class="k">else</span> <span class="nb">puts</span> <span class="s1">&#39;Impossible!&#39;</span>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>You can also save a few lines by defining the lambdas inline:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">case</span> <span class="n">x</span>
-</span><span class='line'><span class="k">when</span> <span class="o">-&gt;</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="p">{</span> <span class="n">n</span><span class="o">.</span><span class="n">even?</span> <span class="p">}</span> <span class="k">then</span> <span class="nb">puts</span> <span class="s1">&#39;even&#39;</span>
-</span><span class='line'><span class="k">when</span> <span class="o">-&gt;</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="p">{</span> <span class="n">n</span><span class="o">.</span><span class="n">odd?</span> <span class="p">}</span> <span class="k">then</span> <span class="nb">puts</span> <span class="s1">&#39;odd&#39;</span>
-</span><span class='line'><span class="k">else</span> <span class="nb">puts</span> <span class="s1">&#39;Impossible!&#39;</span>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Things get even better if your lambdas capture some additional arguments. Consider this example checking HTTP response codes:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">response_code?</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
-</span><span class='line'>  <span class="o">-&gt;</span><span class="p">(</span><span class="n">response</span><span class="p">)</span> <span class="p">{</span> <span class="n">response</span><span class="o">.</span><span class="n">code</span> <span class="o">==</span> <span class="n">code</span> <span class="p">}</span>
-</span><span class='line'><span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">case</span> <span class="n">response</span>
-</span><span class='line'><span class="k">when</span> <span class="n">response_code?</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span> <span class="k">then</span> <span class="s1">&#39;OK&#39;</span>
-</span><span class='line'><span class="k">when</span> <span class="n">response_code?</span><span class="p">(</span><span class="mi">404</span><span class="p">)</span> <span class="k">then</span> <span class="s1">&#39;Not found&#39;</span>
-</span><span class='line'><span class="k">else</span> <span class="s1">&#39;Unknown code&#39;</span>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Pretty neat, right?</p>
-
-<p>That&rsquo;s all for today folks! Code long and prosper!</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/articles/page/2/">&larr; Older</a>
@@ -556,6 +499,10 @@ like:</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/articles/2013/12/04/using-rubys-each-with-object/">Using Ruby&#8217;s Each_with_object</a>
+      </li>
+    
+      <li class="post">
         <a href="/articles/2013/12/04/regexp-anchors-in-ruby/">Regexp Anchors in Ruby</a>
       </li>
     
@@ -569,10 +516,6 @@ like:</p>
     
       <li class="post">
         <a href="/articles/2013/09/26/the-elements-of-style-in-ruby-number-11-invoking-lambdas-slash-procs/">The Elements of Style in Ruby #11: Invoking Lambdas/Procs</a>
-      </li>
-    
-      <li class="post">
-        <a href="/articles/2013/09/24/lambdas-slash-procs-in-case-expressions/">Lambdas/Procs in Case Expressions</a>
       </li>
     
   </ul>

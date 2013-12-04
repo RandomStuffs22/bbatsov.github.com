@@ -9,9 +9,9 @@
   <meta name="author" content="Bozhidar Batsov">
 
   
-  <meta name="description" content="Sometimes you may want to start a couple of programs just after an
-interactive login to your favourite shell, which in my case would be
-zsh. For &hellip;">
+  <meta name="description" content="Have you ever been wondering how to access the Emacs menu bar, when
+using Emacs in console mode? The answer is easy &ndash; press F10 or type
+M-x &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,6 +81,48 @@ zsh. For &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/articles/2009/12/05/menubar-emacs/">Accessing the Menu Bar in Emacs</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-12-05T00:00:00+02:00" pubdate data-updated="true">Dec 5<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Have you ever been wondering how to access the Emacs menu bar, when
+using Emacs in console mode? The answer is easy &ndash; press <strong>F10</strong> or type
+<strong>M-x menu-bar-open</strong>(both methods work in X as well, of course).</p>
+
+<p>Although the menu bar is rarely used by seasoned Emacs veterans,
+exploring it is a great way to get started with the capabilities of
+the new modes, so being able to access it is generally a good thing.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -287,81 +329,6 @@ the <a href="https://github.com/bbatsov/prelude">Emacs Prelude</a>.</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/articles/2009/07/14/yum-provides/">Find Out Quickly Which Package Provides a Certain Library With YUM</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-07-14T00:00:00+03:00" pubdate data-updated="true">Jul 14<span>th</span>, 2009</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>One of the most dreaded things that you can see while trying to run
-some application or trying to install an rpm package is a message
-saying that some required library is missing.</p>
-
-<p>Generally this is not a big problem, because most often the library
-that you miss is packaged in a package named similarly to the
-library. Sometime however this is not the case&hellip; Suppose for example
-that you&rsquo;re trying to install IBM JDK 5.0 on a Fedora 11 box. You&rsquo;ll
-most likely get the following error message:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>error: Failed dependencies:
-</span><span class='line'>libstdc++.so.5 is needed by ibm-java2-i386-sdk-5.0-9.0.i386
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>and there is no package named libstdc++ that you can install, so how
-can you find out which package do you need?</p>
-
-<p>The answer is simple:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>yum provides libstdc++.so.5
-</span><span class='line'>
-</span><span class='line'>Loaded plugins: fastestmirror, presto, refresh-packagekit
-</span><span class='line'>compat-libstdc++-33-3.2.3-66.i586 : Compatibility standard C++ libraries
-</span><span class='line'>Repo        : fedora
-</span><span class='line'>Matched from:
-</span><span class='line'>Other       : libstdc++.so.5
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Pretty neat, eh?</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/articles/page/21/">&larr; Older</a>
@@ -384,6 +351,10 @@ can you find out which package do you need?</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/articles/2013/12/04/using-rubys-each-with-object/">Using Ruby&#8217;s Each_with_object</a>
+      </li>
+    
+      <li class="post">
         <a href="/articles/2013/12/04/regexp-anchors-in-ruby/">Regexp Anchors in Ruby</a>
       </li>
     
@@ -397,10 +368,6 @@ can you find out which package do you need?</p>
     
       <li class="post">
         <a href="/articles/2013/09/26/the-elements-of-style-in-ruby-number-11-invoking-lambdas-slash-procs/">The Elements of Style in Ruby #11: Invoking Lambdas/Procs</a>
-      </li>
-    
-      <li class="post">
-        <a href="/articles/2013/09/24/lambdas-slash-procs-in-case-expressions/">Lambdas/Procs in Case Expressions</a>
       </li>
     
   </ul>
