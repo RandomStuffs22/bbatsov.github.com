@@ -4,7 +4,7 @@
   <title><![CDATA[(think)]]></title>
   <link href="http://batsov.com/atom.xml" rel="self"/>
   <link href="http://batsov.com/"/>
-  <updated>2013-11-16T09:48:54+02:00</updated>
+  <updated>2013-12-04T16:21:48+02:00</updated>
   <id>http://batsov.com/</id>
   <author>
     <name><![CDATA[Bozhidar Batsov]]></name>
@@ -12,6 +12,69 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Regexp anchors in Ruby]]></title>
+    <link href="http://batsov.com/articles/2013/12/04/regexp-anchors-in-ruby/"/>
+    <updated>2013-12-04T15:46:00+02:00</updated>
+    <id>http://batsov.com/articles/2013/12/04/regexp-anchors-in-ruby</id>
+    <content type="html"><![CDATA[<p>Some Rubyists, when faced with the task of matching against the
+beginning or the end of a string, are prone to using <code>^</code> and <code>$</code> in
+their regular expressions. Most of the time the code will seem to work properly,
+but&hellip; these anchors don&rsquo;t actually match a string&rsquo;s beginning and
+end &ndash; they match a <strong>line</strong>&rsquo;s beginning and end. Consider the
+following example:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">string</span> <span class="o">=</span> <span class="s1">&#39;username&#39;</span>
+</span><span class='line'><span class="n">string</span><span class="o">[</span><span class="sr">/^username$/</span><span class="o">]</span>   <span class="c1"># matches (as expected)</span>
+</span><span class='line'><span class="n">string</span> <span class="o">=</span> <span class="s2">&quot;some injection</span><span class="se">\n</span><span class="s2">username&quot;</span>
+</span><span class='line'><span class="n">string</span><span class="o">[</span><span class="sr">/^username$/</span><span class="o">]</span>   <span class="c1"># matches again(WAT???)</span>
+</span><span class='line'><span class="n">string</span><span class="o">[</span><span class="sr">/\Ausername\z/</span><span class="o">]</span> <span class="c1"># don&#39;t match</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The anchors for beginning and end of a string are actually <code>\A</code> and
+<code>\z</code>(there&rsquo;s also a similar <code>\Z</code> anchor, but it&rsquo;s rarely used in
+practice):</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">string</span> <span class="o">=</span> <span class="s2">&quot;some injection</span><span class="se">\n</span><span class="s2">username&quot;</span>
+</span><span class='line'><span class="n">string</span><span class="o">[</span><span class="sr">/\Ausername\z/</span><span class="o">]</span> <span class="c1"># don&#39;t match</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>In an actual application the line <code>string[/^username$/]</code> is a recipe for
+disaster. That&rsquo;s why Rails 4 started raising exceptions when <code>^</code> and
+<code>$</code> are used in <code>validates :something, format: { with: /.../ }</code>.</p>
+
+<p>By the way, this isn&rsquo;t something specific to Ruby at all &ndash;  <code>\A</code> and <code>\z</code> are not the same
+thing as <code>^</code> and <code>$</code> in most programming languages that have Perl-style regular expressions.</p>
+
+<p>There&rsquo;s something peculiar in Ruby, though &ndash; it automatically uses
+<strong>multiline mode</strong> (which enables the aforementioned behaviour of
+having <code>^</code> and <code>$</code> match per line) for regular expressions. Other
+languages support it as well, but usually you need to enable it
+yourself, since it&rsquo;s not consider a particularly intuitive
+default. For example &ndash; by default Perl, Java and C# treat <code>^</code> and <code>$</code> as
+beginning/end of string until you <strong>explicitly</strong> enable <strong>multiline match mode</strong>
+(<code>/m</code>). In Ruby <code>\m</code> simply allows <code>.</code> to match newlines.</p>
+
+<p>I guess people, who&rsquo;ve recently switched to Ruby from another
+language, would be most susceptible to writing potentially dangerous
+code like this.</p>
+
+<p>That&rsquo;s all for today folks. I hope you&rsquo;ll find this article useful.</p>
+
+<p>As usual I&rsquo;m looking forward to hearing your thoughts here and on
+<a href="http://twitter.com/bbatsov">Twitter</a>!</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[RuboCop 0.14: Beyond the Ruby Style Guide]]></title>
@@ -2102,293 +2165,6 @@ and practical considerations like have two files opened side-by-side.</p>
 
 <p>I&rsquo;d love to hear your thoughts! Feel free to leave a comment here or
 ping me on <a href="http://twitter.com/bbatsov">Twitter</a>.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[The Elements of Style in Ruby: An Essay in N parts]]></title>
-    <link href="http://batsov.com/articles/2013/06/26/the-elements-of-style-in-ruby-an-essay-in-n-parts/"/>
-    <updated>2013-06-26T16:30:00+03:00</updated>
-    <id>http://batsov.com/articles/2013/06/26/the-elements-of-style-in-ruby-an-essay-in-n-parts</id>
-    <content type="html"><![CDATA[<p><a href="https://github.com/bbatsov/ruby-style-guide">The Ruby Style Guide</a> is
-nearing its second birthday. The project has gained more attention and
-more traction than I could have imagined. For the millionth time I was
-amazed by the fantastic Ruby developers around the world.</p>
-
-<p>The project has also steadily evolved:</p>
-
-<ul>
-<li>it covers more and more aspects of programming in Ruby</li>
-<li>it features many more code examples</li>
-<li>it is now translated in several languages</li>
-<li>it gave birth to the automated static code analyzer <a href="https://github.com/bbatsov/rubocop">RuboCop</a></li>
-<li>it has become the basis for hundreds of slightly modified internal project or company style guides</li>
-</ul>
-
-
-<p>One common criticism for the Ruby style guide is that it doesn&rsquo;t
-feature extensive rationale about most of the rules in it. That&rsquo;s
-deliberate &ndash; even now the document is pretty intimidating. If we were
-to delve into the reasoning behind each and every rule, the guide&rsquo;s
-size might come close to that of a small book.</p>
-
-<p>I do, however, feel that the rationale behind some of the rules is
-important. That&rsquo;s why I&rsquo;ll be starting a series of <em>N</em> posts devoted
-to the topic. I&rsquo;ll try to cover as many of the rules as I can &ndash; from
-the more straightforward ones like <em>maximum line length</em>, to the most
-controversial ones like <em>the use of single-quoted strings when
-possible</em>. The articles will be published in no particular order and
-on no particular schedule.</p>
-
-<p>Keep an eye out for the installments in the series here and on
-<a href="http://twitter.com/bbatsov">Twitter</a>. I&rsquo;m looking forward to many
-interesting discussions with you!</p>
-
-<p>Feel free to take a look at the
-<a href="http://batsov.com/articles/2013/06/26/the-elements-of-style-in-ruby-number-1-maximum-line-length/">first article in the series, dedicated to the maximum line length we should aim for</a>.</p>
-
-<h2>Articles in the Series</h2>
-
-<ul>
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-
-<li><a href="">The Elements of Style in Ruby #1: Maximum line length</a></li>
-  <!-- categories if -->
-
-
-<li><a href="">The Elements of Style in Ruby #2: Favor sprintf(format) over String#%</a></li>
-  <!-- categories if -->
-
-
-<li><a href="">The Elements of Style in Ruby #3: Make sure something is an array</a></li>
-  <!-- categories if -->
-
-
-<li><a href="">The Elements of Style in Ruby #4: Array#join vs Array#*</a></li>
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-
-<li><a href="">The Elements of Style in Ruby #5: Readability of long numeric literals</a></li>
-  <!-- categories if -->
-
-
-<li><a href="">The Elements of Style in Ruby #6: Attributes Redux</a></li>
-  <!-- categories if -->
-
-
-<li><a href="">The Elements of Style in Ruby #7: The case against ===</a></li>
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-
-<li><a href="">The Elements of Style in Ruby #8: Know Thy Predicates</a></li>
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-
-<li><a href="">The Elements of Style in Ruby #9: Hash#has_key? and Hash#has_value? are deprecated</a></li>
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-
-<li><a href="">The Elements of Style in Ruby #10: In cryptic Perlisms we do not trust</a></li>
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-
-<li><a href="">The Elements of Style in Ruby #11: Invoking Lambdas/Procs</a></li>
-  <!-- categories if -->
-
-  <!-- categories if -->
-
-  <!-- categories if -->
- <!-- posts for -->
-</ul>
-
 ]]></content>
   </entry>
   

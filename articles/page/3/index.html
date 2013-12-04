@@ -9,11 +9,9 @@
   <meta name="author" content="Bozhidar Batsov">
 
   
-  <meta name="description" content="Prelude The following few days Paul Stamatiou’s article
-Android Is Better and
-Marco Arment&rsquo;s excellent response
-Google Blindness
-have been &hellip;">
+  <meta name="description" content="I often see people writing code like this: 1
+if x % 2 == 0 ... Obviously Fixnum#even? would have been a better choice: 1
+if x.even? ... There is also &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -83,6 +81,145 @@ have been &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/articles/2013/08/14/the-elements-of-style-in-ruby-number-8-know-thy-predicates/">The Elements of Style in Ruby #8: Know Thy Predicates</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-08-14T17:28:00+03:00" pubdate data-updated="true">Aug 14<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I often see people writing code like this:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">if</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">.</span><span class="n">.</span><span class="o">.</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Obviously <code>Fixnum#even?</code> would have been a better choice:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">even?</span> <span class="o">.</span><span class="n">.</span><span class="o">.</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>There is also <code>Fixnum#odd?</code> if you need to check for odd numbers.</p>
+
+<p>By the way, there is even a <code>Numeric#zero?</code> predicate:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">.</span><span class="n">.</span><span class="o">.</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># same as the above (provided x is a number)</span>
+</span><span class='line'><span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">zero?</span> <span class="o">.</span><span class="n">.</span><span class="o">.</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Personally I feel that <code>x == 0</code> makes more sense for such simple
+numeric checks, but <code>zero?</code> is there for those you who think
+otherwise. <code>x == 0</code> also has the benefit of being <code>nil</code> safe, but
+that&rsquo;s not of significant importance.</p>
+
+<p>The <a href="https://github.com/bbatsov/powerpack">Powerpack library</a> also
+includes the predicate methods <code>Fixnum#pos?</code> and <code>Fixnum#neg?</code>, which
+are roughly the same as <code>&gt; 0</code> and <code>&lt; 0</code> comparisons.</p>
+
+<p>Another bit of code you&rsquo;ll often see is:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">if</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">7</span> <span class="o">.</span><span class="n">.</span><span class="o">.</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>While there is nothing particularly bad about that code, I&rsquo;d argue
+that <code>between?</code> makes for a nicer (and more OO) alternative:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">between?</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span> <span class="o">.</span><span class="n">.</span><span class="o">.</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Using a range predicate you can also exclude the end value:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">if</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">1000</span> <span class="o">.</span><span class="n">.</span><span class="o">.</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># is the same as</span>
+</span><span class='line'><span class="k">if</span> <span class="p">(</span><span class="mi">1</span><span class="o">.</span><span class="n">.</span><span class="o">.</span><span class="mi">1000</span><span class="p">)</span><span class="o">.</span><span class="n">include?</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">.</span><span class="n">.</span><span class="o">.</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>When using predicate methods you should be mindful of <code>nil</code>
+receivers. That&rsquo;s generally not a serious issue in practice but still I&rsquo;d ask
+you to consider this example:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">if</span> <span class="n">arr</span> <span class="o">==</span> <span class="o">[]</span> <span class="o">.</span><span class="n">.</span><span class="o">.</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>It&rsquo;s not equivalent to</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">if</span> <span class="n">arr</span><span class="o">.</span><span class="n">empty?</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Why so? Because <code>arr</code> might be <code>nil</code>. So the equivalent code would be:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">if</span> <span class="o">!</span><span class="n">arr</span><span class="o">.</span><span class="n">nil?</span> <span class="o">&amp;&amp;</span> <span class="n">arr</span><span class="o">.</span><span class="n">empty?</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Of course checking for <code>nil</code>s like this is generally not a good idea, but
+that&rsquo;s a discussion for some other time.</p>
+
+<p>On a somewhat related note <code>something.nil?</code> is generally preferred
+over <code>something == nil</code>. If you&rsquo;re reasonably sure that <code>something</code>
+can&rsquo;t have the value <code>false</code> you can, of course, simplify things even
+further:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">if</span> <span class="n">something</span> <span class="o">.</span><span class="n">.</span><span class="o">.</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>As usual I&rsquo;m looking forward to hearing your thoughts here and on
+<a href="http://twitter.com/bbatsov">Twitter</a>!</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -946,115 +1083,6 @@ of you of the benefits of using underscores in your long numeric literals.</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/articles/2013/07/01/rubocop-0-dot-9-is-now-patrolling-the-streets/">RuboCop 0.9 Is Now Patrolling the Streets!</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-07-01T17:06:00+03:00" pubdate data-updated="true">Jul 1<span>st</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="https://github.com/bbatsov/rubocop">RuboCop</a> 0.9 is finally out! This
-was one of our most ambitious releases &ndash; over a month of work, ~250
-commits, lots of new cops and features and a lot less bugs (OK, I&rsquo;m
-not sure about this, but I sincerely hope it&rsquo;s true). Here&rsquo;s the
-highlights.</p>
-
-<h2>Portable Linting</h2>
-
-<p>This is a big deal! Prior to 0.9, RuboCop piggybacked on MRI&rsquo;s <code>ruby
--wc</code> to find syntax errors and lint warnings. Obviously apart from
-being unportable &ndash; this wasn&rsquo;t particularly fast (spawning processes
-never is) either.</p>
-
-<p>That&rsquo;s no longer the case &ndash; errors are now reported directly by
-<a href="https://github.com/whitequark/parser">Parser</a> and we&rsquo;ve reimplemented
-MRI&rsquo;s linting in pure Ruby into RuboCop itself. Now you&rsquo;ll get the
-same errors and warnings on MRI, JRuby and Rubinius. And to top it
-off &ndash; we&rsquo;ve added much nicer warning messages and we report even
-column information for those (MRI doesn&rsquo;t). This brings me to the next
-point.</p>
-
-<h2>Column information</h2>
-
-<p>All RuboCop diagnostics now feature column information as well. Now
-you&rsquo;ll be able to jump to a problem in your code even faster. But that&rsquo;s not all&hellip;</p>
-
-<h2>Formatter Support</h2>
-
-<p>We&rsquo;ve introduced the concept of formatters (similar the to RSpec
-formatter concept) and we&rsquo;ve bundled a few formatters. We&rsquo;ve also
-changed the default output format &ndash; it now pretty similar to <code>clang</code>&rsquo;s
-and features extra context information:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>spec/models/authentication_spec.rb:12:44: W: `-' interpreted as argument prefix
-</span><span class='line'>    }.to change(Authentication, :count).by -1
-</span><span class='line'>                                           ^</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Pretty sure most of you will love this :&ndash;)</p>
-
-<h2>Auto-correction Support</h2>
-
-<p>Running <code>rubocop -a</code> will now correct certain problems automatically. This
-feature is alpha quality and just a few cops have support for it right
-now. It goes without saying that you shouldn&rsquo;t use it on projects not under
-version control (who doesn&rsquo;t use version control?) and without
-an excellent test suite (that you undoubtedly have).</p>
-
-<h2>Rails Support</h2>
-
-<p><code>rubocop -R</code> will run additional Rails specific code checks. This
-feature is also alpha at this point (meaning there&rsquo;s just one Rails
-specific check at this point).</p>
-
-<h2>The Road to 1.0</h2>
-
-<p>We plan 1.0 to be the next RuboCop major release. No new features are in
-the pipeline for 1.0 &ndash; we already have so many features that require extra
-work and polish anyways. If all goes well expect 1.0 by summer&rsquo;s end with:</p>
-
-<ul>
-<li>performance optimizations</li>
-<li>refined formatters</li>
-<li>enhanced auto-correction support</li>
-<li>lots of Rails specific checks</li>
-</ul>
-
-
-<p>I hope you&rsquo;ll enjoy RuboCop 0.9. For the gory details, please take a
-look at the epic
-<a href="https://github.com/bbatsov/rubocop/blob/master/CHANGELOG.md">Changelog</a>.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/articles/page/4/">&larr; Older</a>
@@ -1077,6 +1105,10 @@ look at the epic
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/articles/2013/12/04/regexp-anchors-in-ruby/">Regexp Anchors in Ruby</a>
+      </li>
+    
+      <li class="post">
         <a href="/articles/2013/10/07/rubocop-0-dot-14-beyond-the-ruby-style-guide/">RuboCop 0.14: Beyond the Ruby Style Guide</a>
       </li>
     
@@ -1090,10 +1122,6 @@ look at the epic
     
       <li class="post">
         <a href="/articles/2013/09/24/lambdas-slash-procs-in-case-expressions/">Lambdas/Procs in Case Expressions</a>
-      </li>
-    
-      <li class="post">
-        <a href="/articles/2013/09/05/the-elements-of-style-in-ruby-number-10-in-cryptic-perlisms-we-do-not-trust/">The Elements of Style in Ruby #10: In Cryptic Perlisms We Do Not Trust</a>
       </li>
     
   </ul>

@@ -9,8 +9,9 @@
   <meta name="author" content="Bozhidar Batsov">
 
   
-  <meta name="description" content="RuboCop 0.8.0 is out! While the version bump is minor, this release represents an almost
-total rewrite of the code. We&rsquo;ve moved away from MRI& &hellip;">
+  <meta name="description" content="The Ruby Style Guide is
+nearing its second birthday. The project has gained more attention and
+more traction than I could have imagined. For the &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,6 +81,322 @@ total rewrite of the code. We&rsquo;ve moved away from MRI& &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/articles/2013/06/26/the-elements-of-style-in-ruby-an-essay-in-n-parts/">The Elements of Style in Ruby: An Essay in N Parts</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-06-26T16:30:00+03:00" pubdate data-updated="true">Jun 26<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="https://github.com/bbatsov/ruby-style-guide">The Ruby Style Guide</a> is
+nearing its second birthday. The project has gained more attention and
+more traction than I could have imagined. For the millionth time I was
+amazed by the fantastic Ruby developers around the world.</p>
+
+<p>The project has also steadily evolved:</p>
+
+<ul>
+<li>it covers more and more aspects of programming in Ruby</li>
+<li>it features many more code examples</li>
+<li>it is now translated in several languages</li>
+<li>it gave birth to the automated static code analyzer <a href="https://github.com/bbatsov/rubocop">RuboCop</a></li>
+<li>it has become the basis for hundreds of slightly modified internal project or company style guides</li>
+</ul>
+
+
+<p>One common criticism for the Ruby style guide is that it doesn&rsquo;t
+feature extensive rationale about most of the rules in it. That&rsquo;s
+deliberate &ndash; even now the document is pretty intimidating. If we were
+to delve into the reasoning behind each and every rule, the guide&rsquo;s
+size might come close to that of a small book.</p>
+
+<p>I do, however, feel that the rationale behind some of the rules is
+important. That&rsquo;s why I&rsquo;ll be starting a series of <em>N</em> posts devoted
+to the topic. I&rsquo;ll try to cover as many of the rules as I can &ndash; from
+the more straightforward ones like <em>maximum line length</em>, to the most
+controversial ones like <em>the use of single-quoted strings when
+possible</em>. The articles will be published in no particular order and
+on no particular schedule.</p>
+
+<p>Keep an eye out for the installments in the series here and on
+<a href="http://twitter.com/bbatsov">Twitter</a>. I&rsquo;m looking forward to many
+interesting discussions with you!</p>
+
+<p>Feel free to take a look at the
+<a href="/articles/2013/06/26/the-elements-of-style-in-ruby-number-1-maximum-line-length/">first article in the series, dedicated to the maximum line length we should aim for</a>.</p>
+
+<h2>Articles in the Series</h2>
+
+<ul>
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+
+<li><a href="">The Elements of Style in Ruby #1: Maximum line length</a></li>
+  <!-- categories if -->
+
+
+<li><a href="">The Elements of Style in Ruby #2: Favor sprintf(format) over String#%</a></li>
+  <!-- categories if -->
+
+
+<li><a href="">The Elements of Style in Ruby #3: Make sure something is an array</a></li>
+  <!-- categories if -->
+
+
+<li><a href="">The Elements of Style in Ruby #4: Array#join vs Array#*</a></li>
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+
+<li><a href="">The Elements of Style in Ruby #5: Readability of long numeric literals</a></li>
+  <!-- categories if -->
+
+
+<li><a href="">The Elements of Style in Ruby #6: Attributes Redux</a></li>
+  <!-- categories if -->
+
+
+<li><a href="">The Elements of Style in Ruby #7: The case against ===</a></li>
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+
+<li><a href="">The Elements of Style in Ruby #8: Know Thy Predicates</a></li>
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+
+<li><a href="">The Elements of Style in Ruby #9: Hash#has_key? and Hash#has_value? are deprecated</a></li>
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+
+<li><a href="">The Elements of Style in Ruby #10: In cryptic Perlisms we do not trust</a></li>
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+
+<li><a href="">The Elements of Style in Ruby #11: Invoking Lambdas/Procs</a></li>
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+
+  <!-- categories if -->
+ <!-- posts for -->
+</ul>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -330,48 +647,6 @@ Ruby hackers will find it useful!</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/articles/2013/04/15/emacs-redux/">Emacs Redux</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-04-15T17:10:00+03:00" pubdate data-updated="true">Apr 15<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I&rsquo;ve recently launched a new blog dedicated to Emacs &ndash;
-<a href="http://emacsredux.com/">Emacs Redux</a>.</p>
-
-<p>There I’ll be sharing with you (hopefully) useful tips and tricks to
-make your experience with Emacs more productive and more enjoyable.</p>
-
-<p>I hope you&rsquo;ll like it!</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/articles/page/6/">&larr; Older</a>
@@ -394,6 +669,10 @@ make your experience with Emacs more productive and more enjoyable.</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/articles/2013/12/04/regexp-anchors-in-ruby/">Regexp Anchors in Ruby</a>
+      </li>
+    
+      <li class="post">
         <a href="/articles/2013/10/07/rubocop-0-dot-14-beyond-the-ruby-style-guide/">RuboCop 0.14: Beyond the Ruby Style Guide</a>
       </li>
     
@@ -407,10 +686,6 @@ make your experience with Emacs more productive and more enjoyable.</p>
     
       <li class="post">
         <a href="/articles/2013/09/24/lambdas-slash-procs-in-case-expressions/">Lambdas/Procs in Case Expressions</a>
-      </li>
-    
-      <li class="post">
-        <a href="/articles/2013/09/05/the-elements-of-style-in-ruby-number-10-in-cryptic-perlisms-we-do-not-trust/">The Elements of Style in Ruby #10: In Cryptic Perlisms We Do Not Trust</a>
       </li>
     
   </ul>

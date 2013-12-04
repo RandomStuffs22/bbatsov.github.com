@@ -9,11 +9,8 @@
   <meta name="author" content="Bozhidar Batsov">
 
   
-  <meta name="description" content="Less than an year ago
-amid a lot of turmoil
-I&rsquo;ve started
-an alternative to EmacsWiki. The
-project took off to a great start, but quickly lost &hellip;">
+  <meta name="description" content="I&rsquo;ve recently launched a new blog dedicated to Emacs &ndash;
+Emacs Redux. There I’ll be sharing with you (hopefully) useful tips and tricks to &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -83,6 +80,48 @@ project took off to a great start, but quickly lost &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/articles/2013/04/15/emacs-redux/">Emacs Redux</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-15T17:10:00+03:00" pubdate data-updated="true">Apr 15<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I&rsquo;ve recently launched a new blog dedicated to Emacs &ndash;
+<a href="http://emacsredux.com/">Emacs Redux</a>.</p>
+
+<p>There I’ll be sharing with you (hopefully) useful tips and tricks to
+make your experience with Emacs more productive and more enjoyable.</p>
+
+<p>I hope you&rsquo;ll like it!</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -378,75 +417,6 @@ the previous word without moving the cursor.</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/articles/2012/12/16/deleting-remote-git-branches/">Deleting Remote Git Branches</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-12-16T10:10:00+02:00" pubdate data-updated="true">Dec 16<span>th</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>This post is mostly a note to myself, since I constantly forget how to
-delete remote Git branches.</p>
-
-<p>The classic way to do so (introduced in Git 1.5) would be:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>git push origin :branch-to-delete
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>So, if I were migrating an application from MySQL to PostgreSQL I might want to delete
-the <code>postgres</code> branch when I&rsquo;m done:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>git push origin :postgres
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>You have to agree this syntax is hardly something one can easily
-remember(and I&rsquo;m extra certain nobody would have guessed it on their
-own). Fortunately in Git 1.7 a nicer alternative to the above command
-was introduced:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>git push origin --delete branch-to-delete
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>That&rsquo;s all from me for today. Now go ahead and delete those unneeded Git branches.</p>
-
-<p>P.S. GitHub users might also want to take a look at this
-<a href="https://github.com/blog/1335-tidying-up-after-pull-requests">article</a>
-describing recently added functionality to clean up after pull
-requests.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/articles/page/7/">&larr; Older</a>
@@ -469,6 +439,10 @@ requests.</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/articles/2013/12/04/regexp-anchors-in-ruby/">Regexp Anchors in Ruby</a>
+      </li>
+    
+      <li class="post">
         <a href="/articles/2013/10/07/rubocop-0-dot-14-beyond-the-ruby-style-guide/">RuboCop 0.14: Beyond the Ruby Style Guide</a>
       </li>
     
@@ -482,10 +456,6 @@ requests.</p>
     
       <li class="post">
         <a href="/articles/2013/09/24/lambdas-slash-procs-in-case-expressions/">Lambdas/Procs in Case Expressions</a>
-      </li>
-    
-      <li class="post">
-        <a href="/articles/2013/09/05/the-elements-of-style-in-ruby-number-10-in-cryptic-perlisms-we-do-not-trust/">The Elements of Style in Ruby #10: In Cryptic Perlisms We Do Not Trust</a>
       </li>
     
   </ul>

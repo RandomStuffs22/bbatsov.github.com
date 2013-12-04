@@ -9,9 +9,8 @@
   <meta name="author" content="Bozhidar Batsov">
 
   
-  <meta name="description" content="During the past few months I&rsquo;ve been working on a project to convert
-my vast Emacs configuration into something generally useful and
-self- &hellip;">
+  <meta name="description" content="One of the things I love most about Lisp development is the ability to
+develop applications in an incremental interactive manner &ndash; you write &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,6 +80,141 @@ self- &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/articles/2011/04/26/jrebel-with-scala/">Incremental Development With Scala and JRebel</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-04-26T00:00:00+03:00" pubdate data-updated="true">Apr 26<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>One of the things I love most about Lisp development is the ability to
+develop applications in an incremental interactive manner &ndash; you write
+one function, compile it, load into your current REPL session, make
+some adjustments and repeat this process until you get satisfactory
+results. You never stop to compile your project, you never have to
+restart your application server. Without those distractions it&rsquo;s
+easier to maintain your concentration and to remain in the <em>flow</em>.</p>
+
+<p>With languages like Scala and Java, however, you cannot do this &ndash; at
+least without a bit of external help. This help comes in the form of an
+application called <a href="http://www.zeroturnaround.com/jrebel/">JRebel</a>, which basically reloads the classes in your
+program as you make changes to them and recompile them. JRebel is a commercial
+application and generally you have to pay to use it&hellip; unless you want
+to you use it for Scala development, that is. ZeroTurnaround(the
+company that makes JRebel) offers
+<a href="http://sales.zeroturnaround.com/wp-content/themes/zeroturnaround4.0/modals/applyForLicense.php">free licences to Scala developers</a>
+and if you&rsquo;re one of them you should definitely get one.</p>
+
+<p>Installing JRebel is trivial &ndash; generally you have to only extract a
+zip file(or use an installer) somewhere and drop in the JRebel folder
+the licence file that they have e-mail you. Afterwards you simply have
+to integrate JRebel with your build system. JRebel can also be
+integrated with IDEs, but I want cover this here. I use mostly
+<a href="http://maven.apache.org">Maven 3</a> and
+<a href="http://code.google.com/p/simple-build-tool/">SBT</a> so I&rsquo;ll show you
+what to do for them. With Maven you have to add the following to the
+<em>$MAVEN_OPTS</em> environmental variable:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">export </span><span class="nv">MAVEN_OPTS</span><span class="o">=</span>-noverify -javaagent:/home/bozhidar/work/jrebel/jrebel.jar
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Since most people use JRebel for web development to avoid the need to
+restart their application containers and Scala&rsquo;s most prominent
+framework is <a href="http://liftweb.net">Lift</a> you&rsquo;d probably want to enable
+the JRebel Lift plug-in as well:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">export </span><span class="nv">MAVEN_OPTS</span><span class="o">=</span>-noverify -javaagent:/home/bozhidar/work/jrebel/jrebel.jar
+</span><span class='line'> -Drebel.lift_plugin<span class="o">=</span><span class="nb">true</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Stick this in your shell&rsquo;s init file and source it to make it
+available in the shell.</p>
+
+<p>Now when you start your web app with</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>mvn jetty:run
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And the continuous Scala compilation with</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>mvn scala:cc
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The compiler with pickup the changes you made and JRebel will reload
+the changed classes behind the scenes. The development process this
+way starts to feel a bit like using a scripting language such as Ruby
+or PHP.</p>
+
+<p>If you&rsquo;re using SBT you should modify the sbt startup script to
+include the same options that I mentioned in the section about Maven
+configuration. Mine sbt script looks like this:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="c">#!/bin/bash</span>
+</span><span class='line'>
+</span><span class='line'>java -noverify -javaagent:/home/bozhidar/work/jrebel/jrebel.jar
+</span><span class='line'> -Drebel.lift_plugin<span class="o">=</span><span class="nb">true</span> -XX:+CMSClassUnloadingEnabled
+</span><span class='line'> -XX:MaxPermSize<span class="o">=</span>512m -Xmx512M -Xss2M -jar <span class="sb">`</span>dirname <span class="nv">$0</span><span class="sb">`</span>/sbt-launch.jar
+</span><span class='line'> <span class="s2">&quot;$@&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Another use for JRebel is the Scala REPL itself. When you start the
+REPL from inside SBT for instance with the command:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>sbt console
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>changes to the imported classes will be reflected automatically
+without the need to do a <em>:replay</em> or restart the REPL &ndash; something
+reminiscent of the interactive Lisp programming I mentioned earlier.</p>
+
+<p>So what are you waiting for? Go grab JRebel and speed up your Scala
+development process.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -330,54 +464,6 @@ with <strong>pdflatex</strong> to get a nicely formatted pdf version of the CV.<
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/articles/2010/05/26/3d-support-nouveau-fedora-13/">Enabling 3D Support for Nouveau in Fedora 13</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-05-26T00:00:00+03:00" pubdate data-updated="true">May 26<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Most of you probably have heard that Fedora 13 will feature
-experimental 3D support for the Nouveau open source driver for Nvidia
-cards. This support, however, is not enabled by default. To enable it
-you need to install the mesa-dri-drivers-experimental package. I,
-personally, do it like this(if you haven’t configured sudo, you’ll
-have to perform this as root):</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>sudo yum install mesa-dri-drivers-experimental
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Afterwards you can enable Compuz, play chromium-bsu or whatever your heart desires.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/articles/page/19/">&larr; Older</a>
@@ -400,6 +486,10 @@ have to perform this as root):</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/articles/2013/12/04/regexp-anchors-in-ruby/">Regexp Anchors in Ruby</a>
+      </li>
+    
+      <li class="post">
         <a href="/articles/2013/10/07/rubocop-0-dot-14-beyond-the-ruby-style-guide/">RuboCop 0.14: Beyond the Ruby Style Guide</a>
       </li>
     
@@ -413,10 +503,6 @@ have to perform this as root):</p>
     
       <li class="post">
         <a href="/articles/2013/09/24/lambdas-slash-procs-in-case-expressions/">Lambdas/Procs in Case Expressions</a>
-      </li>
-    
-      <li class="post">
-        <a href="/articles/2013/09/05/the-elements-of-style-in-ruby-number-10-in-cryptic-perlisms-we-do-not-trust/">The Elements of Style in Ruby #10: In Cryptic Perlisms We Do Not Trust</a>
       </li>
     
   </ul>

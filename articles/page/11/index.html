@@ -9,8 +9,9 @@
   <meta name="author" content="Bozhidar Batsov">
 
   
-  <meta name="description" content="Many people are having trouble remembering all the rake tasks defined
-in a particular project&rsquo;s Rakefile (especially if they hadn&rsquo;t &hellip;">
+  <meta name="description" content="When I program in Java I usually leave the comfort of Emacs and use
+IntelliJ IDEA instead (for various reasons that are irrelevant to this
+post). &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,6 +81,107 @@ in a particular project&rsquo;s Rakefile (especially if they hadn&rsquo;t &helli
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/articles/2012/03/08/emacs-tip-number-5-save-buffers-automatically-on-buffer-or-window-switch/">Emacs Tip #5: Save Buffers Automatically on Buffer or Window Switch</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-03-08T15:58:00+02:00" pubdate data-updated="true">Mar 8<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>When I program in Java I usually leave the comfort of Emacs and use
+IntelliJ IDEA instead (for various reasons that are irrelevant to this
+post). IDEA has one particularly nice feature &ndash; &ldquo;auto-save on focus
+lost&rdquo;. Basically you never have to hit <code>C-s</code> there explicitly, because
+any time your current editor window loses focus its contents get
+flushed to the disk automatically. Implementing something exactly the
+same in Emacs is impossible (at least in Emacs Lisp), but we can
+create a solution that is similar in spirit at least &ndash; we can
+auto-save buffers when we switch the Emacs window or the current
+buffer (which are more or less the most popular ways to change editing
+focus in Emacs). This is easy to achieve in Emacs Lisp:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class='cl'><span class='line'><span class="c1">;; use shift + arrow keys to switch between visible buffers</span>
+</span><span class='line'><span class="p">(</span><span class="nb">require</span> <span class="ss">&#39;windmove</span><span class="p">)</span>
+</span><span class='line'><span class="p">(</span><span class="nv">windmove-default-keybindings</span> <span class="ss">&#39;super</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">;; automatically save buffers associated with files on buffer switch</span>
+</span><span class='line'><span class="c1">;; and on windows switch</span>
+</span><span class='line'><span class="p">(</span><span class="nv">defadvice</span> <span class="nv">switch-to-buffer</span> <span class="p">(</span><span class="nv">before</span> <span class="nv">save-buffer-now</span> <span class="nv">activate</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">(</span><span class="nb">when</span> <span class="nv">buffer-file-name</span> <span class="p">(</span><span class="nv">save-buffer</span><span class="p">)))</span>
+</span><span class='line'><span class="p">(</span><span class="nv">defadvice</span> <span class="nv">other-window</span> <span class="p">(</span><span class="nv">before</span> <span class="nv">other-window-now</span> <span class="nv">activate</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">(</span><span class="nb">when</span> <span class="nv">buffer-file-name</span> <span class="p">(</span><span class="nv">save-buffer</span><span class="p">)))</span>
+</span><span class='line'><span class="p">(</span><span class="nv">defadvice</span> <span class="nv">windmove-up</span> <span class="p">(</span><span class="nv">before</span> <span class="nv">other-window-now</span> <span class="nv">activate</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">(</span><span class="nb">when</span> <span class="nv">buffer-file-name</span> <span class="p">(</span><span class="nv">save-buffer</span><span class="p">)))</span>
+</span><span class='line'><span class="p">(</span><span class="nv">defadvice</span> <span class="nv">windmove-down</span> <span class="p">(</span><span class="nv">before</span> <span class="nv">other-window-now</span> <span class="nv">activate</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">(</span><span class="nb">when</span> <span class="nv">buffer-file-name</span> <span class="p">(</span><span class="nv">save-buffer</span><span class="p">)))</span>
+</span><span class='line'><span class="p">(</span><span class="nv">defadvice</span> <span class="nv">windmove-left</span> <span class="p">(</span><span class="nv">before</span> <span class="nv">other-window-now</span> <span class="nv">activate</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">(</span><span class="nb">when</span> <span class="nv">buffer-file-name</span> <span class="p">(</span><span class="nv">save-buffer</span><span class="p">)))</span>
+</span><span class='line'><span class="p">(</span><span class="nv">defadvice</span> <span class="nv">windmove-right</span> <span class="p">(</span><span class="nv">before</span> <span class="nv">other-window-now</span> <span class="nv">activate</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">(</span><span class="nb">when</span> <span class="nv">buffer-file-name</span> <span class="p">(</span><span class="nv">save-buffer</span><span class="p">)))</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Obviously this code could have been written in a more compact manner
+with the use of a macro, but I&rsquo;ve decided to use this more verbose
+variant for the sake of simplicity. We assume that you want to
+auto-save your current work (buffer) when you switch to a new buffer
+or to a new window (with either <code>C-x o</code> (<code>other-window</code>) or a
+<code>windmove</code> command).</p>
+
+<p>XEmacs has a hook called <code>deselect-frame-hook</code> that can take the
+concept even further, but it&rsquo;s absent from GNU Emacs.</p>
+
+<p>So, that&rsquo;s all for this tip, folks! I hope you&rsquo;ve enjoyed it!
+Personally I find it much more useful that the standard auto-save
+mechanism in Emacs. And one more thing &ndash;
+<a href="https://github.com/bbatsov/prelude">Emacs Prelude</a> naturally
+enables this functionality by default.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -350,66 +452,6 @@ distribution.</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/articles/2011/12/03/solarized-for-emacs/">Solarized for Emacs</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-12-03T14:44:00+02:00" pubdate data-updated="true">Dec 3<span>rd</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I&rsquo;ve created a new port of the
-<a href="http://ethanschoonover.com/solarized">Solarized color theme</a> for
-Emacs 24. While there is
-<a href="https://github.com/sellout/emacs-color-theme-solarized">another existing port of the theme</a>
-I&rsquo;ve decided to into a separate direction since I&rsquo;ve wanted to keep
-the development of Solarized and
-<a href="https://github.com/bbatsov/zenburn-emacs">Zenburn</a> for Emacs in sync.</p>
-
-<p>So without further ado here&rsquo;s a screenshot of the theme (or the dark
-variant to be precise):</p>
-
-<p><img src="/images/articles/solarized-emacs.png"></p>
-
-<p>Note that this is a very early version and I haven&rsquo;t fine tuned all
-the colors yet. The source code and installation instructions can be
-found on <a href="https://github.com/bbatsov/solarized-emacs">GitHub</a>.</p>
-
-<p>The theme is already bundled in
-<a href="https://github.com/bbatsov/prelude">Emacs Prelude</a> and I&rsquo;ll
-submit it to Marmalade soon. Note that I&rsquo;ve dropped some things like
-the degraded palette and the 16 color palette (at least for now),
-since I doubt many people need them. On the other hand &ndash; you&rsquo;ll proper
-coloring in most prominent modes out of the box.</p>
-
-<p>Feedback, suggestions and patches are always welcome.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/articles/page/12/">&larr; Older</a>
@@ -432,6 +474,10 @@ coloring in most prominent modes out of the box.</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/articles/2013/12/04/regexp-anchors-in-ruby/">Regexp Anchors in Ruby</a>
+      </li>
+    
+      <li class="post">
         <a href="/articles/2013/10/07/rubocop-0-dot-14-beyond-the-ruby-style-guide/">RuboCop 0.14: Beyond the Ruby Style Guide</a>
       </li>
     
@@ -445,10 +491,6 @@ coloring in most prominent modes out of the box.</p>
     
       <li class="post">
         <a href="/articles/2013/09/24/lambdas-slash-procs-in-case-expressions/">Lambdas/Procs in Case Expressions</a>
-      </li>
-    
-      <li class="post">
-        <a href="/articles/2013/09/05/the-elements-of-style-in-ruby-number-10-in-cryptic-perlisms-we-do-not-trust/">The Elements of Style in Ruby #10: In Cryptic Perlisms We Do Not Trust</a>
       </li>
     
   </ul>
