@@ -4,7 +4,7 @@
   <title><![CDATA[(think)]]></title>
   <link href="http://batsov.com/atom.xml" rel="self"/>
   <link href="http://batsov.com/"/>
-  <updated>2013-12-04T16:21:48+02:00</updated>
+  <updated>2013-12-04T16:24:56+02:00</updated>
   <id>http://batsov.com/</id>
   <author>
     <name><![CDATA[Bozhidar Batsov]]></name>
@@ -29,12 +29,10 @@ following example:</p>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
-<span class='line-number'>5</span>
 </pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">string</span> <span class="o">=</span> <span class="s1">&#39;username&#39;</span>
 </span><span class='line'><span class="n">string</span><span class="o">[</span><span class="sr">/^username$/</span><span class="o">]</span>   <span class="c1"># matches (as expected)</span>
 </span><span class='line'><span class="n">string</span> <span class="o">=</span> <span class="s2">&quot;some injection</span><span class="se">\n</span><span class="s2">username&quot;</span>
 </span><span class='line'><span class="n">string</span><span class="o">[</span><span class="sr">/^username$/</span><span class="o">]</span>   <span class="c1"># matches again(WAT???)</span>
-</span><span class='line'><span class="n">string</span><span class="o">[</span><span class="sr">/\Ausername\z/</span><span class="o">]</span> <span class="c1"># don&#39;t match</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
