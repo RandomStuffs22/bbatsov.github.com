@@ -5,13 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Running Xerox Phaser 3117 under Fedora 15 - (think)</title>
+  <title>Projectile 0.10 is out! - (think)</title>
   <meta name="author" content="Bozhidar Batsov">
 
   
-  <meta name="description" content="I&rsquo;ve been a GNU/Linux user for quite some time now and a Fedora user
-for just as long. The first distribution that I ever used was Fedora 2
-and &hellip;">
+  <meta name="description" content="Projectile 0.10.0 is out! This might come as a surprise for people tracking Projectile&rsquo;s
+development, since recent snapshots were using 1.0 as &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -20,7 +19,7 @@ and &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://batsov.com/articles/2011/06/04/phaser-3117-fedora-15">
+  <link rel="canonical" href="http://batsov.com/articles/2013/12/09/projectile-0-dot-10-is-out">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="(think)" type="application/atom+xml">
@@ -84,7 +83,7 @@ and &hellip;">
   
   <header>
     
-      <h1 class="entry-title">Running Xerox Phaser 3117 Under Fedora 15</h1>
+      <h1 class="entry-title">Projectile 0.10 Is Out!</h1>
     
     
       <p class="meta">
@@ -100,35 +99,59 @@ and &hellip;">
   
 
 
-<time datetime="2011-06-04T00:00:00+03:00" pubdate data-updated="true">Jun 4<span>th</span>, 2011</time>
+<time datetime="2013-12-09T15:26:00+02:00" pubdate data-updated="true">Dec 9<span>th</span>, 2013</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>I&rsquo;ve been a GNU/Linux user for quite some time now and a Fedora user
-for just as long. The first distribution that I ever used was Fedora 2
-and even though I&rsquo;ve used extensively other distros I&rsquo;ve always come
-back to Fedora. Recently Fedora 15 was released and I was
-(naturally) one of the first people to install it.</p>
+<div class="entry-content"><p><a href="https://github.com/bbatsov/projectile">Projectile</a> 0.10.0 is out!</p>
 
-<p>Everything is great in the new release (as ever), but my Xerox Phaser
-3117 printer is unsupported (also as ever) out of the box, so it&rsquo;s
-time for one of those quick articles on how to get it up and running this
-time. First run the following command as root (or with sudo):</p>
+<p>This might come as a surprise for people tracking Projectile&rsquo;s
+development, since recent snapshots were using 1.0 as the version
+number, so allow me to explain. I&rsquo;ve been wanting to release
+Projectile 1.0 for a while now, but I felt that without the addition
+of <em>per-project settings</em> support and some refinements to the way
+<em>ignoring of files &amp; folders</em> currently work, such moniker would be
+unjustified. Unfortunately, lately I&rsquo;ve been quite busy working on
+other projects like <a href="https://github.com/clojure-emacs/cider">cider</a>
+and <a href="https://github.com/bbatsov/rubocop">RuboCop</a> and I don&rsquo;t have
+that much time to work on Projectile, so I kept delaying the 1.0
+version.</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="c"># yum install gutenprint-foomatic</span>
-</span></code></pre></td></tr></table></div></figure>
+<p>Recently I decided to release version 0.10 instead, for the benefit of
+users of package repos like Marmalade. The minor bump in the version
+doesn&rsquo;t mean that 0.10 is not a noteworthy update, though. 5 months of
+development and more than a hundred commits from almost a dozen of
+developers have really improved the Projectile experience.  It&rsquo;s
+easily the biggest update of Projectile, since the project was
+conceived.</p>
+
+<p>Some of the highlights include:</p>
+
+<ul>
+<li><code>.projectile</code> is always taken into account (previously it was consulted only when doing <code>native</code> indexing)</li>
+<li>There&rsquo;s now the ability to search for files in a specific directory</li>
+<li>More project types are recognized</li>
+<li>You can search for etags (ctags) in a project</li>
+<li><strong>The Commander</strong> (a really cool feature inspired from CIDER &amp; SLIME, that I&rsquo;ll show in a bit)</li>
+<li>Dozens of (mostly undocumented in the Changelog) bugfixes</li>
+</ul>
 
 
-<p>Now you can run the &ldquo;Printing&rdquo; application. It will autodetect your
-printer and suggest you to use the driver for Xerox Phaser 3110. Just
-accept this suggestion and you should be good to go. Happy printing!</p>
+<p>Have a look at the <a href="https://github.com/bbatsov/projectile/blob/master/CHANGELOG.md">changelog</a> for more details.</p>
 
-<p>P.S. You might also want to check out my article on
-<a href="/Linux/Fedora/2011/05/31/fedora-15-tips.html">Fedora 15 post installation setup</a>.</p>
+<p>And here&rsquo;s the new <strong>Commander</strong> in action:</p>
+
+<p><img src="/images/articles/projectile-commander.gif"></p>
+
+<p>Basically it gives you a way to invoke many of the Projectile commands
+with a single key &ndash; <code>f</code> for <code>find-file</code>, <code>s</code> for <code>switch-project</code>,
+etc. It&rsquo;s very handy when switching projects since with this command
+you can always pick a different command to execute in the new
+project. By the way, <code>projectile-switch-project</code> will now run the
+commander, when invoked with a prefix argument (<code>C-u C-c p s</code>).</p>
 </div>
 
 
@@ -151,12 +174,12 @@ accept this suggestion and you should be good to go. Happy printing!</p>
   
 
 
-<time datetime="2011-06-04T00:00:00+03:00" pubdate data-updated="true">Jun 4<span>th</span>, 2011</time>
+<time datetime="2013-12-09T15:26:00+02:00" pubdate data-updated="true">Dec 9<span>th</span>, 2013</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/articles/categories/fedora/'>Fedora</a>, <a class='category' href='/articles/categories/hardware/'>Hardware</a>, <a class='category' href='/articles/categories/linux/'>Linux</a>
+    <a class='category' href='/articles/categories/emacs/'>Emacs</a>
   
 </span>
 
@@ -165,7 +188,7 @@ accept this suggestion and you should be good to go. Happy printing!</p>
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://batsov.com/articles/2011/06/04/phaser-3117-fedora-15/" data-via="bbatsov" data-counturl="http://batsov.com/articles/2011/06/04/phaser-3117-fedora-15/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://batsov.com/articles/2013/12/09/projectile-0-dot-10-is-out/" data-via="bbatsov" data-counturl="http://batsov.com/articles/2013/12/09/projectile-0-dot-10-is-out/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -176,14 +199,18 @@ accept this suggestion and you should be good to go. Happy printing!</p>
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/articles/2011/05/31/fedora-15-tips/" title="Previous Post: Fedora 15 post installation setup & tips">&laquo; Fedora 15 post installation setup & tips</a>
+        <a class="basic-alignment left" href="/articles/2013/12/04/using-rubys-each-with-object/" title="Previous Post: Using Ruby's each_with_object">&laquo; Using Ruby's each_with_object</a>
       
-      
-        <a class="basic-alignment right" href="/articles/2011/06/05/emacs-default-font/" title="Next Post: Emacs Tip #1: Set the default font in Emacs 23">Emacs Tip #1: Set the default font in Emacs 23 &raquo;</a>
       
     </p>
   </footer>
 </article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
 
 </div>
 
@@ -289,7 +316,10 @@ accept this suggestion and you should be good to go. Happy printing!</p>
       var disqus_shortname = 'batsov';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://batsov.com/articles/2013/12/09/projectile-0-dot-10-is-out/';
+        var disqus_url = 'http://batsov.com/articles/2013/12/09/projectile-0-dot-10-is-out/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
