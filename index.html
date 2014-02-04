@@ -9,9 +9,8 @@
   <meta name="author" content="Bozhidar Batsov">
 
   
-  <meta name="description" content="2013 was a good year for me in many aspects. I&rsquo;ll share here some of
-the programming related achievements of mine over the year that made
-me &hellip;">
+  <meta name="description" content="People are often confused about the fact that there are two ways to created procs in Ruby &ndash;
+via Kernel#proc and Proc.new. Let&rsquo;s see them &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,6 +80,90 @@ me &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/articles/2014/02/04/the-elements-of-style-in-ruby-number-12-proc-vs-proc-dot-new/">The Elements of Style in Ruby #12: Proc vs Proc.new</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-02-04T16:20:00+02:00" pubdate data-updated="true">Feb 4<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>People are often confused about the fact that there are two ways to created <code>proc</code>s in Ruby &ndash;
+via <code>Kernel#proc</code> and <code>Proc.new</code>. Let&rsquo;s see them in action:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">Proc</span><span class="o">.</span><span class="n">new</span> <span class="p">{</span> <span class="kp">true</span> <span class="p">}</span>
+</span><span class='line'><span class="c1"># =&gt; #&lt;Proc:0x007fe35440a058&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nb">proc</span> <span class="p">{</span> <span class="kp">true</span> <span class="p">}</span>
+</span><span class='line'><span class="c1"># =&gt; #&lt;Proc:0x007fe35440a059&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Hmmm, it seems we get exactly the same results&hellip; While this is true
+on Ruby 1.9+, this was not always the case.</p>
+
+<p>In Ruby 1.8, <code>Kernel#proc</code> is actually a synonym for <code>Kernel#lambda</code>
+which was extremely confusing, since as we all know <code>lambda</code>s an
+<code>proc</code>s differ in
+<a href="http://stackoverflow.com/questions/626/when-to-use-lambda-when-to-use-proc-new">subtle ways</a>. Luckily
+sanity prevailed and Ruby 1.9 made <code>Kernel#proc</code> a synonym for
+<code>Proc.new</code> instead.</p>
+
+<p>At this point, however, people couldn&rsquo;t use <code>Kernel#proc</code> anymore if they
+wanted to write code that&rsquo;s behaving in the same way on both Ruby 1.8
+and Ruby 1.9 and the use of <code>Kernel#proc</code> was generally discouraged.
+Thankfully Ruby 1.8 is now dead and buried and there&rsquo;s no reason to prefer
+<code>Proc.new</code> over <code>Kernel#proc</code> anymore.  As a matter of fact &ndash; you
+should probably be using only <code>Kernel#proc</code> as it&rsquo;s more concise and
+it&rsquo;s symmetrical to <code>Kernel#lambda</code>.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">lambda</span> <span class="p">{</span> <span class="kp">true</span> <span class="p">}</span>
+</span><span class='line'><span class="c1"># =&gt; #&lt;Proc:0x007fe35440a058 (lambda)&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nb">proc</span> <span class="p">{</span> <span class="kp">true</span> <span class="p">}</span>
+</span><span class='line'><span class="c1"># =&gt; #&lt;Proc:0x007fe35440a059&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>By the way, given <code>proc</code>&rsquo;s fairly counter-intuitive behavior regarding <code>return</code> you should probably
+use <code>lambda</code>s most of the time.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -453,68 +536,6 @@ As usual I&rsquo;m looking forward to hearing your thoughts here and on
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/articles/2013/10/07/rubocop-0-dot-14-beyond-the-ruby-style-guide/">RuboCop 0.14: Beyond the Ruby Style Guide</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-07T14:56:00+03:00" pubdate data-updated="true">Oct 7<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Good news, everyone &ndash; <a href="https://github.com/bbatsov/rubocop">RuboCop</a> 0.14 was just released!</p>
-
-<p>Generally I announce RuboCop releases in only <a href="https://twitter.com/bbatsov">140 characters</a>,
-but this time I&rsquo;ll make an exception. This release is more significant
-than most of our recent releases for one particular reason &ndash; we&rsquo;ve
-made an effort to make more aspects of RuboCop configurable than ever
-before. For instance now you can make RuboCop enforce the use of
-double-quoted strings, hashes that only use hash rockets, no spaces
-inside block parentheses and more of that sort.</p>
-
-<p>I&rsquo;ve started the project with the simple goal of creating a tool to help you follow the
-<a href="https://github.com/bbatsov/ruby-style-guide">Ruby Style Guide</a> to the
-letter &ndash; originally it didn&rsquo;t even have configuration options for that very reason :&ndash;)
-The project, however, quickly outgrew its humble origin and became much more popular than I could have envisioned.
-Today we have a core team of RuboCop hackers, dozens of contributors and thousands of users.
-Having received a lot of feedback over the past year from people who use slightly
-modified version of the style guide, I&rsquo;ve come to realize that the initial
-approach was hardly optimal and now supporting various popular coding
-practices is one of the core values of RuboCop.</p>
-
-<p>If you&rsquo;ve abstained from trying out RuboCop, because you don&rsquo;t agree
-with portions of the style guide &ndash; now it&rsquo;s a good time to take it out
-for a spin. A list of all changes in 0.14 can be found
-<a href="https://github.com/bbatsov/rubocop/blob/master/CHANGELOG.md">here</a>.
-All configurable aspects of RuboCop are listed <a href="https://github.com/bbatsov/rubocop/blob/master/config/default.yml">here</a>.</p>
-
-<p>P.S. As usual &ndash; suggestions for new features and improvements are always welcome! We can make RuboCop only as good as you want it to be!</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/articles/page/2/">&larr; Older</a>
@@ -535,6 +556,10 @@ All configurable aspects of RuboCop are listed <a href="https://github.com/bbats
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/articles/2014/02/04/the-elements-of-style-in-ruby-number-12-proc-vs-proc-dot-new/">The Elements of Style in Ruby #12: Proc vs Proc.new</a>
+      </li>
+    
+      <li class="post">
         <a href="/articles/2014/01/01/looking-back-at-2013/">Looking Back at 2013</a>
       </li>
     
@@ -548,10 +573,6 @@ All configurable aspects of RuboCop are listed <a href="https://github.com/bbats
     
       <li class="post">
         <a href="/articles/2013/12/04/regexp-anchors-in-ruby/">Regexp Anchors in Ruby</a>
-      </li>
-    
-      <li class="post">
-        <a href="/articles/2013/10/07/rubocop-0-dot-14-beyond-the-ruby-style-guide/">RuboCop 0.14: Beyond the Ruby Style Guide</a>
       </li>
     
   </ul>

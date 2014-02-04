@@ -5,11 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Category: android - (think)</title>
+  <title>The Elements of Style in Ruby #12: proc vs Proc.new - (think)</title>
   <meta name="author" content="Bozhidar Batsov">
 
   
-  <meta name="description" content="Category: android">
+  <meta name="description" content="People are often confused about the fact that there are two ways to created procs in Ruby &ndash;
+via Kernel#proc and Proc.new. Let&rsquo;s see them &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +19,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://batsov.comarticles/categories/android">
+  <link rel="canonical" href="http://batsov.com/articles/2014/02/04/the-elements-of-style-in-ruby-number-12-proc-vs-proc-dot-new">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="(think)" type="application/atom+xml">
@@ -78,36 +79,141 @@
   <div id="main">
     <div id="content">
       <div>
-<article role="article">
+<article class="hentry" role="article">
   
   <header>
-    <h1 class="entry-title">Category: Android</h1>
+    
+      <h1 class="entry-title">The Elements of Style in Ruby #12: Proc vs Proc.new</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-02-04T16:20:00+02:00" pubdate data-updated="true">Feb 4<span>th</span>, 2014</time>
+        
+      </p>
     
   </header>
-  
-  <div id="blog-archives" class="category">
 
 
+<div class="entry-content"><p>People are often confused about the fact that there are two ways to created <code>proc</code>s in Ruby &ndash;
+via <code>Kernel#proc</code> and <code>Proc.new</code>. Let&rsquo;s see them in action:</p>
 
-  
-  <h2>2013</h2>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">Proc</span><span class="o">.</span><span class="n">new</span> <span class="p">{</span> <span class="kp">true</span> <span class="p">}</span>
+</span><span class='line'><span class="c1"># =&gt; #&lt;Proc:0x007fe35440a058&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nb">proc</span> <span class="p">{</span> <span class="kp">true</span> <span class="p">}</span>
+</span><span class='line'><span class="c1"># =&gt; #&lt;Proc:0x007fe35440a059&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
 
-<article>
-  
-<h1><a href="/articles/2013/08/14/android-is-not-better-neither-is-ios/">Android is not better. Neither is iOS.</a></h1>
-<time datetime="2013-08-14T14:20:00+03:00" pubdate><span class='month'>Aug</span> <span class='day'>14</span> <span class='year'>2013</span></time>
 
-<footer>
-  <span class="categories">posted in <a class='category' href='/articles/categories/android/'>android</a>, <a class='category' href='/articles/categories/ios/'>ios</a></span>
-</footer>
+<p>Hmmm, it seems we get exactly the same results&hellip; While this is true
+on Ruby 1.9+, this was not always the case.</p>
+
+<p>In Ruby 1.8, <code>Kernel#proc</code> is actually a synonym for <code>Kernel#lambda</code>
+which was extremely confusing, since as we all know <code>lambda</code>s an
+<code>proc</code>s differ in
+<a href="http://stackoverflow.com/questions/626/when-to-use-lambda-when-to-use-proc-new">subtle ways</a>. Luckily
+sanity prevailed and Ruby 1.9 made <code>Kernel#proc</code> a synonym for
+<code>Proc.new</code> instead.</p>
+
+<p>At this point, however, people couldn&rsquo;t use <code>Kernel#proc</code> anymore if they
+wanted to write code that&rsquo;s behaving in the same way on both Ruby 1.8
+and Ruby 1.9 and the use of <code>Kernel#proc</code> was generally discouraged.
+Thankfully Ruby 1.8 is now dead and buried and there&rsquo;s no reason to prefer
+<code>Proc.new</code> over <code>Kernel#proc</code> anymore.  As a matter of fact &ndash; you
+should probably be using only <code>Kernel#proc</code> as it&rsquo;s more concise and
+it&rsquo;s symmetrical to <code>Kernel#lambda</code>.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">lambda</span> <span class="p">{</span> <span class="kp">true</span> <span class="p">}</span>
+</span><span class='line'><span class="c1"># =&gt; #&lt;Proc:0x007fe35440a058 (lambda)&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nb">proc</span> <span class="p">{</span> <span class="kp">true</span> <span class="p">}</span>
+</span><span class='line'><span class="c1"># =&gt; #&lt;Proc:0x007fe35440a059&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
-</article>
-
+<p>By the way, given <code>proc</code>&rsquo;s fairly counter-intuitive behavior regarding <code>return</code> you should probably
+use <code>lambda</code>s most of the time.</p>
 </div>
 
+
+  <footer>
+    <p class="meta">
+      
   
+
+<span class="byline author vcard">Posted by <span class="fn">Bozhidar Batsov</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-02-04T16:20:00+02:00" pubdate data-updated="true">Feb 4<span>th</span>, 2014</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/articles/categories/ruby/'>Ruby</a>, <a class='category' href='/articles/categories/style/'>Style</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://batsov.com/articles/2014/02/04/the-elements-of-style-in-ruby-number-12-proc-vs-proc-dot-new/" data-via="bbatsov" data-counturl="http://batsov.com/articles/2014/02/04/the-elements-of-style-in-ruby-number-12-proc-vs-proc-dot-new/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/articles/2014/01/01/looking-back-at-2013/" title="Previous Post: Looking back at 2013">&laquo; Looking back at 2013</a>
+      
+      
+    </p>
+  </footer>
 </article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
 
 </div>
 
@@ -213,7 +319,10 @@
       var disqus_shortname = 'batsov';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://batsov.com/articles/2014/02/04/the-elements-of-style-in-ruby-number-12-proc-vs-proc-dot-new/';
+        var disqus_url = 'http://batsov.com/articles/2014/02/04/the-elements-of-style-in-ruby-number-12-proc-vs-proc-dot-new/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

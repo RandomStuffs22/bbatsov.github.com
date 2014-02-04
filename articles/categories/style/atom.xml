@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Style | (think)]]></title>
   <link href="http://batsov.com/articles/categories/style/atom.xml" rel="self"/>
   <link href="http://batsov.com/"/>
-  <updated>2014-01-01T13:14:32+02:00</updated>
+  <updated>2014-02-04T16:47:05+02:00</updated>
   <id>http://batsov.com/</id>
   <author>
     <name><![CDATA[Bozhidar Batsov]]></name>
@@ -12,6 +12,59 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[The Elements of Style in Ruby #12: proc vs Proc.new]]></title>
+    <link href="http://batsov.com/articles/2014/02/04/the-elements-of-style-in-ruby-number-12-proc-vs-proc-dot-new/"/>
+    <updated>2014-02-04T16:20:00+02:00</updated>
+    <id>http://batsov.com/articles/2014/02/04/the-elements-of-style-in-ruby-number-12-proc-vs-proc-dot-new</id>
+    <content type="html"><![CDATA[<p>People are often confused about the fact that there are two ways to created <code>proc</code>s in Ruby &ndash;
+via <code>Kernel#proc</code> and <code>Proc.new</code>. Let&rsquo;s see them in action:</p>
+
+<p>``` ruby
+Proc.new { true }</p>
+
+<h1>=> #&lt;Proc:0x007fe35440a058></h1>
+
+<p>proc { true }</p>
+
+<h1>=> #&lt;Proc:0x007fe35440a059></h1>
+
+<p>```</p>
+
+<p>Hmmm, it seems we get exactly the same results&hellip; While this is true
+on Ruby 1.9+, this was not always the case.</p>
+
+<p>In Ruby 1.8, <code>Kernel#proc</code> is actually a synonym for <code>Kernel#lambda</code>
+which was extremely confusing, since as we all know <code>lambda</code>s an
+<code>proc</code>s differ in
+<a href="http://stackoverflow.com/questions/626/when-to-use-lambda-when-to-use-proc-new">subtle ways</a>. Luckily
+sanity prevailed and Ruby 1.9 made <code>Kernel#proc</code> a synonym for
+<code>Proc.new</code> instead.</p>
+
+<p>At this point, however, people couldn&rsquo;t use <code>Kernel#proc</code> anymore if they
+wanted to write code that&rsquo;s behaving in the same way on both Ruby 1.8
+and Ruby 1.9 and the use of <code>Kernel#proc</code> was generally discouraged.
+Thankfully Ruby 1.8 is now dead and buried and there&rsquo;s no reason to prefer
+<code>Proc.new</code> over <code>Kernel#proc</code> anymore.  As a matter of fact &ndash; you
+should probably be using only <code>Kernel#proc</code> as it&rsquo;s more concise and
+it&rsquo;s symmetrical to <code>Kernel#lambda</code>.</p>
+
+<p>``` ruby
+lambda { true }</p>
+
+<h1>=> #&lt;Proc:0x007fe35440a058 (lambda)></h1>
+
+<p>proc { true }</p>
+
+<h1>=> #&lt;Proc:0x007fe35440a059></h1>
+
+<p>```</p>
+
+<p>By the way, given <code>proc</code>&rsquo;s fairly counter-intuitive behavior regarding <code>return</code> you should probably
+use <code>lambda</code>s most of the time.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[The Elements of Style in Ruby #11: Invoking Lambdas/Procs]]></title>
@@ -377,106 +430,6 @@ if something ...
 
 <p>As usual I&rsquo;m looking forward to hearing your thoughts here and on
 <a href="http://twitter.com/bbatsov">Twitter</a>!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[The Elements of Style in Ruby #7: The case against ===]]></title>
-    <link href="http://batsov.com/articles/2013/07/10/the-elements-of-style-in-ruby-number-7-the-case-against-equals-equals-equals/"/>
-    <updated>2013-07-10T15:44:00+03:00</updated>
-    <id>http://batsov.com/articles/2013/07/10/the-elements-of-style-in-ruby-number-7-the-case-against-equals-equals-equals</id>
-    <content type="html"><![CDATA[<p>Today we&rsquo;ll discuss the following section from the <a href="https://github.com/bbatsov/ruby-style-guide">Ruby Style Guide</a>:</p>
-
-<blockquote><p>Avoid explicit use of the case equality operator <code>===</code>. As it name<br/>
-implies it&rsquo;s meant to be used implicitly by <code>case</code> expressions and<br/>
-outside of them it yields some pretty confusing code.</p></blockquote>
-
-<p>For those of you who don&rsquo;t know of the case equality operator <code>===</code> &ndash;
-it&rsquo;s the magic behind <code>case</code> that allows us to write code like this:</p>
-
-<p><code>ruby
-case something
-when Array then ...
-when 1..100 then ...
-when /some_regexp/ then ...
-end
-</code></p>
-
-<p>Ruby will convert the above code to something like:</p>
-
-<p><code>ruby
-case something
-when Array === something then ...
-when 1..100 === something then ...
-when /some_regexp/ === something then...
-end
-</code></p>
-
-<p>For many classes (like <code>Fixnum</code> and <code>String</code>) <code>===</code> will behave the
-same way as <code>==</code>.  On the other hand &ndash; <code>Module</code>, <code>Range</code> and <code>Regexp</code>
-define customized versions of the operator method <code>===</code>.  Knowing how
-these 3 classes have defined <code>===</code>, the case expression is also
-equivalent to this one:</p>
-
-<p><code>ruby
-case something
-when something.is_a? Array then ...
-when 1..100.include? something then ...
-when something =~ /some_regexp/ then ...
-end
-</code></p>
-
-<p>So far everything is peachy, right?</p>
-
-<p>The problem with the <code>===</code> is that when some people see it they decide
-it&rsquo;s very <em>cool</em> and start using it all over their code instead of
-its much clearer alternatives. I&rsquo;ve seen <code>===</code> (ab)used quite often for <strong>instance of</strong> checks.</p>
-
-<p>``` ruby</p>
-
-<h1>wtf, why doesn&rsquo;t this work???</h1>
-
-<h1>extremely common mistake I&rsquo;ve seen numerous times</h1>
-
-<p>return unless a === Array</p>
-
-<h1>=== is defined in Module</h1>
-
-<p>return unless Array === a # same as Array.===(a)
-```</p>
-
-<p>I&rsquo;ve also seen it used many times for range inclusion
-tests. Fortunately nobody has decided so far that <code>===</code> is preferable
-to <code>=~</code> for regular expressions.</p>
-
-<p>It should be our utmost goal as programmers to produce clear and
-easily digestible code. This means we should abstain ourselves from
-doing clever tricks like:</p>
-
-<p><code>ruby
-Array === something
-(1..100) === 7
-/something/ === some_string
-</code></p>
-
-<p>And bet on clarity instead:</p>
-
-<p><code>ruby
-something.is_a?(Array)
-(1..100).include?(7)
-some_string =~ /something/
-</code></p>
-
-<p>They don&rsquo;t call it the <strong>case equality operator</strong> for no reason &ndash; it&rsquo;s
-meant to be used internally by <code>case</code> expressions. I guess if it were
-a regular method (instead of an operator method) we&rsquo;d never have had
-to deal with its abuse.</p>
-
-<p>As usual I&rsquo;m looking forward
-to hearing your thoughts here and on
-<a href="http://twitter.com/bbatsov">Twitter</a>!</p>
-
-<p>Code long and prosper!</p>
 ]]></content>
   </entry>
   

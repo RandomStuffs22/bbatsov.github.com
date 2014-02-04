@@ -9,9 +9,9 @@
   <meta name="author" content="Bozhidar Batsov">
 
   
-  <meta name="description" content="I&rsquo;d like to apologize to everyone insulted by my previous
-posts. Contrary to popular belief I acknowledge EmacsWiki&rsquo;s
-contribution to the &hellip;">
+  <meta name="description" content="A few weeks ago I wrote an
+article about the state of package management in Emacs. In
+that article I pointed out that on the side of package.el too &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,6 +81,110 @@ contribution to the &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/articles/2012/04/06/melpa-homebrew-emacs-edition/">MELPA - Homebrew (Emacs Edition)</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-04-06T18:04:00+03:00" pubdate data-updated="true">Apr 6<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>A few weeks ago I wrote an
+<a href="http://batsov.com/articles/2012/02/19/package-management-in-emacs-the-good-the-bad-and-the-ugly/">article about the state of package management in Emacs</a>. In
+that article I pointed out that on the side of <a href="http://wikemacs.org/wiki/Package.el">package.el</a> too much
+was riding on the poorly maintained Marmalade repo. Today
+Marmalade went dark (again) and many people are wondering what to do
+now. The answer is simple &ndash; start using <a href="http://melpa.milkbox.net/">MELPA</a> instead.</p>
+
+<p>I was thinking of starting a project similar to Marmalade to alleviate
+its problems, but then the MELPA project was brought to my
+attention. This project follows the Homebrew (unofficial OSX package
+manager) model of using simple GitHub collaboration to maintain and
+grow a bunch of build recipes. In the case of MELPA, those recipes
+show how to bundle upstream source packages into package.el-compliant
+packages. The recipes can be tested locally by package authors, and
+they are run hourly on the MELPA server to create an HTTP package
+archive that Emacs users can simply add to their <code>'package-archives</code>
+list. As <a href="http://technomancy.us">Phil Hagelberg</a> said &ndash; there&rsquo;s no reason to drag in
+complicated dependencies like Node for something that&rsquo;s essentially a
+pile of static files. MELPA on the other hand is written mostly in
+Emacs Lisp and is thus much more comprehensible to casual Emacs hackers.</p>
+
+<p>Most packages currently contained in MELPA are development snapshots,
+but the project maintainer
+<a href="https://github.com/milkypostman">Donald Curtis</a> and
+<a href="http://www.sanityinc.com/">Steve Purcell</a> (aka <code>sanityinc</code>) are
+working on extending the MELPA build scripts to support stable
+packages, using upstream version tags.</p>
+
+<p>Adding a new package to MELPA is as simple as adding a few lines of
+code to the <code>pkglist</code> file in MELPA&rsquo;s source code repo:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='cl'><span class='line'><span class="p">(</span><span class="nv">name</span> <span class="ss">:url</span> <span class="s">&quot;&lt;repo url&gt;&quot;</span>
+</span><span class='line'> <span class="ss">:fetcher</span> <span class="nv">[git|svn|darcs</span><span class="err">|</span><span class="nv">wiki]</span>
+</span><span class='line'> <span class="nv">[:files</span> <span class="p">(</span><span class="s">&quot;&lt;file1&gt;&quot;</span><span class="o">,</span> <span class="o">...</span><span class="p">)</span><span class="nv">]</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You simply have to fork the <a href="https://github.com/milkypostman/melpa">official repo</a>, modify <code>pkglist</code>, send a pull
+request and <code>package.el</code> compatible packages will be built
+automatically for you on MELPA&rsquo;s server (you can also build the
+packages locally to test if everything is OK with your recipes). Sure it&rsquo;s not as easy as
+submitting a package via a web UI, but it&rsquo;s a much more robust
+approach. It also eliminates a common problem in Marmalade &ndash; there
+only the original uploader (+ people selected by him) can update a
+package. Often the original uploaders are very hard to find&hellip;</p>
+
+<p>To use MELPA with Emacs 24 (or a recent version of <code>package.el</code>) just
+add this to your <code>.emacs</code> (or equivalent):</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='cl'><span class='line'><span class="p">(</span><span class="nv">add-to-list</span> <span class="ss">&#39;package-archives</span>
+</span><span class='line'><span class="o">&#39;</span><span class="p">(</span><span class="s">&quot;melpa&quot;</span> <span class="o">.</span> <span class="s">&quot;http://melpa.milkbox.net/packages/&quot;</span><span class="p">)</span> <span class="no">t</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>There&rsquo;s a lot more info regarding MELPA on its official website and
+I&rsquo;d rather not duplicate it here.</p>
+
+<p>I would encourage package authors and users to investigate and
+contribute to MELPA. I&rsquo;ve already submitted a bunch of packages
+there and rebased <a href="http://batsov.com/prelude">Emacs Prelude</a> to
+use MELPA instead of Marmalade.</p>
+
+<p>Together we can turn MELPA into the most extensive and robust community-supported
+<code>package.el</code> repo! Emacs users deserve one of those :&ndash;)</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -380,96 +484,6 @@ enables this functionality by default.</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/articles/2012/03/08/ruby-tip-number-2-get-a-list-of-all-rake-tasks/">Ruby Tip #2: Get a List of All Rake Tasks</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-03-08T15:28:00+02:00" pubdate data-updated="true">Mar 8<span>th</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Many people are having trouble remembering all the rake tasks defined
-in a particular project&rsquo;s <code>Rakefile</code> (especially if they hadn&rsquo;t
-authored it). This is quite normal given the fact that Rails&rsquo;s
-Rakefile, for instance, defines 39 tasks (as of version
-3.2.2). Personally I never memorize anything, but the most basic rake
-tasks &ndash; for everything else there is the <code>rake -T</code> (or <code>rake --tasks</code>)
-command. Here&rsquo;s the command in action for Octopress&rsquo;s Rakefile:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>rake -T
-</span><span class='line'>rake clean                 <span class="c"># Clean out caches: .pygments-cache, .gist-cache, .sass-cache</span>
-</span><span class='line'>rake copydot<span class="o">[</span><span class="nb">source</span>,dest<span class="o">]</span>  <span class="c"># copy dot files for deployment</span>
-</span><span class='line'>rake deploy                <span class="c"># Default deploy task</span>
-</span><span class='line'>rake gen_deploy            <span class="c"># Generate website and deploy</span>
-</span><span class='line'>rake generate              <span class="c"># Generate jekyll site</span>
-</span><span class='line'>rake install<span class="o">[</span>theme<span class="o">]</span>        <span class="c"># Initial setup for Octopress: copies the default theme into the path of Jekyll&#39;s generator.</span>
-</span><span class='line'>rake integrate             <span class="c"># Move all stashed posts back into the posts directory, ready for site generation.</span>
-</span><span class='line'>rake isolate<span class="o">[</span>filename<span class="o">]</span>     <span class="c"># Move all other posts than the one currently being worked on to a temporary stash location (stash) so regenerating the site happens much quicker.</span>
-</span><span class='line'>rake list                  <span class="c"># list tasks</span>
-</span><span class='line'>rake new_page<span class="o">[</span>filename<span class="o">]</span>    <span class="c"># Create a new page in source/(filename)/index.markdown</span>
-</span><span class='line'>rake new_post<span class="o">[</span>title<span class="o">]</span>       <span class="c"># Begin a new post in source/_posts</span>
-</span><span class='line'>rake preview               <span class="c"># preview the site in a web browser</span>
-</span><span class='line'>rake push                  <span class="c"># deploy public directory to github pages</span>
-</span><span class='line'>rake rsync                 <span class="c"># Deploy website via rsync</span>
-</span><span class='line'>rake set_root_dir<span class="o">[</span>dir<span class="o">]</span>     <span class="c"># Update configurations to support publishing to root or sub directory</span>
-</span><span class='line'>rake setup_github_pages    <span class="c"># Set up _deploy folder and deploy branch for Github Pages deployment</span>
-</span><span class='line'>rake update_source<span class="o">[</span>theme<span class="o">]</span>  <span class="c"># Move source to source.old, install source theme updates, replace source/_includes/navigation.html with source.old&#39;s navigation</span>
-</span><span class='line'>rake update_style<span class="o">[</span>theme<span class="o">]</span>   <span class="c"># Move sass to sass.old, install sass theme updates, replace sass/custom with sass.old/custom</span>
-</span><span class='line'>rake watch                 <span class="c"># Watch the site and regenerate when it</span>
-</span><span class='line'>changes
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Not only did you get a list of all the tasks, but nice descriptions of
-the tasks as well.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/articles/page/12/">&larr; Older</a>
@@ -492,6 +506,10 @@ the tasks as well.</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/articles/2014/02/04/the-elements-of-style-in-ruby-number-12-proc-vs-proc-dot-new/">The Elements of Style in Ruby #12: Proc vs Proc.new</a>
+      </li>
+    
+      <li class="post">
         <a href="/articles/2014/01/01/looking-back-at-2013/">Looking Back at 2013</a>
       </li>
     
@@ -505,10 +523,6 @@ the tasks as well.</p>
     
       <li class="post">
         <a href="/articles/2013/12/04/regexp-anchors-in-ruby/">Regexp Anchors in Ruby</a>
-      </li>
-    
-      <li class="post">
-        <a href="/articles/2013/10/07/rubocop-0-dot-14-beyond-the-ruby-style-guide/">RuboCop 0.14: Beyond the Ruby Style Guide</a>
       </li>
     
   </ul>

@@ -9,9 +9,9 @@
   <meta name="author" content="Bozhidar Batsov">
 
   
-  <meta name="description" content="As you know I&rsquo;ve recently migrated my blog from WordPress to
-Jekyll. One of the things I had to do was add an Atom feed(RSS
-sucks). It was &hellip;">
+  <meta name="description" content="During the past few months I&rsquo;ve been working on a project to convert
+my vast Emacs configuration into something generally useful and
+self- &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,6 +81,94 @@ sucks). It was &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/articles/2011/04/24/emacs-dev-kit/">Emacs Dev Kit</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-04-24T00:00:00+03:00" pubdate data-updated="true">Apr 24<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>During the past few months I&rsquo;ve been working on a project to convert
+my vast Emacs configuration into something generally useful and
+self-contained that could help the general software engineer. Thus the
+<a href="https://github.com/bbatsov/emacs-dev-kit">Emacs Dev Kit</a> was
+born. Conceptually it&rsquo;s similar to the older
+<a href="https://github.com/technomancy/emacs-starter-kit">Emacs Starter Kit</a>
+and it even shares a bit of code with it. The Emacs Dev Kit, however,
+target more programming languages and features more
+customizations/enhancements.</p>
+
+<p>EDT relies on ELPA for packages that are available there and packages
+everything else locally. At some point I&rsquo;ve played with the idea of
+using el-get instead, but I had a lot of problems with it and thought
+that using only ELPA would be better since it would be part of
+Emacs 24. Everything is tested only on the latest version of GNU
+Emacs(currently 23.2). I&rsquo;ve tried to do everything in the most
+efficient and modern way &ndash; for instance SLIME is supposed to be
+installed via Quicklisp so it could be easily updated without waiting
+for a new version of the EDK.</p>
+
+<p>EDK currently offers enhanced(well, I know that this is subjective,
+but it feels enhanced at least to me) support for the following
+languages:</p>
+
+<ul>
+<li>C/C++</li>
+<li>Clojure</li>
+<li>Common Lisp</li>
+<li>Emacs Lisp</li>
+<li>Haskell</li>
+<li>Java</li>
+<li>LaTeX</li>
+<li>Perl</li>
+<li>Prolog</li>
+<li>Python</li>
+<li>Ruby</li>
+<li>Scala</li>
+<li>Scheme</li>
+<li>XML</li>
+</ul>
+
+
+<p>It also offers an advanced ERC configuration(so that you can ask your
+questions on #freenode), extended keybindings and lots of general
+purpose utility functions.</p>
+
+<p>EDT goes a step further and even includes a different color-theme by
+default &ndash; zenburn. You can turn it off easily of course, but I have
+the feeling that many programmers will appreciate its eye strain
+reducing qualities.</p>
+
+<p>The project is still very young and mostly untested. I&rsquo;d be thankful
+for feedback, bug reports and suggestions.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -290,58 +378,6 @@ have to perform this as root):</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/articles/2010/04/19/changing-laf-in-netbeans/">Changing the Look & Feel in NetBeans 6.8</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-04-19T00:00:00+03:00" pubdate data-updated="true">Apr 19<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Recently I’ve been trying to switch my work environment theme to
-something with lower contrast(notably the excellent zenburn theme for
-emacs, vim, gnome terminal, gnome, etc). Swing
-applications however have difficulties with GTK themes when they are
-using the GTK+ look &amp; feel so I’ve decided to go to Nimbus – the new
-default look &amp; feel for Java apps since Java 6 Update 10.</p>
-
-<p>The only problem with the plan was that there is no way to change the
-look and feel inside NetBeans – it had to be done by changing its
-configuration. This is done fairly easy. Just find the file
-/etc/netbeans.conf in NetBeans’s installation folder and append this to
-the netbeans_default_options section:</p>
-
-<p><code>--laf Nimbus</code></p>
-
-<p>Now you just have to (re)start NetBeans and you can enjoy Nimbus. More
-information about look &amp; feels in NetBeans can be found here.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/articles/page/20/">&larr; Older</a>
@@ -364,6 +400,10 @@ information about look &amp; feels in NetBeans can be found here.</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/articles/2014/02/04/the-elements-of-style-in-ruby-number-12-proc-vs-proc-dot-new/">The Elements of Style in Ruby #12: Proc vs Proc.new</a>
+      </li>
+    
+      <li class="post">
         <a href="/articles/2014/01/01/looking-back-at-2013/">Looking Back at 2013</a>
       </li>
     
@@ -377,10 +417,6 @@ information about look &amp; feels in NetBeans can be found here.</p>
     
       <li class="post">
         <a href="/articles/2013/12/04/regexp-anchors-in-ruby/">Regexp Anchors in Ruby</a>
-      </li>
-    
-      <li class="post">
-        <a href="/articles/2013/10/07/rubocop-0-dot-14-beyond-the-ruby-style-guide/">RuboCop 0.14: Beyond the Ruby Style Guide</a>
       </li>
     
   </ul>

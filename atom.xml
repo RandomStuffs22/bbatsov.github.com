@@ -4,7 +4,7 @@
   <title><![CDATA[(think)]]></title>
   <link href="http://batsov.com/atom.xml" rel="self"/>
   <link href="http://batsov.com/"/>
-  <updated>2014-01-01T13:14:32+02:00</updated>
+  <updated>2014-02-04T16:47:05+02:00</updated>
   <id>http://batsov.com/</id>
   <author>
     <name><![CDATA[Bozhidar Batsov]]></name>
@@ -12,6 +12,63 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[The Elements of Style in Ruby #12: proc vs Proc.new]]></title>
+    <link href="http://batsov.com/articles/2014/02/04/the-elements-of-style-in-ruby-number-12-proc-vs-proc-dot-new/"/>
+    <updated>2014-02-04T16:20:00+02:00</updated>
+    <id>http://batsov.com/articles/2014/02/04/the-elements-of-style-in-ruby-number-12-proc-vs-proc-dot-new</id>
+    <content type="html"><![CDATA[<p>People are often confused about the fact that there are two ways to created <code>proc</code>s in Ruby &ndash;
+via <code>Kernel#proc</code> and <code>Proc.new</code>. Let&rsquo;s see them in action:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">Proc</span><span class="o">.</span><span class="n">new</span> <span class="p">{</span> <span class="kp">true</span> <span class="p">}</span>
+</span><span class='line'><span class="c1"># =&gt; #&lt;Proc:0x007fe35440a058&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nb">proc</span> <span class="p">{</span> <span class="kp">true</span> <span class="p">}</span>
+</span><span class='line'><span class="c1"># =&gt; #&lt;Proc:0x007fe35440a059&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Hmmm, it seems we get exactly the same results&hellip; While this is true
+on Ruby 1.9+, this was not always the case.</p>
+
+<p>In Ruby 1.8, <code>Kernel#proc</code> is actually a synonym for <code>Kernel#lambda</code>
+which was extremely confusing, since as we all know <code>lambda</code>s an
+<code>proc</code>s differ in
+<a href="http://stackoverflow.com/questions/626/when-to-use-lambda-when-to-use-proc-new">subtle ways</a>. Luckily
+sanity prevailed and Ruby 1.9 made <code>Kernel#proc</code> a synonym for
+<code>Proc.new</code> instead.</p>
+
+<p>At this point, however, people couldn&rsquo;t use <code>Kernel#proc</code> anymore if they
+wanted to write code that&rsquo;s behaving in the same way on both Ruby 1.8
+and Ruby 1.9 and the use of <code>Kernel#proc</code> was generally discouraged.
+Thankfully Ruby 1.8 is now dead and buried and there&rsquo;s no reason to prefer
+<code>Proc.new</code> over <code>Kernel#proc</code> anymore.  As a matter of fact &ndash; you
+should probably be using only <code>Kernel#proc</code> as it&rsquo;s more concise and
+it&rsquo;s symmetrical to <code>Kernel#lambda</code>.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">lambda</span> <span class="p">{</span> <span class="kp">true</span> <span class="p">}</span>
+</span><span class='line'><span class="c1"># =&gt; #&lt;Proc:0x007fe35440a058 (lambda)&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nb">proc</span> <span class="p">{</span> <span class="kp">true</span> <span class="p">}</span>
+</span><span class='line'><span class="c1"># =&gt; #&lt;Proc:0x007fe35440a059&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>By the way, given <code>proc</code>&rsquo;s fairly counter-intuitive behavior regarding <code>return</code> you should probably
+use <code>lambda</code>s most of the time.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Looking back at 2013]]></title>
@@ -1991,99 +2048,6 @@ work and polish anyways. If all goes well expect 1.0 by summer&rsquo;s end with:
 <p>I hope you&rsquo;ll enjoy RuboCop 0.9. For the gory details, please take a
 look at the epic
 <a href="https://github.com/bbatsov/rubocop/blob/master/CHANGELOG.md">Changelog</a>.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[The Elements of Style in Ruby #4: Array#join vs Array#*]]></title>
-    <link href="http://batsov.com/articles/2013/07/01/the-elements-of-style-in-ruby-number-4-array-number-join-vs-array-number-star/"/>
-    <updated>2013-07-01T16:28:00+03:00</updated>
-    <id>http://batsov.com/articles/2013/07/01/the-elements-of-style-in-ruby-number-4-array-number-join-vs-array-number-star</id>
-    <content type="html"><![CDATA[<p>Today&rsquo;s topic is the following rule from the <a href="https://github.com/bbatsov/ruby-style-guide">Ruby Style Guide</a>:</p>
-
-<blockquote><p>Favor the use of <code>Array#join</code> over the fairly cryptic <code>Array#*</code> with
-a string argument.</p></blockquote>
-
-<p><code>Array#join</code> and <code>Array#*</code> (with a string argument) behave exactly the same:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="sx">%w(Bruce Wayne)</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
-</span><span class='line'><span class="c1"># =&gt; &quot;Bruce Wayne&quot;</span>
-</span><span class='line'>
-</span><span class='line'><span class="sx">%w(Bruce Wayne)</span> <span class="o">*</span> <span class="s1">&#39; &#39;</span>
-</span><span class='line'><span class="c1"># =&gt; &quot;Bruce Wayne&quot;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>So, considering they both do the same thing why should you opt to use
-<code>join</code> instead of <code>*</code>? Here&rsquo;s a few reasons:</p>
-
-<ul>
-<li><code>*</code> behaves totally differently when passed an integer argument:</li>
-</ul>
-
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="o">[</span><span class="mi">1</span> <span class="mi">2</span><span class="o">]</span> <span class="o">*</span> <span class="mi">3</span>
-</span><span class='line'><span class="c1"># =&gt; [1 2 1 2 1 2]</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Personally, I&rsquo;d expect this to be only behavior of such an operator
-method and find the alternative one (with a string argument) to be
-pretty much counter-intuitive.</p>
-
-<ul>
-<li>It&rsquo;s not always clear what <code>*</code> means without additional
-context. Take a look at this short snippet:</li>
-</ul>
-
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># a and b are variables</span>
-</span><span class='line'><span class="n">a</span> <span class="o">*</span> <span class="n">b</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Without some knowledge of <code>a</code> and <code>b</code> we cannot be certain what this
-code is going to do. It&rsquo;s hard even to speculate what the code is
-going to do. Obviously better variable names would certainly help, but
-the point still stands.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">a</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>While we still cannot be absolutely certain, it&rsquo;s highly likely that <code>a</code> is
-an <code>Array</code> and <code>b</code> is a <code>String</code>.</p>
-
-<ul>
-<li><code>*</code> does not carry much of a semantic value in it.</li>
-</ul>
-
-
-<p>Unlike <code>String#%</code>, <code>Array#*</code> with a string argument carries pretty
-much no meaning. It&rsquo;s absolutely beyond me how this came into
-existence. On the other hand the behavior of <code>Array#*</code> with an integer
-argument is pretty reasonable. Here we see a classic example of the
-notion that too much operator overloading can be a bad thing, leading
-to some pretty unreadable code. An operator should be employed only
-when it&rsquo;s use would add clarity to the code, not take clarity away.</p>
-
-<p><code>Array#*</code> has one thing going for it, however &ndash; the fact that few
-people know about its use as a substitute for <code>Array#join</code>. I hope
-they realize that some unknown features are unknown for a reason &ndash;
-because it&rsquo;s bad idea to make use of them.</p>
-
-<p>As usual I&rsquo;m looking forward to hearing your thoughts here and on
-<a href="http://twitter.com/bbatsov">Twitter</a>!</p>
 ]]></content>
   </entry>
   
