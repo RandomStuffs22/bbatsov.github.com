@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Style | (think)]]></title>
   <link href="http://batsov.com/articles/categories/style/atom.xml" rel="self"/>
   <link href="http://batsov.com/"/>
-  <updated>2014-02-04T16:47:05+02:00</updated>
+  <updated>2014-02-05T19:10:46+02:00</updated>
   <id>http://batsov.com/</id>
   <author>
     <name><![CDATA[Bozhidar Batsov]]></name>
@@ -61,7 +61,7 @@ lambda { true }</p>
 
 <p>```</p>
 
-<p>By the way, given <code>proc</code>&rsquo;s fairly counter-intuitive behavior regarding <code>return</code> you should probably
+<p>By the way, given <code>proc</code>&rsquo;s fairly counter-intuitive behavior regarding <code>return</code>, you should probably
 use <code>lambda</code>s most of the time.</p>
 ]]></content>
   </entry>

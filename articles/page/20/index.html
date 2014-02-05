@@ -9,9 +9,9 @@
   <meta name="author" content="Bozhidar Batsov">
 
   
-  <meta name="description" content="Recently I’ve been trying to switch my work environment theme to
-something with lower contrast(notably the excellent zenburn theme for
-emacs, vim, &hellip;">
+  <meta name="description" content="Most of you probably have heard that Fedora 13 will feature
+experimental 3D support for the Nouveau open source driver for Nvidia
+cards. This support &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,6 +81,54 @@ emacs, vim, &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/articles/2010/05/26/3d-support-nouveau-fedora-13/">Enabling 3D Support for Nouveau in Fedora 13</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-05-26T00:00:00+03:00" pubdate data-updated="true">May 26<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Most of you probably have heard that Fedora 13 will feature
+experimental 3D support for the Nouveau open source driver for Nvidia
+cards. This support, however, is not enabled by default. To enable it
+you need to install the mesa-dri-drivers-experimental package. I,
+personally, do it like this(if you haven’t configured sudo, you’ll
+have to perform this as root):</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>sudo yum install mesa-dri-drivers-experimental
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Afterwards you can enable Compuz, play chromium-bsu or whatever your heart desires.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -287,58 +335,6 @@ the new modes, so being able to access it is generally a good thing.</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/articles/2009/12/05/execute-stuff-after-zsh-login/">Automatically Execute Programs After Zsh Login</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-12-05T00:00:00+02:00" pubdate data-updated="true">Dec 5<span>th</span>, 2009</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Sometimes you may want to start a couple of programs just after an
-interactive login to your favourite shell, which in my case would be
-zsh.</p>
-
-<p>For example &ndash; I use Emacs as daemon process(emacs &mdash;daemon). I cannot use an init
-script to start it since the daemon is usable on a per user basis. The
-solution in this case is really simple &ndash; just create a <strong>.zlogin</strong> file in
-your home folder and put in it all the commands you want executed
-after you&rsquo;ve logged into the shell. In my case I put:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>emacs --daemon
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>there and as soon as I&rsquo;m logged in, the Emacs daemon is up waiting for
-incoming connections.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/articles/page/21/">&larr; Older</a>
@@ -361,6 +357,10 @@ incoming connections.</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/articles/2014/02/05/a-list-of-deprecated-stuff-in-ruby/">A List of Deprecated Stuff in Ruby</a>
+      </li>
+    
+      <li class="post">
         <a href="/articles/2014/02/04/the-elements-of-style-in-ruby-number-12-proc-vs-proc-dot-new/">The Elements of Style in Ruby #12: Proc vs Proc.new</a>
       </li>
     
@@ -374,10 +374,6 @@ incoming connections.</p>
     
       <li class="post">
         <a href="/articles/2013/12/04/using-rubys-each-with-object/">Using Ruby&#8217;s Each_with_object</a>
-      </li>
-    
-      <li class="post">
-        <a href="/articles/2013/12/04/regexp-anchors-in-ruby/">Regexp Anchors in Ruby</a>
       </li>
     
   </ul>

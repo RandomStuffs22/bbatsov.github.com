@@ -9,9 +9,9 @@
   <meta name="author" content="Bozhidar Batsov">
 
   
-  <meta name="description" content="I’m very fond of the ability to insert a new line below the line I’m
-currently at, and to position the cursor at the beginning of that new
-line, &hellip;">
+  <meta name="description" content="One of the things that I don’t like about the default Eclipse settings
+for Java development is that in the package explorer all Java files
+appear in &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,6 +81,54 @@ line, &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/articles/2009/07/13/java-type-indicators-eclipse/">Java Type Indicators in Eclipse</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-07-13T00:00:00+03:00" pubdate data-updated="true">Jul 13<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>One of the things that I don’t like about the default Eclipse settings
+for Java development is that in the package explorer all Java files
+appear in the same manner(with the same icon). There is no visual
+distinction between abstract and concrete classes, enums, interfaces&hellip;
+Luckily for us Eclipse supports such a distinction and all you have to
+do is enable it.</p>
+
+<p>Go to <strong>Window &ndash;> Preferences &ndash;> General &ndash;> Appearance &ndash;> Label
+Decorations</strong> and mark the check box saying <strong>Java Type
+Indicator</strong>. I&rsquo;ve tested this on Eclipse 3.5 only, but I guess it is
+included in previous releases as well.</p>
+
+<p>Eclipse, though not as feature rich as IntelliJ IDEA, offers a lot of features that one has to find for himself.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -333,115 +381,6 @@ root shell should be easily distinguished visually.</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/articles/2008/06/19/emacs-rails/">Using Emacs for Rails Development: The Perfect Setup</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-06-19T00:00:00+03:00" pubdate data-updated="true">Jun 19<span>th</span>, 2008</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><strong>Updated 29/04/2011</strong></p>
-
-<p>Lately, I’ve started digging more and more into Rails, preparing for
-the start of a Rails powered project. Although there are some IDEs
-offering decent Rails support(namely RubyMine, NetBeans, Komodo and
-Aptana Studio) I have always preferred the comfort of Emacs for
-various reasons. So naturally I embarked on a quest to setup a
-suitable environment for Rails development in Emacs. After a couple of
-days of searching and evaluating possible solutions I finally set up a
-worthy environment. It consists of a couple of components –
-<a href="http://svn.ruby-lang.org/cgi-bin/viewvc.cgi/trunk/misc/ruby-mode.el?view=log">ruby-mode</a>,
-<a href="http://svn.ruby-lang.org/cgi-bin/viewvc.cgi/trunk/misc/inf-ruby.el?view=log">inf-ruby</a>,
-<a href="http://code.google.com/p/autopair/">autopair-mode</a>,
-<a href="http://ourcomments.org/Emacs/nXhtml/doc/nxhtml.html">nxhtml-mode</a>,
-<a href="http://code.google.com/p/yasnippet/">yasnippet</a> and
-<a href="http://rinari.rubyforge.org/">rinari</a>.</p>
-
-<p>As you probably have guessed by now <em>ruby-mode</em> provides support for
-editing ruby source files. The mode is pretty feature complete and
-under active development, headed by none other than Matz(Ruby&rsquo;s
-creator) himself. I can only assume that Matz is an Emacs user
-himself. You can get it from the ruby svn repository if you&rsquo;re using a
-version of Emacs older than Emacs 23(it&rsquo;s built-in there).</p>
-
-<p><em>inf-ruby</em> is a mode that spawns and inferior ruby process(irb shell)
-to which you can directly send code from the ruby buffer you&rsquo;re
-currently editing. For instance &ndash; you can define a function and while
-your cursor is inside it you can press C-M-x &ndash; the function definition
-will be evaluated in irb automatically and you can test it there. This
-is extremely handy!</p>
-
-<p><em>autopair-mode</em> provides auto insertion of closing braces, quotes,
-ends, etc. . Instructions how to setup both modes can be found
-here. It&rsquo;s a much more generic version of the <em>ruby-electric</em> mode
-that used to do similar tasks, but just in Ruby buffers.</p>
-
-<p>Although many people recommend adding pabbrev(a mode which
-provides auto-completion) to the setup, I don’t recommend it – I find
-the mode mostly annoying and stick to the old school dumb
-auto-completion with M-/ . If you&rsquo;re shopping for autocompletion,
-however, a much better and smarter choice would be a
-RSense[<a href="http://cx4a.org/software/rsense/">http://cx4a.org/software/rsense/</a>].</p>
-
-<p><em>yasnippet</em> is a package that offers dynamically expandable code
-snippets(template), quite similar to ones in TextMate. It&rsquo;s very easy
-to add your very own snippets if you wish to.</p>
-
-<p><em>nxhtml-mode</em> is a pretty comprehensive package for web development in
-general. We need it for its excellent support for erb
-templates(.rhtml, .erb.html) and of course xhtml and css. Lately it&rsquo;s
-not been as actively developed as it used to be, but it&rsquo;s still a
-pretty good mode. Alternatively you can use
-<a href="https://github.com/nex3/haml">Haml</a> and
-<a href="https://github.com/antonj/scss-mode">SASS</a> and forget about
-nxhtml. Both have pretty decent Emacs modes available.</p>
-
-<p><em>rinari</em> is a mode for Rails development – it contains rich
-functionality such as the ability to easily navigate between models,
-views and controllers in a Rails apfplication amongst other
-features. Instructions how to set up rinari together with nxhtml-mode
-can be found on rinari’s home page.</p>
-
-<p>It’s always a good idea to add <a href="http://ecb.sourceforge.net/">ecb</a>(the Emacs code browser) to the mix,
-though this is entirely optional.</p>
-
-<p>A lot of the stuff I discussed here are part of the
-<a href="https://github.com/bbatsov/prelude">Emacs Prelude</a> that I
-develop and maintain. I urge you to use the Emacs Prelude as a starting point to
-develop your very own customized version of Emacs. Prelude comes with a
-few ruby-mode customizations, yari(ri integration for Emacs), haml and
-sass modes, autopair, yaml-mode, yasnippet, css-mode, ecb and a lot of
-other goodies(projectile being one of my favourites).</p>
-
-<p>I hope you enjoy this setup and it helps boost your Rails productivity in Emacs.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/articles/page/23/">&larr; Older</a>
@@ -464,6 +403,10 @@ other goodies(projectile being one of my favourites).</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/articles/2014/02/05/a-list-of-deprecated-stuff-in-ruby/">A List of Deprecated Stuff in Ruby</a>
+      </li>
+    
+      <li class="post">
         <a href="/articles/2014/02/04/the-elements-of-style-in-ruby-number-12-proc-vs-proc-dot-new/">The Elements of Style in Ruby #12: Proc vs Proc.new</a>
       </li>
     
@@ -477,10 +420,6 @@ other goodies(projectile being one of my favourites).</p>
     
       <li class="post">
         <a href="/articles/2013/12/04/using-rubys-each-with-object/">Using Ruby&#8217;s Each_with_object</a>
-      </li>
-    
-      <li class="post">
-        <a href="/articles/2013/12/04/regexp-anchors-in-ruby/">Regexp Anchors in Ruby</a>
       </li>
     
   </ul>

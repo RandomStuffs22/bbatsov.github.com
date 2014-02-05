@@ -9,9 +9,9 @@
   <meta name="author" content="Bozhidar Batsov">
 
   
-  <meta name="description" content="The driver selected by default by Fedora 11 is not appropriate for
-Xerox Phaser 3117 &ndash; it will not print with it. However there is a very
-easy &hellip;">
+  <meta name="description" content="Sometimes you may want to start a couple of programs just after an
+interactive login to your favourite shell, which in my case would be
+zsh. For &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,6 +81,58 @@ easy &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/articles/2009/12/05/execute-stuff-after-zsh-login/">Automatically Execute Programs After Zsh Login</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-12-05T00:00:00+02:00" pubdate data-updated="true">Dec 5<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Sometimes you may want to start a couple of programs just after an
+interactive login to your favourite shell, which in my case would be
+zsh.</p>
+
+<p>For example &ndash; I use Emacs as daemon process(emacs &mdash;daemon). I cannot use an init
+script to start it since the daemon is usable on a per user basis. The
+solution in this case is really simple &ndash; just create a <strong>.zlogin</strong> file in
+your home folder and put in it all the commands you want executed
+after you&rsquo;ve logged into the shell. In my case I put:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>emacs --daemon
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>there and as soon as I&rsquo;m logged in, the Emacs daemon is up waiting for
+incoming connections.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -310,54 +362,6 @@ can you find out which package do you need?</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/articles/2009/07/13/java-type-indicators-eclipse/">Java Type Indicators in Eclipse</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-07-13T00:00:00+03:00" pubdate data-updated="true">Jul 13<span>th</span>, 2009</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>One of the things that I don’t like about the default Eclipse settings
-for Java development is that in the package explorer all Java files
-appear in the same manner(with the same icon). There is no visual
-distinction between abstract and concrete classes, enums, interfaces&hellip;
-Luckily for us Eclipse supports such a distinction and all you have to
-do is enable it.</p>
-
-<p>Go to <strong>Window &ndash;> Preferences &ndash;> General &ndash;> Appearance &ndash;> Label
-Decorations</strong> and mark the check box saying <strong>Java Type
-Indicator</strong>. I&rsquo;ve tested this on Eclipse 3.5 only, but I guess it is
-included in previous releases as well.</p>
-
-<p>Eclipse, though not as feature rich as IntelliJ IDEA, offers a lot of features that one has to find for himself.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/articles/page/22/">&larr; Older</a>
@@ -380,6 +384,10 @@ included in previous releases as well.</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/articles/2014/02/05/a-list-of-deprecated-stuff-in-ruby/">A List of Deprecated Stuff in Ruby</a>
+      </li>
+    
+      <li class="post">
         <a href="/articles/2014/02/04/the-elements-of-style-in-ruby-number-12-proc-vs-proc-dot-new/">The Elements of Style in Ruby #12: Proc vs Proc.new</a>
       </li>
     
@@ -393,10 +401,6 @@ included in previous releases as well.</p>
     
       <li class="post">
         <a href="/articles/2013/12/04/using-rubys-each-with-object/">Using Ruby&#8217;s Each_with_object</a>
-      </li>
-    
-      <li class="post">
-        <a href="/articles/2013/12/04/regexp-anchors-in-ruby/">Regexp Anchors in Ruby</a>
       </li>
     
   </ul>

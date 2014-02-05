@@ -9,9 +9,8 @@
   <meta name="author" content="Bozhidar Batsov">
 
   
-  <meta name="description" content="One of the most requested Emacs features &ndash; native OSX Lion style
-full-screen support has finally landed in Emacs 24.3 (due to be
-released in a &hellip;">
+  <meta name="description" content="This post is mostly a note to myself, since I constantly forget how to
+delete remote Git branches. The classic way to do so (introduced in Git 1.5) &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,6 +80,75 @@ released in a &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/articles/2012/12/16/deleting-remote-git-branches/">Deleting Remote Git Branches</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-12-16T10:10:00+02:00" pubdate data-updated="true">Dec 16<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>This post is mostly a note to myself, since I constantly forget how to
+delete remote Git branches.</p>
+
+<p>The classic way to do so (introduced in Git 1.5) would be:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>git push origin :branch-to-delete
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>So, if I were migrating an application from MySQL to PostgreSQL I might want to delete
+the <code>postgres</code> branch when I&rsquo;m done:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>git push origin :postgres
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You have to agree this syntax is hardly something one can easily
+remember(and I&rsquo;m extra certain nobody would have guessed it on their
+own). Fortunately in Git 1.7 a nicer alternative to the above command
+was introduced:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>git push origin --delete branch-to-delete
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>That&rsquo;s all from me for today. Now go ahead and delete those unneeded Git branches.</p>
+
+<p>P.S. GitHub users might also want to take a look at this
+<a href="https://github.com/blog/1335-tidying-up-after-pull-requests">article</a>
+describing recently added functionality to clean up after pull
+requests.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -381,62 +449,6 @@ obtained a good full size keyboard like the
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/articles/2012/10/20/emacs-tip-number-6-remove-variable-and-function-definitions/">Emacs Tip #6: Remove Variable &amp; Function Definitions</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-10-20T20:29:00+03:00" pubdate data-updated="true">Oct 20<span>th</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>From time to time you might want to void (unbind) a variable or a
-function definition in Emacs. Most often you&rsquo;ll probably be dealing
-with variables created with <code>defvar</code> whose values you&rsquo;ll want to
-update.  The magic functions you need are the following:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='cl'><span class='line'><span class="c1">;; this will make the symbol my-nasty-variable&#39;s value void</span>
-</span><span class='line'><span class="p">(</span><span class="nb">makunbound</span> <span class="ss">&#39;my-nasty-variable</span><span class="p">)</span>
-</span><span class='line'><span class="c1">;; this will make the symbol my-nasty-function&#39;s</span>
-</span><span class='line'><span class="c1">;; function definition void</span>
-</span><span class='line'><span class="p">(</span><span class="nb">fmakunbound</span> <span class="ss">&#39;my-nasty-function</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>The names aren&rsquo;t exactly intuitive and even I happen to forget them from time to
-time. Now at least I&rsquo;ll now where to look for them if that happens
-again. :&ndash;)</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/articles/page/9/">&larr; Older</a>
@@ -459,6 +471,10 @@ again. :&ndash;)</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/articles/2014/02/05/a-list-of-deprecated-stuff-in-ruby/">A List of Deprecated Stuff in Ruby</a>
+      </li>
+    
+      <li class="post">
         <a href="/articles/2014/02/04/the-elements-of-style-in-ruby-number-12-proc-vs-proc-dot-new/">The Elements of Style in Ruby #12: Proc vs Proc.new</a>
       </li>
     
@@ -472,10 +488,6 @@ again. :&ndash;)</p>
     
       <li class="post">
         <a href="/articles/2013/12/04/using-rubys-each-with-object/">Using Ruby&#8217;s Each_with_object</a>
-      </li>
-    
-      <li class="post">
-        <a href="/articles/2013/12/04/regexp-anchors-in-ruby/">Regexp Anchors in Ruby</a>
       </li>
     
   </ul>
