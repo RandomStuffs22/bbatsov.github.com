@@ -4,7 +4,7 @@
   <title><![CDATA[(think)]]></title>
   <link href="http://batsov.com/atom.xml" rel="self"/>
   <link href="http://batsov.com/"/>
-  <updated>2014-02-05T19:10:46+02:00</updated>
+  <updated>2014-02-06T14:44:24+02:00</updated>
   <id>http://batsov.com/</id>
   <author>
     <name><![CDATA[Bozhidar Batsov]]></name>
@@ -53,7 +53,8 @@ you&rsquo;ll have to run Ruby with <code>-w</code>. Consider this example code:<
 generally don&rsquo;t produce the same deprecation warnings. For instance &ndash; <code>JRuby</code> doesn&rsquo;t produce any warnings
 for the code listed above.</p></li>
 <li><p>Deprecations are rarely mentioned in the API docs.</p></li>
-<li><p>Some APIs are deprecated only informally (like <code>Hash#has_key?</code> and <code>Hash#has_value?</code>).</p></li>
+<li><p>Some APIs are deprecated only informally (like
+<a href="http://batsov.com/articles/2013/08/21/the-elements-of-style-in-ruby-number-9-hash-number-has-key-and-hash-number-has-value-are-deprecated/"><code>Hash#has_key?</code> and <code>Hash#has_value?</code></a>).</p></li>
 <li><p>Some APIs are deprecated with <code>Kernel#warn</code> (like <code>Digest::Digest</code>).</p></li>
 </ul>
 
