@@ -4,7 +4,7 @@
   <title><![CDATA[(think)]]></title>
   <link href="http://batsov.com/atom.xml" rel="self"/>
   <link href="http://batsov.com/"/>
-  <updated>2014-02-06T15:40:16+02:00</updated>
+  <updated>2014-02-07T18:52:40+02:00</updated>
   <id>http://batsov.com/</id>
   <author>
     <name><![CDATA[Bozhidar Batsov]]></name>
@@ -50,8 +50,10 @@ you&rsquo;ll have to run Ruby with <code>-w</code>. Consider this example code:<
 
 <ul>
 <li><p>Alternative Ruby implementations (like <code>JRuby</code> and <code>Rubinius</code>)
-generally don&rsquo;t produce the same deprecation warnings. For instance &ndash; <code>JRuby</code> doesn&rsquo;t produce any warnings
-for the code listed above. One can say that currently deprecations are an MRI implementation detail.</p></li>
+generally don&rsquo;t produce the same deprecation warnings. For instance &ndash;
+<code>JRuby</code> doesn&rsquo;t produce any warnings for the code listed above. One
+can say that currently deprecations are an MRI implementation detail
+(although they shouldn&rsquo;t be).</p></li>
 <li><p>Deprecations are rarely mentioned in the API docs.</p></li>
 <li><p>There&rsquo;s no easy way to find out in which version of Ruby
 something got deprecated as <code>rb_warn</code> is a generic instrumentation for

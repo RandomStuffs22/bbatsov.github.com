@@ -138,8 +138,10 @@ you&rsquo;ll have to run Ruby with <code>-w</code>. Consider this example code:<
 
 <ul>
 <li><p>Alternative Ruby implementations (like <code>JRuby</code> and <code>Rubinius</code>)
-generally don&rsquo;t produce the same deprecation warnings. For instance &ndash; <code>JRuby</code> doesn&rsquo;t produce any warnings
-for the code listed above. One can say that currently deprecations are an MRI implementation detail.</p></li>
+generally don&rsquo;t produce the same deprecation warnings. For instance &ndash;
+<code>JRuby</code> doesn&rsquo;t produce any warnings for the code listed above. One
+can say that currently deprecations are an MRI implementation detail
+(although they shouldn&rsquo;t be).</p></li>
 <li><p>Deprecations are rarely mentioned in the API docs.</p></li>
 <li><p>There&rsquo;s no easy way to find out in which version of Ruby
 something got deprecated as <code>rb_warn</code> is a generic instrumentation for
