@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Django | (think)]]></title>
   <link href="http://batsov.com/articles/categories/django/atom.xml" rel="self"/>
   <link href="http://batsov.com/"/>
-  <updated>2014-02-17T19:20:24+02:00</updated>
+  <updated>2014-02-17T19:46:25+02:00</updated>
   <id>http://batsov.com/</id>
   <author>
     <name><![CDATA[Bozhidar Batsov]]></name>
@@ -528,16 +528,18 @@ suggestions. You can unroll any URL mapping scheme by simply
 associating regular expressions in urls.py with callback view
 functions:</p>
 
-<p>{% highlight python %}
-from django.conf.urls.defaults import patterns, include, url</p>
+<p><div>
+  <pre><code class='python'>from django.conf.urls.defaults import patterns, include, url&lt;/p&gt;
 
-<p>urlpatterns = patterns(&lsquo;&rsquo;,</p>
+&lt;p&gt;urlpatterns = patterns(&amp;lsquo;&amp;rsquo;,&lt;/p&gt;
 
-<pre><code>url(r'^$', 'djangodemo.views.home', name='home')
-url(r'^users', 'djangodemo.view.users', name='list_users'))
-</code></pre>
+&lt;pre&gt;&lt;code&gt;url(r&#39;^$&#39;, &#39;djangodemo.views.home&#39;, name=&#39;home&#39;)
+url(r&#39;^users&#39;, &#39;djangodemo.view.users&#39;, name=&#39;list_users&#39;))
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>{% endhighlight %}</p>
+&lt;p&gt;</code></pre>
+</div>
+</p>
 
 <p>An url is mapped to the callback function, which in turn either renders a
 template or directly returns some Http response.</p>

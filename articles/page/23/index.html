@@ -9,8 +9,9 @@
   <meta name="author" content="Bozhidar Batsov">
 
   
-  <meta name="description" content="Updated 29/04/2011 Lately, I’ve started digging more and more into Rails, preparing for
-the start of a Rails powered project. Although there are some &hellip;">
+  <meta name="description" content="Recently I switched to zsh, after being a bash user for almost 5
+years. I was in love with everything in zsh from day one, except one
+thing – the &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,6 +81,75 @@ the start of a Rails powered project. Although there are some &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/articles/2008/07/27/zsh-prompt/">A Nice Zsh Prompt</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-07-27T00:00:00+03:00" pubdate data-updated="true">Jul 27<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Recently I switched to zsh, after being a bash user for almost 5
+years. I was in love with everything in zsh from day one, except one
+thing – the default prompt. Although zsh ships with several prompt
+themes, I didn’t like any of them so I looked around a little bit and
+constructed my own humble prompt. Here it goes:</p>
+
+<p><code>PROMPT='[%n@%m %~]$ '</code></p>
+
+<p>In case you’re wondering what this gibberish means:</p>
+
+<p>%n stands for your username(e.g. bozhidar)</p>
+
+<p>%m stands for the first part of your machine’s hostname(you can use %M
+ for the fully qualified name)</p>
+
+<p>%~ stands for the current directory path with your home dir aliased
+ with an ‘~’ (if you want to see the path in its natural form use %d
+ instead)</p>
+
+<p>All of this strange looking character combinations are called “escape
+sequences” and they have special significance to zsh. The rest of the
+characters in the prompt definition are represented literally in the
+resulting prompt. It looks like this(on my machine):</p>
+
+<p><code>[bozhidar@drow ~/store]$</code></p>
+
+<p>If you like it simply put the prompt definition like in your .zshrc
+file. You may want to put a little bit different version of the prompt
+in the root user’s .zshrc(if you use root at all that is):</p>
+
+<p><code>PROMPT='[%n@%m %~]# '</code></p>
+
+<p>This follows the well established pattern that a normal shell and a
+root shell should be easily distinguished visually.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -340,6 +410,10 @@ the same time&hellip;</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/articles/2014/02/17/the-elements-of-style-in-ruby-number-13-length-vs-size-vs-count/">The Elements of Style in Ruby #13: Length vs Size vs Count</a>
+      </li>
+    
+      <li class="post">
         <a href="/articles/2014/02/05/a-list-of-deprecated-stuff-in-ruby/">A List of Deprecated Stuff in Ruby</a>
       </li>
     
@@ -353,10 +427,6 @@ the same time&hellip;</p>
     
       <li class="post">
         <a href="/articles/2013/12/09/projectile-0-dot-10-is-out/">Projectile 0.10 Is Out!</a>
-      </li>
-    
-      <li class="post">
-        <a href="/articles/2013/12/04/using-rubys-each-with-object/">Using Ruby&#8217;s Each_with_object</a>
       </li>
     
   </ul>

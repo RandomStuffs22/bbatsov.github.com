@@ -4,7 +4,7 @@
   <title><![CDATA[Category: ActiveAdmin | (think)]]></title>
   <link href="http://batsov.com/articles/categories/activeadmin/atom.xml" rel="self"/>
   <link href="http://batsov.com/"/>
-  <updated>2014-02-17T19:20:24+02:00</updated>
+  <updated>2014-02-17T19:46:25+02:00</updated>
   <id>http://batsov.com/</id>
   <author>
     <name><![CDATA[Bozhidar Batsov]]></name>
@@ -134,12 +134,7 @@ guys behind Active Admin have done) wouldn&rsquo;t hurt.</p>
 <p>Active Admin is the other big Rails admin UI framework, developed by
 Greg Bell. Its official web site describes it like this:</p>
 
-<p>{% blockquote %}
-Active Admin is a Ruby on Rails plugin for generating administration
-style interfaces. It abstracts common business application patterns to
-make it simple for developers to implement beautiful and elegant
-interfaces with very little effort.
-{% endblockquote %}</p>
+<p><blockquote><p>Active Admin is a Ruby on Rails plugin for generating administration<br/>style interfaces. It abstracts common business application patterns to<br/>make it simple for developers to implement beautiful and elegant<br/>interfaces with very little effort.</p></blockquote></p>
 
 <p>Active Admin is of course Rails 3.1 ready, plays nice with the asset
 pipeline and has great documentation on its official web site. There

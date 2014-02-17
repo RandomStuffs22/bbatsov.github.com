@@ -9,9 +9,9 @@
   <meta name="author" content="Bozhidar Batsov">
 
   
-  <meta name="description" content="One of the things that I don’t like about the default Eclipse settings
-for Java development is that in the package explorer all Java files
-appear in &hellip;">
+  <meta name="description" content="One of the most dreaded things that you can see while trying to run
+some application or trying to install an rpm package is a message
+saying that &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,6 +81,81 @@ appear in &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/articles/2009/07/14/yum-provides/">Find Out Quickly Which Package Provides a Certain Library With YUM</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-07-14T00:00:00+03:00" pubdate data-updated="true">Jul 14<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>One of the most dreaded things that you can see while trying to run
+some application or trying to install an rpm package is a message
+saying that some required library is missing.</p>
+
+<p>Generally this is not a big problem, because most often the library
+that you miss is packaged in a package named similarly to the
+library. Sometime however this is not the case&hellip; Suppose for example
+that you&rsquo;re trying to install IBM JDK 5.0 on a Fedora 11 box. You&rsquo;ll
+most likely get the following error message:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>error: Failed dependencies:
+</span><span class='line'>libstdc++.so.5 is needed by ibm-java2-i386-sdk-5.0-9.0.i386
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>and there is no package named libstdc++ that you can install, so how
+can you find out which package do you need?</p>
+
+<p>The answer is simple:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>yum provides libstdc++.so.5
+</span><span class='line'>
+</span><span class='line'>Loaded plugins: fastestmirror, presto, refresh-packagekit
+</span><span class='line'>compat-libstdc++-33-3.2.3-66.i586 : Compatibility standard C++ libraries
+</span><span class='line'>Repo        : fedora
+</span><span class='line'>Matched from:
+</span><span class='line'>Other       : libstdc++.so.5
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Pretty neat, eh?</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -312,75 +387,6 @@ is pretty much bulletproof. Things hardly get simpler than that.</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/articles/2008/07/27/zsh-prompt/">A Nice Zsh Prompt</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-07-27T00:00:00+03:00" pubdate data-updated="true">Jul 27<span>th</span>, 2008</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Recently I switched to zsh, after being a bash user for almost 5
-years. I was in love with everything in zsh from day one, except one
-thing – the default prompt. Although zsh ships with several prompt
-themes, I didn’t like any of them so I looked around a little bit and
-constructed my own humble prompt. Here it goes:</p>
-
-<p><code>PROMPT='[%n@%m %~]$ '</code></p>
-
-<p>In case you’re wondering what this gibberish means:</p>
-
-<p>%n stands for your username(e.g. bozhidar)</p>
-
-<p>%m stands for the first part of your machine’s hostname(you can use %M
- for the fully qualified name)</p>
-
-<p>%~ stands for the current directory path with your home dir aliased
- with an ‘~’ (if you want to see the path in its natural form use %d
- instead)</p>
-
-<p>All of this strange looking character combinations are called “escape
-sequences” and they have special significance to zsh. The rest of the
-characters in the prompt definition are represented literally in the
-resulting prompt. It looks like this(on my machine):</p>
-
-<p><code>[bozhidar@drow ~/store]$</code></p>
-
-<p>If you like it simply put the prompt definition like in your .zshrc
-file. You may want to put a little bit different version of the prompt
-in the root user’s .zshrc(if you use root at all that is):</p>
-
-<p><code>PROMPT='[%n@%m %~]# '</code></p>
-
-<p>This follows the well established pattern that a normal shell and a
-root shell should be easily distinguished visually.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/articles/page/23/">&larr; Older</a>
@@ -403,6 +409,10 @@ root shell should be easily distinguished visually.</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/articles/2014/02/17/the-elements-of-style-in-ruby-number-13-length-vs-size-vs-count/">The Elements of Style in Ruby #13: Length vs Size vs Count</a>
+      </li>
+    
+      <li class="post">
         <a href="/articles/2014/02/05/a-list-of-deprecated-stuff-in-ruby/">A List of Deprecated Stuff in Ruby</a>
       </li>
     
@@ -416,10 +426,6 @@ root shell should be easily distinguished visually.</p>
     
       <li class="post">
         <a href="/articles/2013/12/09/projectile-0-dot-10-is-out/">Projectile 0.10 Is Out!</a>
-      </li>
-    
-      <li class="post">
-        <a href="/articles/2013/12/04/using-rubys-each-with-object/">Using Ruby&#8217;s Each_with_object</a>
       </li>
     
   </ul>

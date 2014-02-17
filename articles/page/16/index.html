@@ -9,8 +9,8 @@
   <meta name="author" content="Bozhidar Batsov">
 
   
-  <meta name="description" content="Emacs 23.2 will pick up the default GNOME monospaced font, so if
-you&rsquo;re a GNOME user &ndash; you&rsquo;re basically covered. If you&rsquo;re &hellip;">
+  <meta name="description" content="Disclaimer This post is a bona fide rant. It tells how a hardcore Linux user
+(me) decided to abandon Linux as a desktop platform and the reasons &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,6 +80,329 @@ you&rsquo;re a GNOME user &ndash; you&rsquo;re basically covered. If you&rsquo;r
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/articles/2011/06/11/linux-desktop-experience-killing-linux-on-the-desktop/">The Linux Desktop Experience Is Killing Linux on the Desktop</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-06-11T00:00:00+03:00" pubdate data-updated="true">Jun 11<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><strong>Disclaimer</strong></p>
+
+<p><em>This post is a bona fide rant. It tells how a hardcore Linux user
+(me) decided to abandon Linux as a desktop platform and the reasons
+behind this decision. It might provoke some controversy, but
+I frankly don&rsquo;t care.</em></p>
+
+<h2>Prelude</h2>
+
+<p>I&rsquo;m generally known as one of the biggest supporters of GNU/Linux,
+I&rsquo;ve taught courses on Linux administration, I&rsquo;ve spoken at Linux
+conferences and I naturally use Linux as my primary desktop on all my
+machines. Well, that last part is not so true anymore. Here the story
+begins&hellip;</p>
+
+<h2>The background</h2>
+
+<p>I&rsquo;ve been using GNU/Linux exclusively for 8 years now. I&rsquo;ve spent a
+lot of time with Fedora, Gentoo and Arch Linux. I use it at home, I
+use it at work and along the way I&rsquo;ve converted many Windows users to
+Linux. I&rsquo;ve lived through a lot of driver and software problems
+with Linux, hoping that the day would come when it will become a
+first-class citizen of the desktop operating systems town. Alas, this
+day never came and probably never will.</p>
+
+<p>My patience ended this week and I&rsquo;ll be gradually moving all my
+desktop machines back to Windows. What caused me to take such drastic
+course of action? I&rsquo;ve bought myself a new ThinkPad T520 laptop,
+powered by Nvidia&rsquo;s Optimus GPU switching technology &ndash; when the GPU
+load is low it uses the built-in Sandy Bridge GPU, when it gets higher
+&ndash; it switches to the discrete NVS 4200M GPU. Needless to say &ndash; this
+  technology is not supported under Linux, but I was prepared to live
+  without it. After all both Intel and Nvidia are known to have decent
+  Linux drivers so I was about to try both GPU and select the one with
+  the better performance. All I had to do was pick a shiny new
+  distribution to power my mobile powerhouse&hellip;</p>
+
+<h2>The Distribution</h2>
+
+<p>I love Fedora &ndash; always have, always will. They constantly deliver to
+the end users the cutting edge in Linux technologies (both desktop and
+server), so it&rsquo;s naturally my distro of choice (I&rsquo;m quite fond of
+cutting edge tech). I installed on the new
+laptop the latest Fedora 15 with GNOME 3.0 and here the problems
+started. GNOME 3 requires 3d acceleration to work properly &ndash; a
+reasonable requirement these days, at least on an operating system with
+normal video drivers.</p>
+
+<p>The Intel driver sucked so bad that I got constant screen corruption
+and hang-ups. Too bad, because I preferred to use the Intel GPU since
+I mostly work on the laptop. The open source Nvidia driver nouveau
+doesn&rsquo;t support the NVS 4200, so I was forced to install the
+proprietary driver. It ran OK initially, but after some time my system
+just started to freeze while waiting for Plymouth (probably after some
+kernel update, which I didn&rsquo;t notice). I could have tried the usual
+tricks and fixed the problem, but at this point I finally realized how
+idiotic it was of me to keep using Linux for a desktop OS after all
+the shit I&rsquo;ve endured and the time I&rsquo;ve wasted dealing with stuff that
+should have been &ldquo;just working&rdquo;. I just want to get some work done, I
+don&rsquo;t want to waste my time debugging all kind of crap.</p>
+
+<h2>The Shit I endured</h2>
+
+<p><strong>Disclaimer</strong></p>
+
+<p><em>I&rsquo;ve endured this Shit over the aforementioned period of 8
+years. Some of the problems here have been alleviated (like
+ethernet/wireless support) and some manifest mainly with newer
+hardware (released in the past 6-12 months). Many of the problems,
+unfortunately manifest on all kind of hardware no matter how old.</em></p>
+
+<p><strong>Non-existing ethernet/wireless drivers</strong> &ndash; not so common today, but
+  try remembering the time circa 2005</p>
+
+<p><strong>Non-existing/crappy audio drivers</strong> &ndash; got an X-Fi 5 years ago, ALSA
+  driver was released 3-4 years later and was total piece of garbage,
+  OSS driver was barely usable. I don&rsquo;t even get me started on USB
+  audio support &ndash; what a joke&hellip;</p>
+
+<p><strong>Lamest video card drivers ever</strong> &ndash; most video card drivers for Linux
+  are so bad I cannot even watch tear-free video. Nvidia have the only
+  decent video driver, but it&rsquo;s far from perfect either &ndash; no KMS, poor
+  2D acceleration. AMD&rsquo;s drivers are a punishment from the Lord and
+  Intel&rsquo;s constantly &ldquo;evolving&rdquo; drivers are barely usable most of the
+  time. The video card drivers made me buy and HD media player and an
+  PS3 (for which I&rsquo;m thankful), but I have to ask myself &ndash; why suffer
+  all this shit instead of getting a normal desktop OS like OS X or
+  Windows? Did I love Linux that much? Did I believe that much it&rsquo;s
+  desktop day would come? What an idiot I was.</p>
+
+<p><strong>Lack of printer drivers</strong> &ndash; that&rsquo;s a funny one. Often printers
+  listed as having Linux drivers are mostly unusable. The printer that
+  own is listed as having a &ldquo;perfect&rdquo; Linux compatability in
+  openprinting.org. If this is perfect I cannot begin to imagine what
+  is &ldquo;poor&rdquo; compatibility.</p>
+
+<p><strong>Crappiest suspend/resume support</strong> &ndash; laptop goes to sleep, but
+  doesn&rsquo;t wake up. Wireless dies after wake up. Suspend/resume used to
+  be something mythical to most Linux users. Recently the situation
+  has improved a bit it&rsquo;s still light years away from what you get
+  with Windows/OSX.</p>
+
+<p><strong>Poor power management</strong> &ndash; my older laptop&rsquo;s battery lasted several
+  weeks while sleeping when I was using Windows on it. When I replaced
+  it with Linux the battery was being drained in 2 days while the
+  laptop was sleeping (and I had to wait about half a year for a set
+  of wireless and video drivers that actually made sleep a
+  possibility)&hellip; I&rsquo;ve noticed that as far as dynamic power
+  management is concerned Windows generally managed to squeeze more time
+  out of the battery, while at the same time my rig generated less
+  heat (dynamic fan control is another weakness of Linux).</p>
+
+<p>I&rsquo;ll stop writing about the driver problems now, because they affect
+so many thing. Even my fairly advanced mouse is missing some functions
+in Linux. I&rsquo;m not even mentioning the things like support for &ldquo;Turbo
+Memory&rdquo;, Optimus, etc.</p>
+
+<p><strong>Lack of decent office software</strong> &ndash; call it OpenOffice.org and don&rsquo;t
+  insult it anymore&hellip;</p>
+
+<p><strong>Problematic sound architecture</strong> &ndash; let me be completely blunt &ndash;
+  everything sound related in Linux sucks &ndash; OSS, ALSA, PulseAudio (the
+  sucker king). From a technical standpoint OSS never actually sucked,
+  but since it wasn&rsquo;t picked up by the community the project fell
+  into oblivion. How many of you have enjoy Dolby Digital or DTS sound
+  from their Linux boxes?</p>
+
+<p><strong>Poor flash support</strong> &ndash; should I explain? Have you tried it on a 64
+  bit distro? Do I hate it? Sure. Do I hope HTML5 will kill it?
+  Sure. Do I need it? Sure. You think your video drivers work OK under
+  Linux? Have you tried playing a HD video clip in youtube with flash
+  player at full-screen? Very few Linux video drivers handle this task properly&hellip;</p>
+
+<p><strong>Poor skype support</strong> &ndash; Same story as with flash. I keep dreaming of
+  a world with more intelligent users where GTalk has a conference
+  mode and everybody&rsquo;s using it instead of skype.</p>
+
+<p><strong>Poor quality of desktop apps</strong> &ndash; Known issues in core applications
+  such as Nautilus don&rsquo;t get fixed for years. Such things naturally
+  piss me off. Trying to contribute to the solution of a problem is
+  often met with apathy by maintainers. Btw Linux users think that
+  Mozilla Firefox is very slow and memory hungry &ndash; but it turns out
+  that the Windows version is generally performing a lot better (not
+  to mention &ndash; supporting hardware video acceleration).</p>
+
+<p>I can keep listing things here forever. When I come to think about it
+for the entire time I&rsquo;ve been using Linux only one major problem got
+resolved &ndash; USB devices support. I still remember the days when I had
+to write auto mounting policies myself or to use <em>mount</em> manually all
+the time. I won&rsquo;t even mention the quality of most proprietary apps on
+Linux, the huge amount of missing essential application and the
+unavailability of mainstream video games.</p>
+
+<p>So this is it! Hasta la vista, Linux! You still remain the best server
+operating system, though. You&rsquo;ll always have a special place in my
+heart and a VMWare instance on my Windows boxes.</p>
+
+<h2>What I&rsquo;ll miss</h2>
+
+<ul>
+<li>shell</li>
+<li>transparency, control</li>
+<li>package management</li>
+<li>lack of viruses, malware</li>
+</ul>
+
+
+<p>Although most common desktop users probably don&rsquo;t use the shell very
+often, I practically live(d) in it. OS X has zsh and bash, so it&rsquo;s a
+long term option for me, but due to the need for new hardware I&rsquo;ll be
+using Windows 7 on the desktop front for now. Hopefully the rumors
+that PowerShell is great will turned out to be true.</p>
+
+<p>The ability to tweak every aspect of the configuration, to build
+custom drivers and kernels will be missed as well, but I don&rsquo;t tend to
+do this as often as I used to. And when something bad happens &ndash; most
+of the time you could do something about it. As a friend of mine used
+to say &ldquo;The single biggest difference between Windows and Linux is
+that in Windows the restart will solve just about any problem, but in
+Linux it&rsquo;s unlikely so solve any problem&rdquo; (this statement was much
+more correct 8 years ago &ndash; modern Linux desktop distro have developed
+some of Windows&rsquo;s old habits).</p>
+
+<p>Probably the biggest loss for me would be the wonderful distro package
+management systems like YUM and APT.</p>
+
+<p>During the time I used Linux I totally forgot that things like viruses
+and malware existed. Now, after I installed Win 7 I was immediately
+encouraged to install an anti-virus program.</p>
+
+<h2>Based on your feedback</h2>
+
+<p>It seems a lot of people misunderstood the purpose of my rant so I&rsquo;d
+like to clarify something for them:</p>
+
+<ul>
+<li><p>I <strong>fuckin&#8217;</strong> love Linux. Linux is brilliant. Linux is fun. Linux
+rekindled my interest in computing at a time when I was about to
+give up on computing.</p></li>
+<li><p>I&rsquo;m not spreading FUD, I&rsquo;m telling you a real story, a story that I
+know many have experienced and many will experience.</p></li>
+<li><p>I&rsquo;m trying to raise the awareness of Linux desktop users. They&rsquo;ve
+been told that they have to be thankful for any kind of hardware
+support, no matter how basic, fucked up and all around shitty it
+might be. They&rsquo;ve been told that they have to be grateful for every
+crappy app in existence. The fact that something is free (as in
+beer), doesn&rsquo;t make it wrong for people to criticize it and complain
+about it. Ranting is what drives evolution. Same thing happens in
+life every day &ndash; the media and the people around us proclaim
+mediocrecy, they tell us that mediocrecy is OK, that we should be
+satisfied by what we have and that aspiring for greatness is a
+foolhardy mission. The Linux desktop community should put real
+pressure on hardware and software vendors to be taken seriously,
+instead of just waiting on their mercy. The Linux desktop community
+deserves a great Linux desktop.</p></li>
+<li><p>Fanatics are dangerous. They cannot see past their beliefs, they
+cannot be reasoned with. The Linux community is full of them &ndash;
+zealots that never see any problems with Linux and feel that the
+entire world is on a quest to discredit their (mine) beloved
+OS. They won&rsquo;t ever get this post, but hopefully YOU will.</p></li>
+<li><p>Hardware support is a big part of the Linux desktop problem, but
+it&rsquo;s not the only problem. Half-baked DE like KDE 4.0, Ubuntu&rsquo;s
+Unity and GNOME 3.0 are just as dangerous.</p></li>
+<li><p>Having some hardware support and having great hardware support are
+two different things.</p></li>
+<li><p>I do know how to research hardware compatibility ( :&ndash;) surprising,
+eh?), but I do like
+cutting edge technologies as well (problematic&hellip;). Does it seems
+normal to you to avoid commodity hardware just on the ground that
+it&rsquo;s &ldquo;too new&rdquo; to be properly employed by your OS of choice?</p></li>
+<li><p>I&rsquo;m not claiming that Windows 7 is the greatest thing after hot
+water, I don&rsquo;t even say that I like it. I do, however, say that it
+offers superior desktop experience (when it works, that is).</p></li>
+</ul>
+
+
+<p>I&rsquo;ll include here a great comment from Jan de Vos:</p>
+
+<p>_While I&rsquo;m still using Linux (usually Ubuntu, sometimes Fedora)
+everywhere (at work and at home), I do agree with a lot of points in
+this article; there are a lot of things that could be improved, and
+there are a lot of frustrations that Windows users don&rsquo;t have. Saying so
+is not FUD, it is a simple truth. If someone who clearly likes a lot of
+things in Linux decides to switch to something else, that really is a
+bad thing, and an indication that there are real problems.</p>
+
+<p>In my opinion, ignoring these problems, or even denying they exist, may
+be a lot more harmful than talking about them._</p>
+
+<p>I couldn&rsquo;t agree more!</p>
+
+<h2>Epilogue</h2>
+
+<p>I remember the first time I used Linux. A friend of mine installed
+Fedora 2 on my personal computer and there was a glitch in GRUB that
+prevented me from booting to Windows. My ethernet card wasn&rsquo;t
+supported so I was left without Internet. I asked my friend can I at
+least watch a few movies, while he brought me a patched version of the
+buggy GRUB. He told me &ndash; you need to compile MPlayer from sources with
+several optimization, you need windows video codecs, etc. At the time this
+excited me a lot &ndash; adventure, excitement. I learned A LOT by using
+Linux non-stop for so long time. But at some point you stop learning
+exciting things and are just stuck with tedious things you have to
+keep doing over and over again. And as I already mentioned &ndash; I don&rsquo;t
+want my time wasted, I want to get the job done with minimum hassle.</p>
+
+<p>I&rsquo;ve been hearing each and every year that &ldquo;year 20xx&rdquo; will be the
+year of the Linux desktop. It never came and it&rsquo;s my firm believe that
+it never will (unless something radically changes in the mindset of
+Linux desktop users). Constantly plagued by hardware and software woes Linux
+is doomed to fail. Without major support from hardware and software
+vendors every OS is ultimately doomed to fail.</p>
+
+<p>It&rsquo;s no secret that a lot of money are made by Linux server businesses
+and this naturally drives a lot of the development in the area of
+improving server performance. Nobody put it better than
+<a href="http://apcmag.com/why_i_quit_kernel_developer_con_kolivas.htm">Con Colivas</a>
+&ndash; &ldquo;<em>Linux is burdened with enterprise crap that makes it run poorly on
+  desktop PCs.</em>&rdquo;. Linux will remain the king of the
+  server world, but on the desktop front it will always be an OS for
+  enthusiast and hackers only.</p>
+
+<p>Goodbye, my dear old friend. You&rsquo;ll be missed&hellip; but not that much.</p>
+
+<p>P.S. Btw I&rsquo;m as pro a Linux user as they get &ndash; a professional sys
+admin, a former kernel developer so don&rsquo;t bother me with moronic
+comments from the type &ldquo;you&rsquo;re not doing something right/you should
+try another distro&rdquo;.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -797,212 +1120,6 @@ start coding. :&ndash;)</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/articles/2011/05/17/recommended-ruby-books/">Recommended Ruby Books</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-05-17T00:00:00+03:00" pubdate data-updated="true">May 17<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>Prelude</h2>
-
-<p>Back in the day when Ruby wasn&rsquo;t particularly popular outside Japan
-there was only one book in English about Ruby &ndash;
-<a href="http://www.amazon.com/Programming-Ruby-1-9-Pragmatic-Programmers/dp/1934356085/ref=sr_1_1?s=books&amp;ie=UTF8&amp;qid=1305641089&amp;sr=1-1">&ldquo;Programming Ruby&rdquo;</a>, affectionately called the Pickaxe by most
-Rubyists. Those day are long gone now. Ruby on Rails propelled Ruby
-into the mainstream and quite a few books on Ruby (and Rails) have
-been published over the past five or so years. With so many books to
-choose from developers often find it hard to pick up the <em>right</em> book.</p>
-
-<p>In this post I&rsquo;ll share with you my thoughts on the Ruby books that I&rsquo;ve found
-to be the most interesting and valuable. Feel free to disagree with
-me, after all this is a highly subjective matter.</p>
-
-<h2>Beginner books</h2>
-
-<p>Every saga has a beginning, every journey has a first step, every
-programming language has a first book&hellip;</p>
-
-<p><strong><a href="http://pragprog.com/titles/ltp2/learn-to-program">Learn to Program</a></strong></p>
-
-<p>A book that teaches programming to absolute beginners with Ruby as the
-implementation language. I haven&rsquo;t read this book (only excerpts from
-it), but I&rsquo;ve used it as a gift for several acquaintances of mine, with the
-desire to learn to program. All of them were frustrated by other
-introductory books they&rsquo;ve read and all of them praised &ldquo;Learn to
-Program&rdquo; for its immense clarity, engaging and enjoyable style and
-comprehensible examples.</p>
-
-<p><strong><a href="http://www.amazon.com/gp/product/1933988657/ref=s9_simh_gw_p14_d0_i7?pf_rd_m=ATVPDKIKX0DER&amp;pf_rd_s=center-2&amp;pf_rd_r=0Q48PY008200T745JZSF&amp;pf_rd_t=101&amp;pf_rd_p=470938631&amp;pf_rd_i=507846">The Well Grounded Rubyist</a></strong></p>
-
-<p>&ldquo;The Well Grounded Rubyist&rdquo; is a thoroughly revised and updated edition
-of the older book Ruby for Rails (which was 90% Ruby and 10% Rails). In this new book, author David
-A. Black moves beyond Rails and presents a broader view of Ruby. It
-covers Ruby 1.9 in great detail, unlike many introductory texts that
-tend to offer only superficial coverage of many topics.</p>
-
-<p>Starting with the basics, The Well-Grounded Rubyist explains Ruby
-objects and their interactions from the ground up. In the middle
-chapters, the book turns to an examination of Ruby&rsquo;s built-in, core
-classes, showing the reader how to manipulate strings, numbers,
-arrays, ranges, hashes, sets, and more. Regular expressions get
-attention, as do file and other I/O operations. At 500+ pages it&rsquo;s a
-bit of a hefty tome, but it&rsquo;s definitely worth reading it.</p>
-
-<h2>Reference books</h2>
-
-<p>Reference books are not usually the biggest fun to read, but they tend
-to cover everything a language has to offer and we generally keep them
-close. Their value increases with the increase of our knowledge of a
-particular language.</p>
-
-<p><strong><a href="http://www.amazon.com/Ruby-Programming-Language-David-Flanagan/dp/0596516177">The Ruby Programming Language</a></strong></p>
-
-<p>Co-authored by Ruby&rsquo;s creator Matz this is without a doubt the best
-analysis of the languages. Everything you need to know is explained in
-a crisp and easy to comprehend manner. The thing I liked most about the
-book was the depth in which all the topics were discussed &ndash; given the
-superficial coverage of some topics (such as encodings) in other books,
-this book really stands out. The book is full of examples and
-artwork by <em>why the lucky stiff</em>, and covers both Ruby 1.8 and 1.9. The
-chapters on proc &amp; clojures and metaprogramming were particularly
-strong. The books is geared mostly towards experienced programmers who
-are new to Ruby. If you&rsquo;re one of them &ndash; it&rsquo;s unlikely you&rsquo;ll find a
-better starting point in your journey to Ruby mastery.</p>
-
-<p><strong><a href="http://www.amazon.com/Programming-Ruby-1-9-Pragmatic-Programmers/dp/1934356085/ref=sr_1_1?s=books&amp;ie=UTF8&amp;qid=1305636206&amp;sr=1-1">Programming Ruby</a></strong></p>
-
-<p>Co-authored by the Pragmatic Programmers themselves (Dave Thomas &amp;
-Andy Hunt) this was the very first English book on Ruby (and arguably
-an instrument in Ruby&rsquo;s international success). The first edition of
-the books is freely available on-line, but it&rsquo;s very outdated so I
-wouldn&rsquo;t recommend you to read it. The book has two parts
-&ndash; a tutorial part and a reference part.</p>
-
-<p>The tutorial part is very well written and quite readable. It&rsquo;s geared
-towards less experienced developers and you&rsquo;ll not find as detailed
-coverage of the topics as in &ldquo;The Ruby Programming Language&rdquo;. You&rsquo;ll,
-however, find full coverage of everything new in Ruby 1.9 &ndash; the book includes all the new and changed syntax and
-semantics introduced since Ruby 1.8 and information about the new parameter
-passing rules, local variable scoping in blocks, fibers,
-multinationalization, and the new block declaration syntax.</p>
-
-<p>The reference part of the book includes a description of all the
-standard library modules, a complete reference for all built-in classes
-and modules (including all the new and changed methods introduced by
-Ruby 1.9).</p>
-
-<p>I&rsquo;m not sure we need the whole Ruby standard library documentation on
-paper anymore in the age of the Internet, but I guess some people will
-find it helpful. I just feel that the additional documentation simply
-made the book heavier (and possibly pricier).</p>
-
-<h2>Intermediate Ruby books</h2>
-
-<p>Once you&rsquo;ve read a reference or a beginner&rsquo;s Ruby book you might want
-to move to some book that illustrates common Ruby style, techniques
-and idioms.</p>
-
-<p><strong><a href="http://www.amazon.com/Ruby-Best-Practices-Gregory-Brown/dp/0596523009/ref=sr_1_1?ie=UTF8&amp;qid=1305640369&amp;sr=8-1">Ruby Best Practices</a></strong></p>
-
-<p>&ldquo;Ruby Best Practices&rdquo; is aimed at programmers who want to use Ruby as
-experienced Rubyists do. Written by the developer of the Ruby project
-Prawn, this concise book explains how to design beautiful APIs and
-domain-specific languages with Ruby, as well as how to work with
-functional programming ideas and techniques that can simplify your
-code and make you more productive. You&rsquo;ll learn how to write code
-that&rsquo;s readable and expressive.</p>
-
-<p>The whole book is currently available from free
-<a href="http://blog.rubybestpractices.com/posts/gregory/022-rbp-now-open.html">on-line</a>
-and has a very nice companion <a href="http://blog.rubybestpractices.com/">blog</a>.</p>
-
-<p><strong><a href="http://www.amazon.com/Eloquent-Ruby-Addison-Wesley-Professional/dp/0321584104/ref=sr_1_1?s=books&amp;ie=UTF8&amp;qid=1305640620&amp;sr=1-1">Eloquent Ruby</a></strong></p>
-
-<p>The latest (and one of the greatest) Ruby books I&rsquo;ve read. The book
-pretty much has the same aim as &ldquo;Ruby Best Practices&rdquo;, but covers a lot
-more ground and is generally a lighter and more enjoyable read. Russ
-Olsen has a very particular writing style that turns even the most
-boring subjects into interesting discussions. All chapters feature
-some real world examples of the concepts introduced, and a discussion
-of potential pitfalls.</p>
-
-<p>Very highly recommended second Ruby book.</p>
-
-<p><strong><a href="http://www.amazon.com/Design-Patterns-Ruby-Russ-Olsen/dp/0321490452/ref=pd_sim_b_6">Design Patterns in Ruby</a></strong></p>
-
-<p>A most enjoyable rendition of a generally boring subject by Russ Olsen. &ldquo;Design
-Patterns in Ruby&rdquo; explores 14 of the classical GoF design patterns and
-compares the canonical implementation of the patterns to idiomatic
-Ruby versions of them. Every pattern features a discussion of common
-use cases, pitfalls and real world usages.</p>
-
-<p>The book also builds on top of the original patterns by adding a
-couple of new ones like DSL and Convention over configuration.</p>
-
-<p>Without a doubt one of the best Design pattern books and a must read
-for all Ruby hackers. You don&rsquo;t need any previous knowledge of design
-patterns prior to reading this book, but there are a lot of references
-to the classic GoF text so you might want to read it beforehand.</p>
-
-<h2>Advanced Ruby books</h2>
-
-<p>At some point you might want to explore some of the darker corners of Ruby.</p>
-
-<p><strong><a href="http://www.amazon.com/Metaprogramming-Ruby-Program-Like-Pros/dp/1934356476/ref=sr_1_1?s=books&amp;ie=UTF8&amp;qid=1305641577&amp;sr=1-1">Metaprogramming in Ruby</a></strong></p>
-
-<p>The ability to modify programs at runtime is one the greatest
-strengths of Ruby, but it seems to frighten a lot of people (which is
-understandable given the constant usage of fancy words like
-eigenclass). If you want to sharpen your Ruby metaprogramming skills &ndash;
-this is the one true book.</p>
-
-<p><strong><a href="http://www.amazon.com/Using-JRuby-Bringing-Ruby-Facets/dp/1934356654/ref=sr_1_1?s=books&amp;ie=UTF8&amp;qid=1305641415&amp;sr=1-1">Using JRuby: Bringing Ruby to Java</a></strong></p>
-
-<p>Believe it or not currently JRuby seems to be best Ruby implementation
-around. If you&rsquo;re interested in using JRuby you&rsquo;d do well to learn
-more about the integration with the JVM that JRuby provides as well as
-the various new deployment options that JRuby introduces.</p>
-
-<p>This book was written by the core JRuby developers and it&rsquo;s absolutely
-excellent. Clear and concise writing style, lots of useful examples.</p>
-
-<h2>Epilogue</h2>
-
-<p>There are certainly other great Ruby books around that I haven&rsquo;t read,
-but I guess that at some point reading books is just not as helpful as
-writing real code. I do believe, however, that even experienced
-developers can benefit from a good programming book.</p>
-
-<p>So, which Ruby books that I&rsquo;ve missed would you recommend?</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/articles/page/17/">&larr; Older</a>
@@ -1025,6 +1142,10 @@ developers can benefit from a good programming book.</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/articles/2014/02/17/the-elements-of-style-in-ruby-number-13-length-vs-size-vs-count/">The Elements of Style in Ruby #13: Length vs Size vs Count</a>
+      </li>
+    
+      <li class="post">
         <a href="/articles/2014/02/05/a-list-of-deprecated-stuff-in-ruby/">A List of Deprecated Stuff in Ruby</a>
       </li>
     
@@ -1038,10 +1159,6 @@ developers can benefit from a good programming book.</p>
     
       <li class="post">
         <a href="/articles/2013/12/09/projectile-0-dot-10-is-out/">Projectile 0.10 Is Out!</a>
-      </li>
-    
-      <li class="post">
-        <a href="/articles/2013/12/04/using-rubys-each-with-object/">Using Ruby&#8217;s Each_with_object</a>
       </li>
     
   </ul>

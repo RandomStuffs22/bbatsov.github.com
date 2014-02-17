@@ -9,8 +9,9 @@
   <meta name="author" content="Bozhidar Batsov">
 
   
-  <meta name="description" content="This post is mostly a note to myself, since I constantly forget how to
-delete remote Git branches. The classic way to do so (introduced in Git 1.5) &hellip;">
+  <meta name="description" content="One operation that we have to do fairly often when editing text is
+manipulating the case of words. The most popular case manipulations
+are probably &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,6 +81,57 @@ delete remote Git branches. The classic way to do so (introduced in Git 1.5) &he
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/articles/2012/12/16/emacs-tip-number-8-manipulating-word-case/">Emacs Tip #8: Manipulating Word Case</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-12-16T17:57:00+02:00" pubdate data-updated="true">Dec 16<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>One operation that we have to do fairly often when editing text is
+manipulating the case of words. The most popular case manipulations
+are probably <strong>capitalize</strong>, <strong>convert to lowercase</strong> and <strong>convert to
+uppercase</strong>. Emacs naturally has built-in commands for all of those.</p>
+
+<p>Pressing <code>M-c</code> runs the command <code>capitalize-word</code>, which will
+capitalize the next word and move the cursor after it. Pressing <code>M--
+M-c</code> will capitalize the previous word without moving the cursor.</p>
+
+<p>Pressing <code>M-l</code> runs the command <code>downcase-word</code>, which will lowercase
+the next word and move the cursor after it. Pressing <code>M-- M-l</code> will
+lowercase the previous word without moving the cursor.</p>
+
+<p>Pressing <code>M-u</code> runs the command <code>upcase-word</code>, which will uppercase the
+next word and move the cursor after it. Pressing <code>M-- M-u</code> will uppercase
+the previous word without moving the cursor.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -371,84 +423,6 @@ without sacrificing the secure connection:</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/articles/2012/12/06/emacs-tip-number-7-remap-return-to-control-in-osx/">Emacs Tip #7: Remap Return to Control in OSX</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-12-06T16:06:00+02:00" pubdate data-updated="true">Dec 6<span>th</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>One of the major problems when using
-<a href="http://batsov.com/articles/2012/10/14/emacs-on-osx/">Emacs on OSX</a> is
-not related to OSX itself &ndash; the problem has to do with the Mac&rsquo;s
-hardware. Recent Mac keyboards(both laptop and desktop, with the
-exception of the wired full size Mac keyboard) lack a right <code>Control</code>
-key and it happens to be extremely important if you&rsquo;re looking to
-fully leverage the power of Emacs.</p>
-
-<p>The traditional solution to the problem is to use a tool like
-<a href="http://pqrs.org/macosx/keyremap4macbook/">KeyRemap4MacBook</a> to remap
-the right <code>Option</code> key to right <code>Control</code> and to use a snippet like
-this to make <code>Command</code> behave like <code>Meta</code> in Emacs:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='cl'><span class='line'><span class="p">(</span><span class="k">setq</span> <span class="nv">mac-command-modifier</span> <span class="ss">&#39;meta</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>This works, but it&rsquo;s hardly ideal since you&rsquo;re remapping <code>Option</code> at
-fairly low level and you won&rsquo;t be able to use it anywhere as <code>Option</code>.</p>
-
-<p>A much better idea would be to leverage a little know capability of
-KeyRemap4MacBook (a great program which despite its name works with
-desktop Macs as well) and map the <code>Return</code> key to <code>Control</code> only
-when it&rsquo;s held down (it will behave like a normal Return key in all
-other situations). The option you&rsquo;ll have to find in KeyRemap4MacBook
-is in the <code>Change Return</code> section and it labeled <code>Return to Control_R
-(+ When you type Return only, send Return)</code>.</p>
-
-<p>This approach has several advantages.  First and foremost you&rsquo;re not
-sacrificing a valuable key like <code>Option</code>. Second &ndash; it&rsquo;s much easier to
-hit <code>Return</code> with your right pinky than it is to hit <code>Option</code>
-(especially if you&rsquo;re using a US layout keyboard &ndash; these have long
-single row <code>Return</code> keys, compared to the short 2 row Returns found on
-European keyboards). Lastly, if you&rsquo;ve already remapped <code>CapsLock</code> to
-<code>Control</code> (like so many people do) you&rsquo;re getting a pretty symmetrical
-mapping on the opposite side of your keyboard.</p>
-
-<p>All in all &ndash; remapping <code>Return</code> to <code>Control</code> is a huge win if you&rsquo;re
-using heavily one of Apple&rsquo;s smaller keyboards. Of course, if you have
-the option to use an external keyboard you&rsquo;d do yourself a solid if you
-obtained a good full size keyboard like the
-<a href="http://batsov.com/articles/2008/06/16/das-keyboard/">Das Keyboard</a>.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/articles/page/9/">&larr; Older</a>
@@ -471,6 +445,10 @@ obtained a good full size keyboard like the
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/articles/2014/02/17/the-elements-of-style-in-ruby-number-13-length-vs-size-vs-count/">The Elements of Style in Ruby #13: Length vs Size vs Count</a>
+      </li>
+    
+      <li class="post">
         <a href="/articles/2014/02/05/a-list-of-deprecated-stuff-in-ruby/">A List of Deprecated Stuff in Ruby</a>
       </li>
     
@@ -484,10 +462,6 @@ obtained a good full size keyboard like the
     
       <li class="post">
         <a href="/articles/2013/12/09/projectile-0-dot-10-is-out/">Projectile 0.10 Is Out!</a>
-      </li>
-    
-      <li class="post">
-        <a href="/articles/2013/12/04/using-rubys-each-with-object/">Using Ruby&#8217;s Each_with_object</a>
       </li>
     
   </ul>
