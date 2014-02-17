@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Style | (think)]]></title>
   <link href="http://batsov.com/articles/categories/style/atom.xml" rel="self"/>
   <link href="http://batsov.com/"/>
-  <updated>2014-02-07T18:52:40+02:00</updated>
+  <updated>2014-02-17T19:20:24+02:00</updated>
   <id>http://batsov.com/</id>
   <author>
     <name><![CDATA[Bozhidar Batsov]]></name>
@@ -12,6 +12,61 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[The Elements of Style in Ruby #13: length vs size vs count]]></title>
+    <link href="http://batsov.com/articles/2014/02/17/the-elements-of-style-in-ruby-number-13-length-vs-size-vs-count/"/>
+    <updated>2014-02-17T18:55:00+02:00</updated>
+    <id>http://batsov.com/articles/2014/02/17/the-elements-of-style-in-ruby-number-13-length-vs-size-vs-count</id>
+    <content type="html"><![CDATA[<p>One of the problems newcomers to Ruby experience is that there are
+often quite a few ways to do same thing. For instance you can obtain
+the number of items in <code>Enumerable</code> objects (instances of classes
+using the <code>Enumerable</code> mixin, which would often be collections like
+<code>Array</code>, <code>Hash</code>, <code>Set</code>, etc) by either using <code>Enumerable#count</code> or the
+methods <code>length</code> and its alias <code>size</code> that such classes often
+provide. Which one should you use? Let me help with this choice.</p>
+
+<p><code>length</code> is a method that&rsquo;s not part of <code>Enumerable</code> &ndash; it&rsquo;s part of a
+concrete collection class (like <code>Array</code>) and it&rsquo;s usually running in
+<code>O(1)</code> (constant) time. That&rsquo;s as fast as it gets.</p>
+
+<p>Whether you should use <code>length</code> or <code>size</code> is mostly a matter of personal preference.
+Personally I use <code>size</code> for collections (hashes, arrays, etc) and <code>length</code> for strings, since for me
+objects like hashes and stacks don&rsquo;t have a length, but a size. On the other hand it&rsquo;s perfectly
+normal to assume that some text has some length. Anyways, in the end you&rsquo;re invoking the same method,
+so the semantic distinction is not important.</p>
+
+<p><code>Enumerable#count</code>, on the other hand, is a totally different
+beast. It&rsquo;s usually meant to be used with a block or an argument and
+will return the number of matches in an <code>Enumerable</code>:</p>
+
+<p>``` Ruby
+arr = [1, 1, 2, 3, 5, 6, 8]</p>
+
+<p>arr.count(&amp;:even?) # => 3
+arr.count(1) # => 2
+```</p>
+
+<p>You can, however, invoke it without any arguments and it will return the size of the enumerable on which it was invoked:</p>
+
+<p><code>Ruby
+arr.count # =&gt; 7
+</code></p>
+
+<p>There&rsquo;s a performance implication with this, though &ndash; to calculate the
+size of the enumerable the <code>count</code> method will traverse it, which is
+not particularly fast (especially for huge collections). Some classes
+(like <code>Array</code>) implement an optimized version of <code>count</code> in terms of
+<code>length</code>, but many don&rsquo;t. The takeaway for you is that you should
+avoid using the <code>count</code> method if you can use <code>length</code> or <code>size</code>.</p>
+
+<p>There&rsquo;s also the fact that in Rails&rsquo;s <code>ActiveRecord</code> <code>count</code> has a
+totally different meaning, but that&rsquo;s irrelevant to our current discussion.</p>
+
+<p>That&rsquo;s all for now, folks! As usual I&rsquo;m looking forward to hearing your thoughts here and on
+<a href="http://twitter.com/bbatsov">Twitter</a>!</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[The Elements of Style in Ruby #12: proc vs Proc.new]]></title>
@@ -332,104 +387,6 @@ some_hash.key?(some_key)
 
 <p>As usual &ndash; you can use <a href="https://github.com/bbatsov/rubocop">RuboCop</a>
 to identify and fix such shortfalls of your code.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[The Elements of Style in Ruby #8: Know Thy Predicates]]></title>
-    <link href="http://batsov.com/articles/2013/08/14/the-elements-of-style-in-ruby-number-8-know-thy-predicates/"/>
-    <updated>2013-08-14T17:28:00+03:00</updated>
-    <id>http://batsov.com/articles/2013/08/14/the-elements-of-style-in-ruby-number-8-know-thy-predicates</id>
-    <content type="html"><![CDATA[<p>I often see people writing code like this:</p>
-
-<p><code>ruby
-if x % 2 == 0 ...
-</code></p>
-
-<p>Obviously <code>Fixnum#even?</code> would have been a better choice:</p>
-
-<p><code>ruby
-if x.even? ...
-</code></p>
-
-<p>There is also <code>Fixnum#odd?</code> if you need to check for odd numbers.</p>
-
-<p>By the way, there is even a <code>Numeric#zero?</code> predicate:</p>
-
-<p>``` ruby
-if x == 0 &hellip;</p>
-
-<h1>same as the above (provided x is a number)</h1>
-
-<p>if x.zero? &hellip;
-```</p>
-
-<p>Personally I feel that <code>x == 0</code> makes more sense for such simple
-numeric checks, but <code>zero?</code> is there for those you who think
-otherwise. <code>x == 0</code> also has the benefit of being <code>nil</code> safe, but
-that&rsquo;s not of significant importance.</p>
-
-<p>The <a href="https://github.com/bbatsov/powerpack">Powerpack library</a> also
-includes the predicate methods <code>Fixnum#pos?</code> and <code>Fixnum#neg?</code>, which
-are roughly the same as <code>&gt; 0</code> and <code>&lt; 0</code> comparisons.</p>
-
-<p>Another bit of code you&rsquo;ll often see is:</p>
-
-<p><code>ruby
-if x &gt; 0 &amp;&amp; x &lt; 7 ...
-</code></p>
-
-<p>While there is nothing particularly bad about that code, I&rsquo;d argue
-that <code>between?</code> makes for a nicer (and more OO) alternative:</p>
-
-<p><code>ruby
-if x.between?(1, 6) ...
-</code></p>
-
-<p>Using a range predicate you can also exclude the end value:</p>
-
-<p>``` ruby
-if x > 0 &amp;&amp; x &lt; 1000 &hellip;</p>
-
-<h1>is the same as</h1>
-
-<p>if (1&hellip;1000).include?(x) &hellip;
-```</p>
-
-<p>When using predicate methods you should be mindful of <code>nil</code>
-receivers. That&rsquo;s generally not a serious issue in practice but still I&rsquo;d ask
-you to consider this example:</p>
-
-<p><code>ruby
-if arr == [] ...
-</code></p>
-
-<p>It&rsquo;s not equivalent to</p>
-
-<p><code>ruby
-if arr.empty?
-</code></p>
-
-<p>Why so? Because <code>arr</code> might be <code>nil</code>. So the equivalent code would be:</p>
-
-<p><code>ruby
-if !arr.nil? &amp;&amp; arr.empty?
-</code></p>
-
-<p>Of course checking for <code>nil</code>s like this is generally not a good idea, but
-that&rsquo;s a discussion for some other time.</p>
-
-<p>On a somewhat related note <code>something.nil?</code> is generally preferred
-over <code>something == nil</code>. If you&rsquo;re reasonably sure that <code>something</code>
-can&rsquo;t have the value <code>false</code> you can, of course, simplify things even
-further:</p>
-
-<p><code>ruby
-if something ...
-</code></p>
-
-<p>As usual I&rsquo;m looking forward to hearing your thoughts here and on
-<a href="http://twitter.com/bbatsov">Twitter</a>!</p>
 ]]></content>
   </entry>
   

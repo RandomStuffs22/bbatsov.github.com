@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Clojure | (think)]]></title>
   <link href="http://batsov.com/articles/categories/clojure/atom.xml" rel="self"/>
   <link href="http://batsov.com/"/>
-  <updated>2014-02-07T18:52:40+02:00</updated>
+  <updated>2014-02-17T19:20:24+02:00</updated>
   <id>http://batsov.com/</id>
   <author>
     <name><![CDATA[Bozhidar Batsov]]></name>
@@ -262,11 +262,24 @@ Dorothy, &lsquo;cause Kansas is going bye-bye!</p>
 
 <h2>Clojure at a glance</h2>
 
-<p><blockquote><p>Mutable state is the new spaghetti code!</p><footer><strong>Rich Hickey</strong> <cite>Creator of Clojure</cite></footer></blockquote></p>
+<p>{% blockquote Rich Hickey, creator of Clojure %}
+Mutable state is the new spaghetti code!
+{% endblockquote %}</p>
 
-<p><blockquote><p>Time is the new memory!</p><footer><strong>Rich Hickey</strong> <cite>Creator of Clojure</cite></footer></blockquote></p>
+<p>{% blockquote Rich Hickey, creator of Clojure %}
+Time is the new memory!
+{% endblockquote %}</p>
 
-<p><blockquote><p>Clojure feels like a general-purpose language beamed back from the<br/>near future. Its support for functional programming and software<br/>transactional memory is well beyond current practice and is well<br/>suited for multicore hardware. At the same time, Clojure is well<br/>grounded in the past and the present. It brings together Lisp and the<br/>Java Virtual Machine. Lisp brings wisdom spanning most of the history<br/>of programming, and Java brings the robustness, extensive libraries,<br/>and tooling of the dominant platform available today.</p><footer><strong>Stuart Halloway</strong> <cite>Author of &ldquo;Programming Clojure&rdquo;</cite></footer></blockquote></p>
+<p>{% blockquote Stuart Halloway, author of &ldquo;Programming Clojure&rdquo; %}
+Clojure feels like a general-purpose language beamed back from the
+near future. Its support for functional programming and software
+transactional memory is well beyond current practice and is well
+suited for multicore hardware. At the same time, Clojure is well
+grounded in the past and the present. It brings together Lisp and the
+Java Virtual Machine. Lisp brings wisdom spanning most of the history
+of programming, and Java brings the robustness, extensive libraries,
+and tooling of the dominant platform available today.
+{% endblockquote %}</p>
 
 <p>If I had only a few minutes to describe Clojure this would be the gist
 of it:</p>
@@ -801,11 +814,10 @@ lazy seqs can be implemented using the <strong>lazy-seq</strong> macro. The lazi
 allows us to deal with infinite data structures easily (as long as we
 don&rsquo;t try to act on all of their elements that is):</p>
 
-<p><div>
-  <pre><code class='clojure'>user&gt; (take 10 (filter even? (iterate inc 1)))
-(2 4 6 8 10 12 14 16 18 20)</code></pre>
-</div>
-</p>
+<p>{% highlight clojure %}
+user> (take 10 (filter even? (iterate inc 1)))
+(2 4 6 8 10 12 14 16 18 20)
+{% endhighlight %}</p>
 
 <p><strong>iterate</strong> returns an infinite lazy sequence. <strong>filter</strong> returns a lazy
 sequence as well. With <strong>take</strong> we can take only the elements we need
@@ -923,25 +935,24 @@ optionally, additional arguments) that are asynchronously applied to
 an agent&rsquo;s state and whose return value becomes the agent&rsquo;s new
 state. Let&rsquo;s see an agent (Smith maybe?) in action:</p>
 
-<p><div>
-  <pre><code class='clojure'>user&gt; (def some-agent (agent 0))&lt;/p&gt;
+<p>{% highlight clojure %}
+user> (def some-agent (agent 0))</p>
 
-&lt;h1&gt;&amp;lsquo;user/some-agent&lt;/h1&gt;
+<h1>&lsquo;user/some-agent</h1>
 
-&lt;p&gt;user&gt; (dotimes [i 100]&lt;/p&gt;
+<p>user> (dotimes [i 100]</p>
 
-&lt;pre&gt;&lt;code&gt;           (send some-agent inc))
-&lt;/code&gt;&lt;/pre&gt;
+<pre><code>           (send some-agent inc))
+</code></pre>
 
-&lt;p&gt;nil
-user&gt; some-agent&lt;/p&gt;
+<p>nil
+user> some-agent</p>
 
-&lt;h1&gt;&amp;lt;Agent@15c024c: 100&gt;&lt;/h1&gt;
+<h1>&lt;Agent@15c024c: 100></h1>
 
-&lt;p&gt;user&gt; @some-agent
-100</code></pre>
-</div>
-</p>
+<p>user> @some-agent
+100
+{% endhighlight %}</p>
 
 <h4>Atoms</h4>
 

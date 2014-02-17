@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Scala | (think)]]></title>
   <link href="http://batsov.com/articles/categories/scala/atom.xml" rel="self"/>
   <link href="http://batsov.com/"/>
-  <updated>2014-02-07T18:52:40+02:00</updated>
+  <updated>2014-02-17T19:20:24+02:00</updated>
   <id>http://batsov.com/</id>
   <author>
     <name><![CDATA[Bozhidar Batsov]]></name>
@@ -147,9 +147,16 @@ confuses IDEs for instance.</p>
 
 <h2>Scala at a glance</h2>
 
-<p><blockquote><p>If I were to pick a language to use today other than Java, it would<br/>be Scala&hellip;</p><footer><strong>James Gosling</strong> <cite>Creator of Java</cite></footer></blockquote></p>
+<p>{% blockquote James Gosling, creator of Java %}
+If I were to pick a language to use today other than Java, it would
+be Scala&hellip;
+{% endblockquote %}</p>
 
-<p><blockquote><p>If Java programmers want to use features that aren&rsquo;t present in the<br/>language, I think they&rsquo;re probably best off using another language<br/>that targets the JVM, such a Scala and Groovy.</p><footer><strong>Joshua Bloch</strong> <cite>Author of &ldquo;Effective Java&rdquo; and Many of Java&rsquo;s Core Libraries</cite></footer></blockquote></p>
+<p>{% blockquote Joshua Bloch, author of &ldquo;Effective Java&rdquo; and many of Java&rsquo;s core libraries %}
+If Java programmers want to use features that aren&rsquo;t present in the
+language, I think they&rsquo;re probably best off using another language
+that targets the JVM, such a Scala and Groovy.
+{% endblockquote %}</p>
 
 <p>Scala basically is:</p>
 

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Groovy | (think)]]></title>
   <link href="http://batsov.com/articles/categories/groovy/atom.xml" rel="self"/>
   <link href="http://batsov.com/"/>
-  <updated>2014-02-07T18:52:40+02:00</updated>
+  <updated>2014-02-17T19:20:24+02:00</updated>
   <id>http://batsov.com/</id>
   <author>
     <name><![CDATA[Bozhidar Batsov]]></name>
@@ -222,7 +222,12 @@ confuses IDEs for instance.</p>
 
 <h2>Meet Groovy</h2>
 
-<p><blockquote><p>&ldquo;Groovy is like a super version of Java. It can leverage Java&rsquo;s<br/>enterprise capabilities but also has cool productivity features like<br/>closures, builders and dynamic typing. If you are a developer, tester<br/>or script guru, you have to love Groovy.&rdquo;</p><footer><strong>Praise for Groovy</strong> <cite><a href="http://groovy.codehause.org">http://groovy.codehause.org</a></cite></footer></blockquote></p>
+<p>{% blockquote Praise for Groovy, <a href="http://groovy.codehause.org">http://groovy.codehause.org</a> %}
+&ldquo;Groovy is like a super version of Java. It can leverage Java&rsquo;s
+enterprise capabilities but also has cool productivity features like
+closures, builders and dynamic typing. If you are a developer, tester
+or script guru, you have to love Groovy.&rdquo;
+{% endblockquote %}</p>
 
 <p>Groovy is:</p>
 

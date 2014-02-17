@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Hardware | (think)]]></title>
   <link href="http://batsov.com/articles/categories/hardware/atom.xml" rel="self"/>
   <link href="http://batsov.com/"/>
-  <updated>2014-02-07T18:52:40+02:00</updated>
+  <updated>2014-02-17T19:20:24+02:00</updated>
   <id>http://batsov.com/</id>
   <author>
     <name><![CDATA[Bozhidar Batsov]]></name>
@@ -95,7 +95,7 @@ some quality piece of hardware. After a long research in the area of
 good keyboards I decided to upgrade my current rig to the recently
 released <a href="http://www.daskeyboard.com/">Das Keyboard 3</a>.</p>
 
-<p><img class="mechanical_keyboard.jpg <a" src="href="http://www.daskeyboard.com/images/products/mechanical_keyboard.jpg">http://www.daskeyboard.com/images/products/mechanical_keyboard.jpg</a>"></p>
+<p>{% img mechanical_keyboard.jpg <a href="http://www.daskeyboard.com/images/products/mechanical_keyboard.jpg">http://www.daskeyboard.com/images/products/mechanical_keyboard.jpg</a> %}</p>
 
 <p>Das Keyboard comes in three flavours &ndash; Professional(mechanical
 keyboard with labelled keys), Ultimate(the original mechanical
