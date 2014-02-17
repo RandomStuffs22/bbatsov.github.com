@@ -4,7 +4,7 @@
   <title><![CDATA[(think)]]></title>
   <link href="http://batsov.com/atom.xml" rel="self"/>
   <link href="http://batsov.com/"/>
-  <updated>2014-02-17T19:46:25+02:00</updated>
+  <updated>2014-02-17T19:55:26+02:00</updated>
   <id>http://batsov.com/</id>
   <author>
     <name><![CDATA[Bozhidar Batsov]]></name>
@@ -19,7 +19,7 @@
     <updated>2014-02-17T18:55:00+02:00</updated>
     <id>http://batsov.com/articles/2014/02/17/the-elements-of-style-in-ruby-number-13-length-vs-size-vs-count</id>
     <content type="html"><![CDATA[<p>One of the problems newcomers to Ruby experience is that there are
-often quite a few ways to do same thing. For instance you can obtain
+often quite a few ways to do same thing. For instance &ndash; you can obtain
 the number of items in <code>Enumerable</code> objects (instances of classes
 using the <code>Enumerable</code> mixin, which would often be collections like
 <code>Array</code>, <code>Hash</code>, <code>Set</code>, etc) by either using <code>Enumerable#count</code> or the
@@ -27,14 +27,18 @@ methods <code>length</code> and its alias <code>size</code> that such classes of
 provide. Which one should you use? Let me help with this choice.</p>
 
 <p><code>length</code> is a method that&rsquo;s not part of <code>Enumerable</code> &ndash; it&rsquo;s part of a
-concrete collection class (like <code>Array</code>) and it&rsquo;s usually running in
-<code>O(1)</code> (constant) time. That&rsquo;s as fast as it gets.</p>
+concrete class (like <code>String</code> or <code>Array</code>) and it&rsquo;s usually running in
+<code>O(1)</code> (constant) time. That&rsquo;s as fast as it gets, which means that
+using it is probably a good idea.</p>
 
-<p>Whether you should use <code>length</code> or <code>size</code> is mostly a matter of personal preference.
-Personally I use <code>size</code> for collections (hashes, arrays, etc) and <code>length</code> for strings, since for me
-objects like hashes and stacks don&rsquo;t have a length, but a size. On the other hand it&rsquo;s perfectly
-normal to assume that some text has some length. Anyways, in the end you&rsquo;re invoking the same method,
-so the semantic distinction is not important.</p>
+<p>Whether you should use <code>length</code> or <code>size</code> is mostly a matter of
+personal preference.  Personally I use <code>size</code> for collections (hashes,
+arrays, etc) and <code>length</code> for strings, since for me objects like
+hashes and stacks don&rsquo;t have a length, but a size (defined in terms of
+the elements they contain). Conversely, it&rsquo;s perfectly normal to
+assume that some text has some length. Anyways, in the end you&rsquo;re
+invoking the same method, so the semantic distinction is not
+important.</p>
 
 <p><code>Enumerable#count</code>, on the other hand, is a totally different
 beast. It&rsquo;s usually meant to be used with a block or an argument and
