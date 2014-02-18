@@ -113,7 +113,34 @@ the number of items in <code>Enumerable</code> objects (instances of classes
 using the <code>Enumerable</code> mixin, which would often be collections like
 <code>Array</code>, <code>Hash</code>, <code>Set</code>, etc) by either using <code>Enumerable#count</code> or the
 methods <code>length</code> and its alias <code>size</code> that such classes often
-provide. Which one should you use? Let me help with this choice.</p>
+provide.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">arr</span> <span class="o">=</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="o">]</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">arr</span><span class="o">.</span><span class="n">length</span> <span class="c1"># =&gt; 3</span>
+</span><span class='line'><span class="n">arr</span><span class="o">.</span><span class="n">size</span> <span class="c1"># =&gt; 3</span>
+</span><span class='line'><span class="n">arr</span><span class="o">.</span><span class="n">count</span> <span class="c1"># =&gt; 3</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">h</span> <span class="o">=</span> <span class="p">{</span> <span class="ss">a</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="ss">b</span><span class="p">:</span> <span class="mi">2</span> <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">h</span><span class="o">.</span><span class="n">length</span> <span class="c1"># =&gt; 2</span>
+</span><span class='line'><span class="n">h</span><span class="o">.</span><span class="n">size</span> <span class="c1"># =&gt; 2</span>
+</span><span class='line'><span class="n">h</span><span class="o">.</span><span class="n">count</span> <span class="c1"># =&gt; 2</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Which one should you use? Let me help with this choice.</p>
 
 <p><code>length</code> is a method that&rsquo;s not part of <code>Enumerable</code> &ndash; it&rsquo;s part of a
 concrete class (like <code>String</code> or <code>Array</code>) and it&rsquo;s usually running in
