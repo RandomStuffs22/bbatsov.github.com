@@ -4,7 +4,7 @@
   <title><![CDATA[(think)]]></title>
   <link href="http://batsov.com/atom.xml" rel="self"/>
   <link href="http://batsov.com/"/>
-  <updated>2014-02-18T12:57:44+02:00</updated>
+  <updated>2014-02-18T13:00:08+02:00</updated>
   <id>http://batsov.com/</id>
   <author>
     <name><![CDATA[Bozhidar Batsov]]></name>
@@ -37,6 +37,11 @@ provide.</p>
 <span class='line-number'>9</span>
 <span class='line-number'>10</span>
 <span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
 </pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">arr</span> <span class="o">=</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="o">]</span>
 </span><span class='line'>
 </span><span class='line'><span class="n">arr</span><span class="o">.</span><span class="n">length</span> <span class="c1"># =&gt; 3</span>
@@ -48,6 +53,11 @@ provide.</p>
 </span><span class='line'><span class="n">h</span><span class="o">.</span><span class="n">length</span> <span class="c1"># =&gt; 2</span>
 </span><span class='line'><span class="n">h</span><span class="o">.</span><span class="n">size</span> <span class="c1"># =&gt; 2</span>
 </span><span class='line'><span class="n">h</span><span class="o">.</span><span class="n">count</span> <span class="c1"># =&gt; 2</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">str</span> <span class="o">=</span> <span class="s1">&#39;name&#39;</span>
+</span><span class='line'><span class="n">str</span><span class="o">.</span><span class="n">length</span> <span class="c1"># =&gt; 4</span>
+</span><span class='line'><span class="n">str</span><span class="o">.</span><span class="n">size</span> <span class="c1"># =&gt; 4</span>
+</span><span class='line'><span class="c1"># str.count won&#39;t work as String does not include Enumerable</span>
 </span></code></pre></td></tr></table></div></figure>
 
 

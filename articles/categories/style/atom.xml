@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Style | (think)]]></title>
   <link href="http://batsov.com/articles/categories/style/atom.xml" rel="self"/>
   <link href="http://batsov.com/"/>
-  <updated>2014-02-18T12:57:44+02:00</updated>
+  <updated>2014-02-18T13:00:08+02:00</updated>
   <id>http://batsov.com/</id>
   <author>
     <name><![CDATA[Bozhidar Batsov]]></name>
@@ -37,8 +37,15 @@ arr.count # => 3</p>
 
 <p>h.length # => 2
 h.size # => 2
-h.count # => 2
-```</p>
+h.count # => 2</p>
+
+<p>str = &lsquo;name&rsquo;
+str.length # => 4
+str.size # => 4</p>
+
+<h1>str.count won&rsquo;t work as String does not include Enumerable</h1>
+
+<p>```</p>
 
 <p>Which one should you use? Let me help with this choice.</p>
 
